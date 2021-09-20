@@ -90,7 +90,7 @@
 				</executions>
 				<configuration>
 					<nodeVersion>${node.version}</nodeVersion>
-					<workingDirectory>src/mdb5</workingDirectory>
+					<workingDirectory>src/app</workingDirectory>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -107,7 +107,7 @@
 							<outputDirectory>target/classes/static</outputDirectory>
 							<resources>
 								<resource>
-									<directory>src/mdb5/dist</directory>
+									<directory>src/app/dist</directory>
 									<filtering>true</filtering>
 								</resource>
 							</resources>
