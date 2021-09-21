@@ -1,0 +1,20 @@
+# Readme
+
+## Setup Test Environment
+
+### To startup backend
+
+* cd to swiss-tournament
+* ``` mvn exec:java -Dexec.mainClass="com.swisstournament.swisstournament.SwissTournamentApplication" ```
+
+### To startup frontend
+
+* cd to src/app
+* ```npm run serve```
+
+## Build for Production
+
+* cd to root
+* ```mvn clean package```
+* this creates your deployable .jar in /target
+* run this .jar with ```java -jar /target/[filename].jar```
