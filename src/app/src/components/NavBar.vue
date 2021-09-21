@@ -1,12 +1,17 @@
 <template>
   <MDBNavbar expand="lg" light bg="light" container="md">
     <MDBNavbarBrand href="#">Swiss Tournament</MDBNavbarBrand>
+    <MDBNavbarToggler
+      @click="collapse1 = !collapse1"
+      target="#navbarSupportedContent"
+    ></MDBNavbarToggler>
+    <MDBCollapse v-model="collapse1" id="navbarSupportedContent">
       <MDBNavbarNav class="mb-2 mb-lg-0">
-        <MDBNavbarItem href="#">
-          Browse
+        <MDBNavbarItem to="#" active>
+          Home
         </MDBNavbarItem>
         <MDBNavbarItem to="/create">
-            Create
+          Link
         </MDBNavbarItem>
         <MDBNavbarItem>
           <!-- Navbar dropdown -->
@@ -26,8 +31,8 @@
             </MDBDropdownMenu>
           </MDBDropdown>
         </MDBNavbarItem>
-        <MDBNavbarItem href="#">
-          Login
+        <MDBNavbarItem to="#" disabled>
+          Disabled
         </MDBNavbarItem>
       </MDBNavbarNav>
       <!-- Search form -->
@@ -35,13 +40,14 @@
         <input
           type="search"
           class="form-control"
-          placeholder="Search for anything"
+          placeholder="Type query"
           aria-label="Search"
         />
         <MDBBtn outline="primary">
           Search
         </MDBBtn>
       </form>
+    </MDBCollapse>
   </MDBNavbar>
 </template>
 
@@ -49,9 +55,11 @@
   import {
     MDBBtn,
     MDBNavbar,
+    MDBNavbarToggler,
     MDBNavbarBrand,
     MDBNavbarNav,
     MDBNavbarItem,
+    MDBCollapse,
     MDBDropdown,
     MDBDropdownToggle,
     MDBDropdownMenu,
@@ -60,13 +68,14 @@
   import { ref } from 'vue';
 
   export default {
-    name: "NavBar",
     components: {
       MDBBtn,
       MDBNavbar,
+      MDBNavbarToggler,
       MDBNavbarBrand,
       MDBNavbarNav,
       MDBNavbarItem,
+      MDBCollapse,
       MDBDropdown,
       MDBDropdownToggle,
       MDBDropdownMenu,
