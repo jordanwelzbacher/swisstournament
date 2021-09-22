@@ -7,11 +7,8 @@
     ></MDBNavbarToggler>
     <MDBCollapse v-model="collapse1" id="navbarSupportedContent">
       <MDBNavbarNav class="mb-2 mb-lg-0">
-        <MDBNavbarItem to="#" active>
-          Home
-        </MDBNavbarItem>
         <MDBNavbarItem to="/create">
-          Link
+          Create
         </MDBNavbarItem>
         <MDBNavbarItem>
           <!-- Navbar dropdown -->
@@ -40,7 +37,7 @@
         <input
           type="search"
           class="form-control"
-          placeholder="Type query"
+          placeholder="Search for anything"
           aria-label="Search"
         />
         <MDBBtn outline="primary">
