@@ -1,5 +1,11 @@
 # Readme
 
+## Pull down and install
+
+* git clone https://gitlab.com/aceracerff/swiss-tournament.git
+* cd swiss-tournament
+* ```mvn install```
+
 ## Setup Test Environment
 
 ### To startup backend
