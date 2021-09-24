@@ -62,6 +62,7 @@
           <h4 class="mb-4">Scoring & Tiebreakers</h4>
           <div class="m-4">
             <MDBSelect
+            label="Select Preset (Optional)"
               v-model:options="options1"
               v-model:selected="selected1"
             />
@@ -74,8 +75,8 @@
               v-model="gamesPerMatch"
             />
           </div>
-          <MDBSortable>
-            <MDBSortableItem>Item 1</MDBSortableItem>
+          <MDBSortable classes="d-flex" id="sortable-horizontal">
+            <MDBSortableItem><div style="border: 1px solid black">Item 1</div></MDBSortableItem>
             <MDBSortableItem>Item 2</MDBSortableItem>
             <MDBSortableItem>Item 3</MDBSortableItem>
             <MDBSortableItem>Item 4</MDBSortableItem>
@@ -120,9 +121,8 @@ import {
   MDBIcon,
   MDBInput,
   MDBSelect,
-  MDBSortable,
-  MDBSortableItem,
 } from "mdb-vue-ui-kit";
+import { MDBSortable, MDBSortableItem } from "mdb-vue-drag-and-drop";
 import { ref } from "vue";
 
 export default {
@@ -179,13 +179,14 @@ export default {
     const competitionType = ref("");
     const venue = ref("");
     const options1 = ref([
-      { text: "One", value: 1 },
-      { text: "Two", value: 2 },
-      { text: "Three", value: 3 },
+      { text: "Chess", value: 1 },
+      { text: "Magic: the Gathering", value: 2 },
+      { text: "Final Fantasy Trading Card Game", value: 3 },
       { text: "Four", value: 4 },
       { text: "Five", value: 5 },
       { text: "Six", value: 6 },
       { text: "Seven", value: 7 },
+      { text: "Eight", value: 8 },
       { text: "Eight", value: 8 },
     ]);
     const selected1 = ref("");
@@ -216,4 +217,13 @@ export default {
 .single-container {
   display: flex;
 }
+
+
+  #sortable-horizontal .sortable-item {
+    width: 100%;
+    border-bottom: none;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+  }
+
 </style>
