@@ -11,7 +11,7 @@
 ### To startup backend
 
 * cd to swiss-tournament
-* ``` mvn exec:java -Dexec.mainClass="com.swisstournament.swisstournament.SwissTournamentApplication" ```
+* ``` mvn exec:java -Dexec.mainClass="SwissTournamentApplication" ```
 
 ### To startup frontend
 
