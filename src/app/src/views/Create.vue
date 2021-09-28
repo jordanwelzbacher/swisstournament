@@ -1,6 +1,6 @@
 <template>
   <main class="mt-4">
-    <h2 class="mb-4" style="text-align: center">Create Tournament</h2>
+    <h1 class="mb-4" style="text-align: center">Create Tournament</h1>
     <MDBContainer>
       <!-- BASIC INFORMATION -->
       <MDBRow>
@@ -22,7 +22,7 @@
               class="mt-4"
               v-model="date"
               label="Tournament Date"
-              format="MMM D, YYYY"
+              format="YYYY-MM-DD"
             />
             <MDBTimepicker
               class="mt-4"
@@ -139,7 +139,11 @@
               v-model:selected="firstTiebreaker"
               :disabled="preset != 0"
             />
-            <div class="mt-4" v-show="numTiebreakers >= 2" style="display: flex">
+            <div
+              class="mt-4"
+              v-show="numTiebreakers >= 2"
+              style="display: flex"
+            >
               <MDBSelect
                 label="Second Tiebreaker"
                 ref="tiebreaker2"
@@ -156,7 +160,11 @@
                 <MDBIcon icon="times" iconStyle="fas" />
               </MDBBtn>
             </div>
-            <div class="mt-4" v-show="numTiebreakers >= 3" style="display: flex">
+            <div
+              class="mt-4"
+              v-show="numTiebreakers >= 3"
+              style="display: flex"
+            >
               <MDBSelect
                 label="Third Tiebreaker"
                 ref="tiebreaker3"
@@ -173,7 +181,11 @@
                 <MDBIcon icon="times" iconStyle="fas" />
               </MDBBtn>
             </div>
-            <div class="mt-4" v-show="numTiebreakers >= 4" style="display: flex">
+            <div
+              class="mt-4"
+              v-show="numTiebreakers >= 4"
+              style="display: flex"
+            >
               <MDBSelect
                 label="Fourth Tiebreaker"
                 ref="tiebreaker4"
@@ -190,7 +202,11 @@
                 <MDBIcon icon="times" iconStyle="fas" />
               </MDBBtn>
             </div>
-            <div class="mt-4" v-show="numTiebreakers >= 5" style="display: flex">
+            <div
+              class="mt-4"
+              v-show="numTiebreakers >= 5"
+              style="display: flex"
+            >
               <MDBSelect
                 label="Fifth Tiebreaker"
                 ref="tiebreaker5"
@@ -233,11 +249,11 @@
                 :disabled="preset != 0"
               />
               <div class="ms-4 mt-2">
-              <MDBCheckbox
-                label="Lower Is Better"
-                v-model="customALowerIsBetter"
-                :disabled="preset != 0"
-              />
+                <MDBCheckbox
+                  label="Lower Is Better"
+                  v-model="customALowerIsBetter"
+                  :disabled="preset != 0"
+                />
               </div>
             </div>
             <div
@@ -266,6 +282,15 @@
           </div>
         </MDBCol>
       </MDBRow>
+      <MDBRow>
+        <MDBCol>
+          <div class="my-4" style="text-align: center">
+            <MDBBtn size="lg" color="primary" @click="submitTournament()">
+              Create Tournament
+            </MDBBtn>
+          </div>
+        </MDBCol>
+      </MDBRow>
     </MDBContainer>
 
     <MDBModal
@@ -289,6 +314,8 @@
 
 
 <script>
+import http from "../http-common";
+
 const CHESS = 1;
 const FFTCG = 2;
 const MTG = 3;
@@ -360,6 +387,9 @@ export default {
   },
   methods: {
     showModal(e) {
+      console.log(this.date);
+      console.log(this.time);
+      console.log((new Date().getTimezoneOffset() / 60) * -1);
       switch (e) {
         case "userRegistration":
           console.log("here");
@@ -429,6 +459,43 @@ export default {
       if (this.numTiebreakers < 4) this.$refs.tiebreaker4.setOption(NONE);
       if (this.numTiebreakers < 3) this.$refs.tiebreaker3.setOption(NONE);
       if (this.numTiebreakers < 2) this.$refs.tiebreaker2.setOption(NONE);
+    },
+    submitTournament() {
+      console.log(
+        "Not sending the date: " +
+          this.date +
+          " " +
+          this.time +
+          " " +
+          Intl.DateTimeFormat().resolvedOptions().timeZone
+      );
+      http
+        .post("/tournament", {
+          tournament_name: this.tournamentName,
+          competition_type: this.competitionType,
+          // tournament_date: this.date + " " + this.time + " " + Intl.DateTimeFormat().resolvedOptions().timeZone,
+          venue: this.venue,
+          player_registration_on: this.playerRegistrationOn,
+          player_results_on: this.playerResultsOn,
+          win_points: this.winPoints,
+          loss_points: this.lossPoints,
+          draw_points: this.drawPoints,
+          first_tiebreaker: this.firstTiebreaker,
+          second_tiebreaker: this.secondTiebreaker,
+          third_tiebreaker: this.thirdTiebreaker,
+          fourth_tiebreaker: this.fourthTiebreaker,
+          fifth_tiebreaker: this.fifthTiebreaker,
+          custom_a_name: this.customAName,
+          custom_b_name: this.customBName,
+          custom_a_lower_is_better: this.customALowerIsBetter,
+          custom_b_lower_is_better: this.customBLowerIsBetter,
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
   },
   setup() {
@@ -541,5 +608,19 @@ export default {
 }
 .single-container {
   display: flex;
+}
+.imgContainer {
+  position: relative;
+  text-align: center;
+}
+.imgText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+
+  border-radius: 20%;
+  width: 400px;
 }
 </style>
