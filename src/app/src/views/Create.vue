@@ -1,7 +1,7 @@
 <template>
   <main class="mt-4">
-    <h1 class="mb-4" style="text-align: center">Create Tournament</h1>
     <MDBContainer>
+      <h1 class="mb-4" style="text-align: center">Create Tournament</h1>
       <!-- BASIC INFORMATION -->
       <MDBRow>
         <MDBCol>
@@ -36,19 +36,21 @@
               formText="Optional"
             />
             <hr class="my-4" />
-            <div class="my-4 single-container">
+            <div class="d-inline-block">
               <MDBCheckbox
                 label="Enable Player Registration"
                 v-model="playerRegistrationOn"
               />
-              <span
-                ><MDBIcon
-                  @click="showModal('userRegistration')"
-                  class="ms-2 helpIcon"
-                  icon="info-circle"
-                  iconStyle="fas"
-              /></span>
             </div>
+            <div class="d-inline-block">
+              <MDBIcon
+                @click="showModal('userRegistration')"
+                class="ms-2 helpIcon"
+                icon="info-circle"
+                iconStyle="fas"
+              />
+            </div>
+
             <div v-show="playerRegistrationOn" class="mt-4">
               <MDBInput
                 label="Registration Closes"
@@ -73,18 +75,20 @@
                 value="hours"
               />
             </div>
-            <div class="my-4 single-container">
+            <div></div>
+            <div class="my-4 d-inline-block">
               <MDBCheckbox
                 label="Enable Player-Submitted Results"
                 v-model="playerResultsOn"
               />
-              <span
-                ><MDBIcon
-                  @click="showModal('userResults')"
-                  class="ms-2 helpIcon"
-                  icon="info-circle"
-                  iconStyle="fas"
-              /></span>
+            </div>
+            <div class="d-inline-block">
+              <MDBIcon
+                @click="showModal('userResults')"
+                class="ms-2 helpIcon"
+                icon="info-circle"
+                iconStyle="fas"
+              />
             </div>
           </div>
         </MDBCol>
@@ -387,9 +391,6 @@ export default {
   },
   methods: {
     showModal(e) {
-      console.log(this.date);
-      console.log(this.time);
-      console.log((new Date().getTimezoneOffset() / 60) * -1);
       switch (e) {
         case "userRegistration":
           console.log("here");
@@ -605,22 +606,5 @@ export default {
 }
 .helpIcon:hover {
   color: darkblue;
-}
-.single-container {
-  display: flex;
-}
-.imgContainer {
-  position: relative;
-  text-align: center;
-}
-.imgText {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-
-  border-radius: 20%;
-  width: 400px;
 }
 </style>

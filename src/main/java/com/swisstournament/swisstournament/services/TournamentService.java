@@ -10,10 +10,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class TournamentService {
     @Autowired
-    TournamentConfigRepository tournamentRepository;
+    TournamentConfigRepository tournamentConfigRepository;
 
     public ResponseEntity createTournament (TournamentConfig config) {
-        TournamentConfig otherConfig = tournamentRepository.save(config);
-        return new ResponseEntity(otherConfig, HttpStatus.OK);
+        TournamentConfig newTournament = tournamentConfigRepository.save(config);
+        return new ResponseEntity(newTournament, HttpStatus.OK);
+    }
+
+    public ResponseEntity getTournaments () {
+        return new ResponseEntity(tournamentConfigRepository.findAll(), HttpStatus.OK);
+    }
+
+    public ResponseEntity getTournamentById (Long id) {
+        return new ResponseEntity(tournamentConfigRepository.getById(id), HttpStatus.OK);
     }
 }

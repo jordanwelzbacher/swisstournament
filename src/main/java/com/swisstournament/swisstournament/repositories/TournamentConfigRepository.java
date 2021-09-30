@@ -8,3 +8,4 @@ import org.springframework.stereotype.Repository;
 public interface TournamentConfigRepository extends JpaRepository<TournamentConfig, Long> {
 
 }
+

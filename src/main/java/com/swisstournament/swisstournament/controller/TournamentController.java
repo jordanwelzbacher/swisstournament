@@ -9,15 +9,26 @@ import org.springframework.http.HttpStatus;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/tournament")
 
 public class TournamentController {
     @Autowired
     TournamentService tournamentService;
 
-    @PostMapping()
+    @PostMapping("/api/tournament")
     public ResponseEntity createTournament (@RequestBody TournamentConfig config) {
         ResponseEntity response = tournamentService.createTournament(config);
+        return response;
+    }
+
+    @GetMapping("/api/tournaments")
+    public ResponseEntity getTournaments () {
+        ResponseEntity response = tournamentService.getTournaments();
+        return response;
+    }
+
+    @GetMapping("/api/tournament/{id}")
+    public ResponseEntity getTournaments (@PathVariable Long id) {
+        ResponseEntity response = tournamentService.getTournamentById(id);
         return response;
     }
 }
