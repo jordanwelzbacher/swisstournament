@@ -1,32 +1,38 @@
 <template>
   <main class="mt-4">
     <MDBContainer>
-      <MDBTable>
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Game</th>
-            <th scope="col">Date & Time</th>
-            <th scope="col">Players</th>
-            <th scope="col">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="tournament in tournaments" :key="tournament.id">
-            <td><a :href="'/tournament/'+tournament.id">{{ tournament.tournament_name }}</a></td>
-            <td>{{ tournament.competition_type }}</td>
-            <td>{{ tournament.tournament_date }}</td>
-            <td>TODO</td>
-            <td>TODO</td>
-          </tr>
-        </tbody>
-      </MDBTable>
+      <MDBListGroup flush>
+        <div v-for="tournament in tournaments" :key="tournament.id">
+          <MDBListGroupItem>
+            <div class="text-uppercase fs-5 fw-bold" style="display: flex;">
+              <a href="#"> {{ tournament.tournament_name }}</a>
+              <div class="fs-6" style="margin-left:auto; margin-top:auto;">
+                Registration Open
+              </div>
+            </div>
+            <div>
+              <MDBIcon icon="calendar-alt" />&nbsp;10-10-2021 9:00 PM&emsp;
+              <MDBIcon icon="trophy" />&nbsp;{{
+                tournament.competition_type
+              }}&emsp; <MDBIcon icon="users" />&nbsp;20&emsp;
+              <MDBIcon icon="map-marker-alt" />&nbsp;{{
+                tournament.venue
+              }}&emsp;
+            </div>
+          </MDBListGroupItem>
+        </div>
+      </MDBListGroup>
     </MDBContainer>
   </main>
 </template>
 
 <script>
-import { MDBContainer, MDBTable } from "mdb-vue-ui-kit";
+import {
+  MDBContainer,
+  MDBListGroup,
+  MDBListGroupItem,
+  MDBIcon,
+} from "mdb-vue-ui-kit";
 import http from "../http-common";
 import { onMounted } from "vue";
 import { ref } from "vue";
@@ -35,7 +41,9 @@ export default {
   name: "tournaments",
   components: {
     MDBContainer,
-    MDBTable,
+    MDBListGroup,
+    MDBListGroupItem,
+    MDBIcon,
   },
   setup() {
     const tournaments = ref(null);
