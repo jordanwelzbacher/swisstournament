@@ -15,20 +15,17 @@ public class TournamentController {
     TournamentService tournamentService;
 
     @PostMapping("/api/tournament")
-    public ResponseEntity createTournament (@RequestBody TournamentConfig config) {
-        ResponseEntity response = tournamentService.createTournament(config);
-        return response;
+    public ResponseEntity<?> createTournament (@RequestBody TournamentConfig config) {
+        return tournamentService.createTournament(config);
     }
 
     @GetMapping("/api/tournaments")
-    public ResponseEntity getTournaments () {
-        ResponseEntity response = tournamentService.getTournaments();
-        return response;
+    public ResponseEntity<?> getTournaments () {
+        return tournamentService.getTournaments();
     }
 
     @GetMapping("/api/tournament/{id}")
-    public ResponseEntity getTournaments (@PathVariable Long id) {
-        ResponseEntity response = tournamentService.getTournamentById(id);
-        return response;
+    public ResponseEntity<?> getTournaments (@PathVariable Long id) {
+        return tournamentService.getTournamentById(id);
     }
 }

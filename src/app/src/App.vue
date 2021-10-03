@@ -1,5 +1,6 @@
 <template>
   <div>
+        {{ this.$route.params.username }}
     <NavBar />
     <router-view/>
   </div>

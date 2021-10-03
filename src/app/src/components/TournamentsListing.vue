@@ -4,18 +4,25 @@
       <MDBListGroup flush>
         <div v-for="tournament in tournaments" :key="tournament.id">
           <MDBListGroupItem>
-            <div class="text-uppercase fs-5 fw-bold" style="display: flex;">
-              <a href="#"> {{ tournament.tournament_name }}</a>
-              <div class="fs-6" style="margin-left:auto; margin-top:auto;">
+            <div class="text-uppercase fs-5 fw-bold" style="display: flex">
+              <router-link
+                :to="{
+                  name: 'Tournament',
+                  params: { tournamentId: `${tournament.id}` },
+                }"
+              >
+                {{ tournament.tournament_name }}
+              </router-link>
+              <div class="fs-6" style="margin-left: auto; margin-top: auto">
                 Registration Open
               </div>
             </div>
-            <div>
-              <MDBIcon icon="calendar-alt" />&nbsp;10-10-2021 9:00 PM&emsp;
-              <MDBIcon icon="trophy" />&nbsp;{{
-                tournament.competition_type
-              }}&emsp; <MDBIcon icon="users" />&nbsp;20&emsp;
-              <MDBIcon icon="map-marker-alt" />&nbsp;{{
+            <div class="mt-1">
+              <MDBIcon size="lg" icon="calendar-alt" />&nbsp;10-10-2021
+              9:00PM&emsp; 
+              <MDBIcon size="lg" icon="trophy" />&nbsp;{{tournament.competition_type}}&emsp; 
+              <MDBIcon size="lg" icon="users" />&nbsp;20&emsp;
+              <MDBIcon size="lg" icon="map-marker-alt" />&nbsp;{{
                 tournament.venue
               }}&emsp;
             </div>
@@ -80,4 +87,7 @@ export default {
 </script>
 
 <style scoped>
+div {
+  color: #777777;
+}
 </style>

@@ -75,6 +75,15 @@
                 value="hours"
               />
             </div>
+            <div v-show="playerRegistrationOn" class="mt-1">
+              <MDBInput
+                label="Player Limit"
+                class="mt-4"
+                v-model="playerLimit"
+                type="number"
+                formText="Optional"
+              />
+            </div>
             <div></div>
             <div class="my-4 d-inline-block">
               <MDBCheckbox
@@ -478,6 +487,7 @@ export default {
           venue: this.venue,
           player_registration_on: this.playerRegistrationOn,
           player_results_on: this.playerResultsOn,
+          player_limit: this.playerLimit,
           win_points: this.winPoints,
           loss_points: this.lossPoints,
           draw_points: this.drawPoints,
@@ -520,9 +530,10 @@ export default {
     const competitionType = ref("");
     const date = ref("");
     const time = ref("");
-    const registrationCloseTime = ref("");
-    const registrationCloseFormat = ref("");
+    const registrationCloseTime = ref("10");
+    const registrationCloseFormat = ref("minutes");
     const venue = ref("");
+    const playerLimit = ref("");
     const winPoints = ref("");
     const drawPoints = ref("");
     const lossPoints = ref("");
@@ -552,6 +563,7 @@ export default {
     const customBName = ref("");
     const customALowerIsBetter = ref(false);
     const customBLowerIsBetter = ref(false);
+    
 
     return {
       playerRegistrationOn,
@@ -565,6 +577,7 @@ export default {
       time,
       registrationCloseTime,
       registrationCloseFormat,
+      playerLimit,
       winPoints,
       lossPoints,
       drawPoints,

@@ -1,5 +1,7 @@
 package com.swisstournament.swisstournament.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.Column;
 import javax.persistence.Table;
@@ -20,11 +22,11 @@ import javax.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
 
-@Entity(name="TournamentConfig")
-@Table(name="TournamentConfig")
+@Entity(name="tournament_config")
+@Table(name="tournament_config")
 public class TournamentConfig {
 
-    public TournamentConfig(Long id, @NotBlank String tournament_name, @NotBlank String competition_type, @NotEmpty Timestamp tournament_date, String venue, @NotNull boolean player_registration_on, @NotNull boolean player_results_on, @NotEmpty double win_points, @NotEmpty double loss_points, @NotEmpty double draw_points, @NotEmpty int first_tiebreaker, @NotEmpty int second_tiebreaker, @NotEmpty int third_tiebreaker, @NotEmpty int fourth_tiebreaker, @NotEmpty int fifth_tiebreaker, String custom_a_name, String custom_b_name, boolean custom_a_lower_is_better, boolean custom_b_lower_is_better) {
+    public TournamentConfig(Long id,  String tournament_name,  String competition_type,  Timestamp tournament_date, String venue,  boolean player_registration_on,  boolean player_results_on,  double player_limit,  double win_points,  double loss_points,  double draw_points,  int first_tiebreaker,  int second_tiebreaker,  int third_tiebreaker,  int fourth_tiebreaker,  int fifth_tiebreaker, String custom_a_name, String custom_b_name, boolean custom_a_lower_is_better, boolean custom_b_lower_is_better) {
         this.id = id;
         this.tournament_name = tournament_name;
         this.competition_type = competition_type;
@@ -32,6 +34,7 @@ public class TournamentConfig {
         this.venue = venue;
         this.player_registration_on = player_registration_on;
         this.player_results_on = player_results_on;
+        this.player_limit = player_limit;
         this.win_points = win_points;
         this.loss_points = loss_points;
         this.draw_points = draw_points;
@@ -55,58 +58,62 @@ public class TournamentConfig {
     private Long id;
 
     @Column(name="tournament_name")
-    @NotBlank
+    
     private String tournament_name;
 
     @Column(name="competition_type")
-    @NotBlank
+    
     private String competition_type;
 
     @Column(name="tournament_date")
-    @NotEmpty
+    
     private Timestamp tournament_date;
 
     @Column(name="venue")
     private String venue;
 
     @Column(name="player_registration_on")
-    @NotNull
+    
     private boolean player_registration_on;
 
     @Column(name="player_results_on")
-    @NotNull
+    
     private boolean player_results_on;
 
+    @Column(name="player_limit")
+    
+    private double player_limit;
+
     @Column(name="win_points")
-    @NotEmpty
+    
     private double win_points;
 
     @Column(name="loss_points")
-    @NotEmpty
+    
     private double loss_points;
 
     @Column(name="draw_points")
-    @NotEmpty
+    
     private double draw_points;
 
     @Column(name="first_tiebreaker")
-    @NotEmpty
+    
     private int first_tiebreaker;
 
     @Column(name="second_tiebreaker")
-    @NotEmpty
+    
     private int second_tiebreaker;
 
     @Column(name="third_tiebreaker")
-    @NotEmpty
+    
     private int third_tiebreaker;
 
     @Column(name="fourth_tiebreaker")
-    @NotEmpty
+    
     private int fourth_tiebreaker;
 
     @Column(name="fifth_tiebreaker")
-    @NotEmpty
+    
     private int fifth_tiebreaker;
 
     @Column(name="custom_a_name")
@@ -123,6 +130,14 @@ public class TournamentConfig {
 
     public Long getId() {
         return id;
+    }
+
+    public double isPlayer_limit() {
+        return player_limit;
+    }
+
+    public void setPlayer_limit(double player_limit) {
+        this.player_limit = player_limit;
     }
 
     public void setId(Long id) {
@@ -271,5 +286,8 @@ public class TournamentConfig {
 
     public void setCustom_b_lower_is_better(boolean custom_b_lower_is_better) {
         this.custom_b_lower_is_better = custom_b_lower_is_better;
+    }
+    public double getPlayer_limit() {
+        return player_limit;
     }
 }

@@ -1,5 +1,7 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Tournament from '../views/Tournament.vue'
+import Browse from '../views/Browse.vue'
 
 const routes = [
   {
@@ -23,7 +25,8 @@ const routes = [
   {
     path: '/browse',
     name: 'Browse',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Browse.vue')
+    component: Browse
+    // component: () => import(/* webpackChunkName: "about" */ '../views/Browse.vue')
   },
   {
     path: '/create',
@@ -40,15 +43,20 @@ const routes = [
     name: 'Login',
     component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
   },
+  // {
+  //   path: '/tournament/:tournamentId',
+  //   name: 'Tournament',
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/Tournament.vue')
+  // },
   {
-    path: '/tournament',
+    path: '/tournament/:tournamentId',
     name: 'Tournament',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Tournament.vue')
+    component: Tournament
   },
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(process.env.BASE_URL),
   routes
 })
 

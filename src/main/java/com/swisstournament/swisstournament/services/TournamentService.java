@@ -12,16 +12,16 @@ public class TournamentService {
     @Autowired
     TournamentConfigRepository tournamentConfigRepository;
 
-    public ResponseEntity createTournament (TournamentConfig config) {
+    public ResponseEntity<?> createTournament (TournamentConfig config) {
         TournamentConfig newTournament = tournamentConfigRepository.save(config);
-        return new ResponseEntity(newTournament, HttpStatus.OK);
+        return new ResponseEntity<Object>(newTournament, HttpStatus.OK);
     }
 
-    public ResponseEntity getTournaments () {
-        return new ResponseEntity(tournamentConfigRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity<?> getTournaments () {
+        return new ResponseEntity<Object>(tournamentConfigRepository.findAll(), HttpStatus.OK);
     }
 
-    public ResponseEntity getTournamentById (Long id) {
-        return new ResponseEntity(tournamentConfigRepository.getById(id), HttpStatus.OK);
+    public ResponseEntity<?> getTournamentById (Long id) {
+        return new ResponseEntity<Object>(tournamentConfigRepository.findById(id), HttpStatus.OK);
     }
 }
