@@ -1,7 +1,7 @@
 <template>
   <main class="mt-4">
     <MDBContainer>
-      <MDBListGroup flush>
+      <MDBListGroup flush class="mt-4">
         <div v-for="tournament in tournaments" :key="tournament.id">
           <MDBListGroupItem>
             <div class="text-uppercase fs-5 fw-bold" style="display: flex">
@@ -19,9 +19,9 @@
             </div>
             <div class="mt-1">
               <MDBIcon size="lg" icon="calendar-alt" />&nbsp;10-10-2021
-              9:00PM&emsp; 
-              <MDBIcon size="lg" icon="trophy" />&nbsp;{{tournament.competition_type}}&emsp; 
-              <MDBIcon size="lg" icon="users" />&nbsp;20&emsp;
+              9:00PM&emsp; <MDBIcon size="lg" icon="trophy" />&nbsp;{{
+                tournament.competition_type
+              }}&emsp; <MDBIcon size="lg" icon="users" />&nbsp;20&emsp;
               <MDBIcon size="lg" icon="map-marker-alt" />&nbsp;{{
                 tournament.venue
               }}&emsp;
@@ -53,6 +53,7 @@ export default {
     MDBIcon,
   },
   setup() {
+
     const tournaments = ref(null);
     const loading = ref(true);
     const error = ref(null);

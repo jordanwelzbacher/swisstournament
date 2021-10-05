@@ -1,7 +1,14 @@
 <template>
   <main class="mt-4">
     <MDBContainer>
-      This is the Browse page!
+       <MDBAccordion v-model="activeItem">
+        <MDBAccordionItem
+          headerTitle="Filter Results"
+          collapseId="collapseOne"
+          >
+          put filters here
+        </MDBAccordionItem>
+      </MDBAccordion>
       <TournamenstListing />
     </MDBContainer>
   </main>
@@ -9,13 +16,22 @@
 
 <script>
 import TournamenstListing from "@/components/TournamentsListing.vue";
-import { MDBContainer } from "mdb-vue-ui-kit";
+import { MDBContainer, MDBAccordion, MDBAccordionItem } from "mdb-vue-ui-kit";
+import { ref } from "vue";
 
 export default {
   name: "Tournaments",
   components: {
     MDBContainer,
+    MDBAccordion,
+    MDBAccordionItem,
     TournamenstListing,
   },
+  setup() {
+    const activeItem = ref('!collapseOne');
+    return {
+      activeItem
+    }
+  }
 };
 </script>
