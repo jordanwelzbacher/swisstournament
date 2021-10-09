@@ -1,11 +1,11 @@
 package com.swisstournament.swisstournament.repositories;
 
-import com.swisstournament.swisstournament.models.TournamentConfig;
+import com.swisstournament.swisstournament.models.Tournament;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TournamentConfigRepository extends JpaRepository<TournamentConfig, Long> {
+public interface TournamentRepository extends JpaRepository<Tournament, Long> {
 
 }
 

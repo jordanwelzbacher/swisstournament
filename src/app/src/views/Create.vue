@@ -16,7 +16,26 @@
               class="mt-4"
               label="Competition Type"
               v-model="competitionType"
+              formText="Examples: Chess, Shuffleboard, Magic: The Gathering"
             />
+            <div class="mt-4">
+              Display competitors by:
+              <br />
+              <MDBRadio
+                label="Username"
+                value="false"
+                v-model="isUseFirstLast"
+                inline
+                name="isUseFirstLast"
+              />
+              <MDBRadio
+                label="First & Last Name"
+                value="true"
+                v-model="isUseFirstLast"
+                inline
+                name="isUseFirstLast"
+              />
+            </div>
             <hr class="my-4" />
             <MDBDatepicker
               class="mt-4"
@@ -400,9 +419,9 @@ export default {
   },
   methods: {
     showModal(e) {
+      console.log(this.isUseFirstLast);
       switch (e) {
         case "userRegistration":
-          console.log("here");
           this.modalHeaderText = "Enable Player Registration";
           this.modalBodyText =
             "text text text text text text text text text text text text text text text text text text text text text text text text";
@@ -418,7 +437,6 @@ export default {
     presetChange() {
       switch (this.preset) {
         case CHESS:
-          console.log("here");
           this.winPoints = 1;
           this.drawPoints = 0.5;
           this.lossPoints = "0";
@@ -482,11 +500,12 @@ export default {
       http
         .post("/tournament", {
           tournament_name: this.tournamentName,
+          owner_user_id: "1", // TODO
           competition_type: this.competitionType,
-          // tournament_date: this.date + " " + this.time + " " + Intl.DateTimeFormat().resolvedOptions().timeZone,
+          // tournament_date: this.date + " " + this.time + " " + Intl.DateTimeFormat().resolvedOptions().timeZone, TODO
           venue: this.venue,
-          player_registration_on: this.playerRegistrationOn,
-          player_results_on: this.playerResultsOn,
+          is_player_registration_on: this.playerRegistrationOn,
+          is_player_results_on: this.playerResultsOn,
           player_limit: this.playerLimit,
           win_points: this.winPoints,
           loss_points: this.lossPoints,
@@ -498,8 +517,10 @@ export default {
           fifth_tiebreaker: this.fifthTiebreaker,
           custom_a_name: this.customAName,
           custom_b_name: this.customBName,
-          custom_a_lower_is_better: this.customALowerIsBetter,
-          custom_b_lower_is_better: this.customBLowerIsBetter,
+          is_lower_better_for_custom_a: this.customALowerIsBetter,
+          is_lower_better_for_custom_b: this.customBLowerIsBetter,
+          is_use_first_last: this.isUseFirstLast,
+          //created_date: [timestamp] TODO
         })
         .then((response) => {
           console.log(response.data);
@@ -528,6 +549,7 @@ export default {
     const tournamentName = ref("");
     const gamesPerMatch = ref("1");
     const competitionType = ref("");
+    const isUseFirstLast = ref(false);
     const date = ref("");
     const time = ref("");
     const registrationCloseTime = ref("10");
@@ -563,7 +585,6 @@ export default {
     const customBName = ref("");
     const customALowerIsBetter = ref(false);
     const customBLowerIsBetter = ref(false);
-    
 
     return {
       playerRegistrationOn,
@@ -572,6 +593,7 @@ export default {
       tournamentName,
       gamesPerMatch,
       competitionType,
+      isUseFirstLast,
       venue,
       date,
       time,
