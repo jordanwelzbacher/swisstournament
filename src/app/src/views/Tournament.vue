@@ -2,6 +2,7 @@
   <main>
     <MDBContainer>
       <TournamentHeading :data="tournamentHeadingData"/>
+      <TournamentContextActions />
     </MDBContainer>
   </main>
 </template>
@@ -10,11 +11,13 @@
 import http from "../http-common";
 import { MDBContainer } from "mdb-vue-ui-kit";
 import TournamentHeading from "@/components/TournamentHeading.vue";
+import TournamentContextActions from "@/components/TournamentContextActions.vue"
 
 export default {
   name: "Tournament",
   components: {
     TournamentHeading,
+    TournamentContextActions,
     MDBContainer,
   },
   data() {

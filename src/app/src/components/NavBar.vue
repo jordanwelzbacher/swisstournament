@@ -1,6 +1,6 @@
 <template>
   <MDBNavbar expand="lg" light bg="light" container="md">
-    <MDBNavbarBrand href="#">Swiss Tournament</MDBNavbarBrand>
+    <MDBNavbarBrand href="/">Swiss Tournament</MDBNavbarBrand>
     <MDBNavbarToggler
       @click="collapse1 = !collapse1"
       target="#navbarSupportedContent"
@@ -20,19 +20,16 @@
               tag="a"
               class="nav-link"
               @click="dropdown1 = !dropdown1"
-              >Dropdown</MDBDropdownToggle
+              >Account</MDBDropdownToggle
             >
             <MDBDropdownMenu aria-labelledby="dropdownMenuButton">
-              <MDBDropdownItem href="#">Action</MDBDropdownItem>
-              <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
+              <MDBDropdownItem href="#">Login</MDBDropdownItem>
+              <MDBDropdownItem href="#">Sign Up</MDBDropdownItem>
               <MDBDropdownItem href="#"
-                >Something else here</MDBDropdownItem
+                >My Tournaments</MDBDropdownItem
               >
             </MDBDropdownMenu>
           </MDBDropdown>
-        </MDBNavbarItem>
-        <MDBNavbarItem to="#" disabled>
-          Disabled
         </MDBNavbarItem>
       </MDBNavbarNav>
       <!-- Search form -->

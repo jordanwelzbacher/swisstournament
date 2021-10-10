@@ -182,15 +182,18 @@
                 v-model:options="secondTiebreakerOptions"
                 v-model:selected="secondTiebreaker"
                 :disabled="preset != 0"
+                style="width: calc(100% - 55px)"
               />
-              <MDBBtn
-                v-show="numTiebreakers == 2"
-                color="danger"
-                @click="removeTiebreaker()"
-                :disabled="preset != 0"
-              >
-                <MDBIcon icon="times" iconStyle="fas" />
-              </MDBBtn>
+              <div class="d-inline-block">
+                <MDBBtn
+                  v-show="numTiebreakers == 2"
+                  color="danger"
+                  @click="removeTiebreaker()"
+                  :disabled="preset != 0"
+                >
+                  <MDBIcon icon="times" iconStyle="fas" />
+                </MDBBtn>
+              </div>
             </div>
             <div
               class="mt-4"
@@ -203,6 +206,7 @@
                 v-model:options="thirdTiebreakerOptions"
                 v-model:selected="thirdTiebreaker"
                 :disabled="preset != 0"
+                style="width: calc(100% - 55px)"
               />
               <MDBBtn
                 v-show="numTiebreakers == 3"
@@ -224,6 +228,7 @@
                 v-model:options="fourthTiebreakerOptions"
                 v-model:selected="fourthTiebreaker"
                 :disabled="preset != 0"
+                style="width: calc(100% - 55px)"
               />
               <MDBBtn
                 v-show="numTiebreakers == 4"
@@ -245,6 +250,7 @@
                 v-model:options="fifthTiebreakerOptions"
                 v-model:selected="fifthTiebreaker"
                 :disabled="preset != 0"
+                style="width: calc(100% - 55px)"
               />
               <MDBBtn
                 v-show="numTiebreakers == 5"
@@ -500,9 +506,9 @@ export default {
       http
         .post("/tournament", {
           tournament_name: this.tournamentName,
-          owner_user_id: "1", // TODO
+          owner_user_id: "admin", // TODO
           competition_type: this.competitionType,
-          // tournament_date: this.date + " " + this.time + " " + Intl.DateTimeFormat().resolvedOptions().timeZone, TODO
+          // tournament_date: this.date + " " + this.time + " " + Intl.DateTimeFormat().resolvedOptions().timeZone,
           venue: this.venue,
           is_player_registration_on: this.playerRegistrationOn,
           is_player_results_on: this.playerResultsOn,
@@ -635,7 +641,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .helpIcon {
   cursor: help;
 }
