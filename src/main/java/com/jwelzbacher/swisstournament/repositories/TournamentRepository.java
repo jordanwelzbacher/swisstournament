@@ -1,6 +1,6 @@
-package com.swisstournament.swisstournament.repositories;
+package com.jwelzbacher.swisstournament.repositories;
 
-import com.swisstournament.swisstournament.models.Tournament;
+import com.jwelzbacher.swisstournament.models.Tournament;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

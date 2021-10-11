@@ -1,4 +1,4 @@
-package com.swisstournament.swisstournament.models;
+package com.jwelzbacher.swisstournament.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

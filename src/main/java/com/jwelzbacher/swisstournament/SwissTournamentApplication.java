@@ -1,4 +1,4 @@
-package com.swisstournament.swisstournament;
+package com.jwelzbacher.swisstournament;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,7 +1,7 @@
-package com.swisstournament.swisstournament.services;
+package com.jwelzbacher.swisstournament.services;
 
-import com.swisstournament.swisstournament.models.Tournament;
-import com.swisstournament.swisstournament.repositories.TournamentRepository;
+import com.jwelzbacher.swisstournament.models.Tournament;
+import com.jwelzbacher.swisstournament.repositories.TournamentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
