@@ -504,7 +504,7 @@ export default {
           Intl.DateTimeFormat().resolvedOptions().timeZone
       );
       http
-        .post("/tournament", {
+        .post("/protected/tournament", {
           tournament_name: this.tournamentName,
           owner_user_id: "admin", // TODO
           competition_type: this.competitionType,

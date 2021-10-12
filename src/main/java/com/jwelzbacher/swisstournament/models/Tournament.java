@@ -97,6 +97,32 @@ public class Tournament {
     @Column(name="created_date")
     private Timestamp created_date;
 
+    public Tournament(Long id, String owner_user_id, String tournament_name, String competition_type, Timestamp tournament_date, String venue, boolean is_player_registration_on, boolean is_player_results_on, double player_limit, double win_points, double loss_points, double draw_points, int first_tiebreaker, int second_tiebreaker, int third_tiebreaker, int fourth_tiebreaker, int fifth_tiebreaker, String custom_a_name, String custom_b_name, boolean is_lower_better_for_custom_a, boolean is_lower_better_for_custom_b, boolean is_use_first_last, Timestamp created_date) {
+        this.id = id;
+        this.owner_user_id = owner_user_id;
+        this.tournament_name = tournament_name;
+        this.competition_type = competition_type;
+        this.tournament_date = tournament_date;
+        this.venue = venue;
+        this.is_player_registration_on = is_player_registration_on;
+        this.is_player_results_on = is_player_results_on;
+        this.player_limit = player_limit;
+        this.win_points = win_points;
+        this.loss_points = loss_points;
+        this.draw_points = draw_points;
+        this.first_tiebreaker = first_tiebreaker;
+        this.second_tiebreaker = second_tiebreaker;
+        this.third_tiebreaker = third_tiebreaker;
+        this.fourth_tiebreaker = fourth_tiebreaker;
+        this.fifth_tiebreaker = fifth_tiebreaker;
+        this.custom_a_name = custom_a_name;
+        this.custom_b_name = custom_b_name;
+        this.is_lower_better_for_custom_a = is_lower_better_for_custom_a;
+        this.is_lower_better_for_custom_b = is_lower_better_for_custom_b;
+        this.is_use_first_last = is_use_first_last;
+        this.created_date = created_date;
+    }
+
     public Long getId() {
         return id;
     }
@@ -278,32 +304,6 @@ public class Tournament {
     }
 
     public void setCreated_date(Timestamp created_date) {
-        this.created_date = created_date;
-    }
-
-    public Tournament(Long id, String owner_user_id, String tournament_name, String competition_type, Timestamp tournament_date, String venue, boolean is_player_registration_on, boolean is_player_results_on, double player_limit, double win_points, double loss_points, double draw_points, int first_tiebreaker, int second_tiebreaker, int third_tiebreaker, int fourth_tiebreaker, int fifth_tiebreaker, String custom_a_name, String custom_b_name, boolean is_lower_better_for_custom_a, boolean is_lower_better_for_custom_b, boolean is_use_first_last, Timestamp created_date) {
-        this.id = id;
-        this.owner_user_id = owner_user_id;
-        this.tournament_name = tournament_name;
-        this.competition_type = competition_type;
-        this.tournament_date = tournament_date;
-        this.venue = venue;
-        this.is_player_registration_on = is_player_registration_on;
-        this.is_player_results_on = is_player_results_on;
-        this.player_limit = player_limit;
-        this.win_points = win_points;
-        this.loss_points = loss_points;
-        this.draw_points = draw_points;
-        this.first_tiebreaker = first_tiebreaker;
-        this.second_tiebreaker = second_tiebreaker;
-        this.third_tiebreaker = third_tiebreaker;
-        this.fourth_tiebreaker = fourth_tiebreaker;
-        this.fifth_tiebreaker = fifth_tiebreaker;
-        this.custom_a_name = custom_a_name;
-        this.custom_b_name = custom_b_name;
-        this.is_lower_better_for_custom_a = is_lower_better_for_custom_a;
-        this.is_lower_better_for_custom_b = is_lower_better_for_custom_b;
-        this.is_use_first_last = is_use_first_last;
         this.created_date = created_date;
     }
 
