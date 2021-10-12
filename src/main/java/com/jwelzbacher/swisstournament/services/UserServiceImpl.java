@@ -1,6 +1,7 @@
 package com.jwelzbacher.swisstournament.services;
 
 import com.jwelzbacher.swisstournament.Constants;
+import com.jwelzbacher.swisstournament.DTOs.AuthedUser;
 import com.jwelzbacher.swisstournament.models.User;
 import com.jwelzbacher.swisstournament.exceptions.EtAuthException;
 import com.jwelzbacher.swisstournament.repositories.UserRepository;
@@ -42,6 +43,7 @@ public class UserServiceImpl implements UserService {
         if (user.getEmailAddress() != null) user.setEmailAddress(user.getEmailAddress().toLowerCase());
         else throw new EtAuthException("Email address required");
         if (user.getUsername().length() > 30) throw new EtAuthException("Username must be 30 characters or less");
+        if (user.getUsername().isBlank() || user.getUsername() == null) throw new EtAuthException("Invalid username");
         if (user.getFullName().length() > 60) throw new EtAuthException("Full name must be 60 characters or less");
         if (user.getEmailAddress().length() > 255) throw new EtAuthException("Email address must be 255 characters or less");
         if (!pattern.matcher(user.getEmailAddress()).matches()) throw new EtAuthException("Invalid email format");
@@ -52,15 +54,19 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<Object>(generateJWTToken(userRepository.save(user)), HttpStatus.OK);
     }
 
-    private Map<String, String> generateJWTToken(User user) {
+    private AuthedUser generateJWTToken(User user) {
         long timestamp = System.currentTimeMillis();
         String token = Jwts.builder().signWith(SignatureAlgorithm.HS256, Constants.API_SECRET_KEY)
                 .setIssuedAt(new Date(timestamp))
                 .setExpiration(new Date(timestamp + Constants.TOKEN_VALIDITY))
                 .claim("username", user.getUsername())
                 .compact();
-        Map<String, String> map = new HashMap<>();
-        map.put("token", token);
-        return map;
+        return new AuthedUser(
+                user.getUsername(),
+                user.getFullName(),
+                user.getEmailAddress(),
+                user.isVerified(),
+                token
+        );
     }
 }
