@@ -1,18 +1,11 @@
-package com.jwelzbacher.swisstournament.controller;
+package com.jwelzbacher.swisstournament.controllers;
 
-import com.jwelzbacher.swisstournament.Constants;
 import com.jwelzbacher.swisstournament.models.User;
 import com.jwelzbacher.swisstournament.services.UserService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController

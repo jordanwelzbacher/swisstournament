@@ -1,8 +1,8 @@
 <template>
   <div>
-        {{ this.$route.params.username }}
+    {{ this.$route.params.username }}
     <NavBar />
-    <router-view/>
+    <router-view class="mb-4" />
   </div>
 </template>
 
@@ -10,10 +10,10 @@
 import NavBar from "@/components/NavBar.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     NavBar,
-  }
+  },
 };
 </script>
 

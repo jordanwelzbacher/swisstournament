@@ -1,4 +1,4 @@
-package com.jwelzbacher.swisstournament.controller;
+package com.jwelzbacher.swisstournament.controllers;
 
 import com.jwelzbacher.swisstournament.exceptions.EtAuthException;
 import com.jwelzbacher.swisstournament.models.Tournament;

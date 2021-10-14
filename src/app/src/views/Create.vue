@@ -29,7 +29,7 @@
                 name="isUseFirstLast"
               />
               <MDBRadio
-                label="First & Last Name"
+                label="Full Name"
                 value="true"
                 v-model="isUseFirstLast"
                 inline
