@@ -495,20 +495,14 @@ export default {
       if (this.numTiebreakers < 2) this.$refs.tiebreaker2.setOption(NONE);
     },
     submitTournament() {
-      console.log(
-        "Not sending the date: " +
-          this.date +
-          " " +
-          this.time +
-          " " +
-          Intl.DateTimeFormat().resolvedOptions().timeZone
-      );
+      let timezone = new Date().toString().match(/([A-Z]+[\\+-][0-9]+)/)[1];
+      timezone = timezone.slice(0, timezone.length - 2) + ":" + timezone.slice(timezone.length - 2);
       http
         .post("/protected/tournament", {
           tournament_name: this.tournamentName,
           owner_user_id: "admin", // TODO
           competition_type: this.competitionType,
-          // tournament_date: this.date + " " + this.time + " " + Intl.DateTimeFormat().resolvedOptions().timeZone,
+          tournament_date: this.date + " " + this.time + " " + timezone,
           venue: this.venue,
           is_player_registration_on: this.playerRegistrationOn,
           is_player_results_on: this.playerResultsOn,

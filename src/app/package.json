@@ -14,7 +14,8 @@
     "core-js": "^3.6.5",
     "mdb-vue-ui-kit": "git+https://oauth2:n8nhsi46jxdGUa7ABLEH@git.mdbootstrap.com/mdb/vue/mdb5/prd/mdb5-vue-ui-kit-pro-essential.git",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0"
+    "vue-router": "^4.0.0-0",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
