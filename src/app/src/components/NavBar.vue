@@ -24,7 +24,7 @@
               >
               <MDBDropdownMenu aria-labelledby="dropdownMenuButton">
                 <MDBDropdownItem href="#">My Tournaments</MDBDropdownItem>
-                <MDBDropdownItem href="/login">Log Out</MDBDropdownItem>
+                <MDBDropdownItem href="#" @click="signOut()">Log Out</MDBDropdownItem>
               </MDBDropdownMenu>
             </MDBDropdown>
           </MDBNavbarItem>
@@ -60,7 +60,7 @@ import {
   MDBDropdownItem,
 } from "mdb-vue-ui-kit";
 import { ref } from "vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
@@ -90,5 +90,19 @@ export default {
       user: "auth/user",
     }),
   },
+  methods: {
+    ...mapActions({
+      signOutAction: 'auth/signOut'
+    }),
+
+    signOut () {
+      this.signOutAction().then(() => {
+        this.$router.replace({
+          name: 'Home'
+        })
+      })
+    }
+  },
+
 };
 </script>

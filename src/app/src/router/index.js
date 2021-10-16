@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Tournament from '../views/Tournament.vue'
 import Browse from '../views/Browse.vue'
+import store from '@/store'
 
 const routes = [
   {
@@ -31,7 +32,14 @@ const routes = [
   {
     path: '/create',
     name: 'Create',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Create.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Create.vue'),
+    beforeEnter: (to, from, next) => {
+      if(! store.getters['auth/authenticated'])
+        return next({
+          name: 'Login'
+        })
+      next()
+    }
   },
   {
     path: '/learn',
@@ -41,7 +49,14 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue'),
+    beforeEnter: (to, from, next) => {
+      if(store.getters['auth/authenticated'])
+        return next({
+          name: 'Home'
+        })
+      next()
+    }
   },
   // {
   //   path: '/tournament/:tournamentId',

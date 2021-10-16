@@ -396,6 +396,8 @@ import {
   MDBRadio,
 } from "mdb-vue-ui-kit";
 import { ref } from "vue";
+import { mapGetters } from "vuex";
+import dateFormat from "dateformat";
 
 export default {
   name: "Create",
@@ -422,6 +424,12 @@ export default {
       modalHeaderText: "",
       modalBodyText: "",
     };
+  },
+  computed: {
+    ...mapGetters({
+      authenticated: "auth/authenticated",
+      user: "auth/user",
+    }),
   },
   methods: {
     showModal(e) {
@@ -497,10 +505,11 @@ export default {
     submitTournament() {
       let timezone = new Date().toString().match(/([A-Z]+[\\+-][0-9]+)/)[1];
       timezone = timezone.slice(0, timezone.length - 2) + ":" + timezone.slice(timezone.length - 2);
+      console.log(dateFormat(new Date(), "dd-MM-yyyy hh:mm:ss TT Z"))
       http
         .post("/protected/tournament", {
           tournament_name: this.tournamentName,
-          owner_user_id: "admin", // TODO
+          owner_user_id: this.user.username,
           competition_type: this.competitionType,
           tournament_date: this.date + " " + this.time + " " + timezone,
           venue: this.venue,
@@ -520,7 +529,7 @@ export default {
           is_lower_better_for_custom_a: this.customALowerIsBetter,
           is_lower_better_for_custom_b: this.customBLowerIsBetter,
           is_use_first_last: this.isUseFirstLast,
-          //created_date: [timestamp] TODO
+          created_date: dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss TT Z")
         })
         .then((response) => {
           console.log(response.data);
@@ -549,7 +558,7 @@ export default {
     const tournamentName = ref("");
     const gamesPerMatch = ref("1");
     const competitionType = ref("");
-    const isUseFirstLast = ref(false);
+    const isUseFirstLast = ref("false");
     const date = ref("");
     const time = ref("");
     const registrationCloseTime = ref("10");

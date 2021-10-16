@@ -8,39 +8,45 @@ export default {
         user: null
     },
     getters: {
-        authenticated (state) {
+        authenticated(state) {
             return state.token && state.user
         },
-        user (state) {
+        user(state) {
             return state.user
         },
     },
     mutations: {
-        SET_TOKEN (state, token) {
+        SET_TOKEN(state, token) {
             state.token = token
         },
-        SET_USER (state, data) {
+        SET_USER(state, data) {
             state.user = data
         },
     },
     actions: {
-        async signIn ({ dispatch }, credentials) {
+        async signIn({ dispatch }, credentials) {
             let response = await http.post("/users/login", credentials)
-            dispatch('attempt', response.data)
+            return dispatch('attempt', response.data)
         },
-        async attempt ({ commit }, token) {
-            commit('SET_TOKEN', token)
+        async attempt({ commit, state }, token) {
+            if (token) {
+                commit('SET_TOKEN', token)
+            }
+            if (!state.token) {
+                return
+            }
             try {
-                let response = await http.get("/users/me", {
-                    headers: {
-                        'Authorization': 'Bearer ' + token 
-                    }
-                })
+                let response = await http.get("/users/me")
+
                 commit('SET_USER', response.data)
             } catch (e) {
                 commit('SET_TOKEN', null)
                 commit('SET_USER', null)
             }
         },
+        signOut({ commit }) {
+            commit('SET_TOKEN', null)
+            commit('SET_USER', null)
+        }
     },
 };

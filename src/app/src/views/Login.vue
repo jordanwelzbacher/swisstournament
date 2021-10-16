@@ -11,21 +11,44 @@
         <!-- Tabs content -->
         <MDBTabContent>
           <MDBTabPane tabId="login">
-            <MDBInput label="Username" v-model="username" />
-            <MDBInput
-              label="Password"
-              v-model="password"
-              type="password"
-              class="mt-3"
-            />
-            <div class="text-center mt-4">
-              <MDBBtn
-                color="primary"
-                :disabled="processingRequest"
-                @click="login()"
-                >Login</MDBBtn
-              >
-            </div>
+            <form
+              tag="form"
+              class="needs-validation"
+              novalidate
+              @submit.prevent="checkForm"
+            >
+              <MDBRow>
+                <MDBCol>
+                  <MDBInput
+                    label="Username"
+                    v-model="username"
+                    invalidFeedback="Required"
+                    validFeedback="✓"
+                    required
+                  />
+                </MDBCol>
+              </MDBRow>
+              <MDBRow class="mt-3">
+                <MDBCol>
+                  <MDBInput
+                    label="Password"
+                    v-model="password"
+                    type="password"
+                    invalidFeedback="Required"
+                    validFeedback="✓"
+                    required
+                  />
+                </MDBCol>
+              </MDBRow>
+              <div class="text-center mt-4">
+                <MDBBtn
+                  color="primary"
+                  :disabled="processingRequest"
+                  type="submit"
+                  >Login</MDBBtn
+                >
+              </div>
+            </form>
           </MDBTabPane>
           <MDBTabPane tabId="create">
             <MDBInput label="Username" v-model="username" />
@@ -68,7 +91,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 import http from "../http-common";
 import {
   MDBContainer,
@@ -80,6 +103,8 @@ import {
   MDBTabPane,
   MDBBtn,
   MDBSpinner,
+  MDBRow,
+  MDBCol,
 } from "mdb-vue-ui-kit";
 import { ref } from "vue";
 
@@ -95,9 +120,16 @@ export default {
     MDBTabPane,
     MDBBtn,
     MDBSpinner,
+    MDBRow,
+    MDBCol,
   },
 
   setup() {
+    const checkForm = (e) => {
+      e.target.classList.add("was-validated");
+      // this.login();
+    };
+
     const username = ref("");
     const password = ref("");
     const userTab = ref("login");
@@ -116,17 +148,26 @@ export default {
       MDBTabPane,
       userTab,
       processingRequest,
+      checkForm,
     };
   },
   methods: {
     ...mapActions({
-      signIn: 'auth/signIn'
+      signIn: "auth/signIn",
     }),
     login() {
       this.signIn({
         username: this.username,
-        password: this.password
+        password: this.password,
+      })
+        .then(() => {
+          this.$router.replace({
+            name: "Home",
+          });
         })
+        .catch(() => {
+          console.log("failed");
+        });
     },
     register() {
       this.processingRequest = true;
