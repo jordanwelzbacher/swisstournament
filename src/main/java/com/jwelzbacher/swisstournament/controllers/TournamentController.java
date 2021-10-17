@@ -1,6 +1,6 @@
 package com.jwelzbacher.swisstournament.controllers;
 
-import com.jwelzbacher.swisstournament.exceptions.EtAuthException;
+import com.jwelzbacher.swisstournament.exceptions.UnauthorizedException;
 import com.jwelzbacher.swisstournament.models.Tournament;
 import com.jwelzbacher.swisstournament.services.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,15 @@ public class TournamentController {
     TournamentService tournamentService;
 
     @PostMapping("/api/protected/tournament")
-    public ResponseEntity<?> createTournament (@RequestBody Tournament config, HttpServletRequest request) {
-        if (request.getAttribute("username") == null) throw new EtAuthException("You must login to submit a tournament");
+    public ResponseEntity<?> createTournament (@RequestBody Tournament config, HttpServletRequest request) throws UnauthorizedException {
+        if (request.getAttribute("username") == null)
+            throw new UnauthorizedException("You must login to submit a tournament");
         return tournamentService.createTournament(config);
     }
 
-    @GetMapping("/api/tournaments")
-    public ResponseEntity<?> getTournaments () {
+    @GetMapping(value={"/api/tournaments/{username}", "/api/tournaments"})
+    public ResponseEntity<?> getTournaments (@PathVariable(required = false) String username) {
+        System.out.println("here " + username);
         return tournamentService.getTournaments();
     }
 

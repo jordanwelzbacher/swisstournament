@@ -52,7 +52,7 @@
               class="mt-4"
               label="Venue"
               v-model="venue"
-              formText="Optional"
+              formText="Optional, can be anything: physical location, Discord URL..."
             />
             <hr class="my-4" />
             <div class="d-inline-block">

@@ -1,6 +1,6 @@
 package com.jwelzbacher.swisstournament.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Column;
@@ -8,9 +8,6 @@ import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 //        const NONE = 0;
 //        const OMWP = 1;
@@ -41,6 +38,7 @@ public class Tournament {
     private String competition_type;
 
     @Column(name="tournament_date")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm a z")
     private Timestamp tournament_date;
 
     @Column(name="venue")
@@ -95,6 +93,7 @@ public class Tournament {
     private boolean is_use_first_last;
 
     @Column(name="created_date")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss a z")
     private Timestamp created_date;
 
     public Tournament(Long id, String owner_user_id, String tournament_name, String competition_type, Timestamp tournament_date, String venue, boolean is_player_registration_on, boolean is_player_results_on, double player_limit, double win_points, double loss_points, double draw_points, int first_tiebreaker, int second_tiebreaker, int third_tiebreaker, int fourth_tiebreaker, int fifth_tiebreaker, String custom_a_name, String custom_b_name, boolean is_lower_better_for_custom_a, boolean is_lower_better_for_custom_b, boolean is_use_first_last, Timestamp created_date) {

@@ -25,7 +25,7 @@ export default {
     },
     actions: {
         async signIn({ dispatch }, credentials) {
-            let response = await http.post("/users/login", credentials)
+            let response = await http.post("/user/login", credentials)
             return dispatch('attempt', response.data)
         },
         async attempt({ commit, state }, token) {
@@ -36,7 +36,7 @@ export default {
                 return
             }
             try {
-                let response = await http.get("/users/me")
+                let response = await http.get("/protected/user/me")
 
                 commit('SET_USER', response.data)
             } catch (e) {

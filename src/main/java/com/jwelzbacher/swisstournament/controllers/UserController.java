@@ -13,15 +13,19 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/api/users/login")
-    public ResponseEntity<?> loginUser(@RequestBody User user) {
+    @PostMapping("/api/user/login")
+    public ResponseEntity<?> validateUser(@RequestBody User user) {
         return userService.validateUser(user);
     }
 
-    @PostMapping("/api/users/register")
+    @PostMapping("/api/user/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         return userService.registerUser(user);
     }
 
+    @GetMapping("/api/protected/user/me")
+    public ResponseEntity<?> validateToken(@RequestHeader("Authorization") String authHeader) {
+        return userService.validateToken(authHeader);
+    }
 
 }

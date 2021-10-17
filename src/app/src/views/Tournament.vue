@@ -44,7 +44,7 @@ export default {
           response.data.tournament_name;
         this.tournamentHeadingData.competitionType =
           response.data.competition_type;
-        this.tournamentHeadingData.dateTime = "10-10-2021 9:00PM"; //TODO
+        this.tournamentHeadingData.dateTime = response.data.tournament_date;
         this.tournamentHeadingData.venue = response.data.venue;
         this.tournamentHeadingData.playerLimit = response.data.player_limit;
       })

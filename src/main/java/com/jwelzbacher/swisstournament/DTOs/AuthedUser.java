@@ -1,5 +1,7 @@
 package com.jwelzbacher.swisstournament.DTOs;
 
+import com.jwelzbacher.swisstournament.models.User;
+
 public class AuthedUser {
     private String username;
 
@@ -9,14 +11,11 @@ public class AuthedUser {
 
     private boolean isVerified;
 
-    private String authToken;
-
-    public AuthedUser(String username, String fullName, String emailAddress, boolean isVerified, String authToken) {
-        this.username = username;
-        this.fullName = fullName;
-        this.emailAddress = emailAddress;
-        this.isVerified = isVerified;
-        this.authToken = authToken;
+    public AuthedUser(User user) {
+        this.username = user.getUsername();
+        this.fullName = user.getFullName();
+        this.emailAddress = user.getEmailAddress();
+        this.isVerified = user.isVerified();
     }
 
     public String getUsername() {
@@ -51,11 +50,4 @@ public class AuthedUser {
         isVerified = verified;
     }
 
-    public String getAuthToken() {
-        return authToken;
-    }
-
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
-    }
 }

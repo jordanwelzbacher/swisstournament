@@ -16,8 +16,8 @@ public class TournamentService {
     TournamentRepository tournamentRepository;
 
     public ResponseEntity<?> createTournament (Tournament config) {
-        Tournament newTournament = tournamentRepository.save(config);
-        return new ResponseEntity<Object>(newTournament, HttpStatus.OK);
+        Tournament tournament = tournamentRepository.save(config);
+        return new ResponseEntity<Object>(tournament, HttpStatus.OK);
     }
 
     public ResponseEntity<?> getTournaments () {
