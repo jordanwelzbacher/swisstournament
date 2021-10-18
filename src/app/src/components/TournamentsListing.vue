@@ -66,12 +66,13 @@ export default {
 
     function fetchData() {
       loading.value = true;
-      const uname = store.getters['auth/user'] ? (store.getters['auth/user'].username) : "";
-      console.log(uname);
+      const uId = store.getters['auth/user'] ? (store.getters['auth/user'].id) : "";
+      console.log(uId);
       http
-        .get("/tournaments/" + uname, {})
+        .get("/tournaments/" + uId, {})
         .then((json) => {
           tournaments.value = json.data;
+          console.log(json.data);
         })
         .then(() => {
           loading.value = false;

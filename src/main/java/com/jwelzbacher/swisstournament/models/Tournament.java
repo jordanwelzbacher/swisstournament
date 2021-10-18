@@ -29,7 +29,7 @@ public class Tournament {
     private Long id;
 
     @Column(name="owner_user_id")
-    private String owner_user_id;
+    private Long owner_user_id;
 
     @Column(name="tournament_name")
     private String tournament_name;
@@ -44,10 +44,10 @@ public class Tournament {
     @Column(name="venue")
     private String venue;
 
-    @Column(name="player_registration_on")
+    @Column(name="is_player_registration_on")
     private boolean is_player_registration_on;
 
-    @Column(name="player_results_on")
+    @Column(name="is_player_results_on")
     private boolean is_player_results_on;
 
     @Column(name="player_limit")
@@ -96,7 +96,13 @@ public class Tournament {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss a z")
     private Timestamp created_date;
 
-    public Tournament(Long id, String owner_user_id, String tournament_name, String competition_type, Timestamp tournament_date, String venue, boolean is_player_registration_on, boolean is_player_results_on, double player_limit, double win_points, double loss_points, double draw_points, int first_tiebreaker, int second_tiebreaker, int third_tiebreaker, int fourth_tiebreaker, int fifth_tiebreaker, String custom_a_name, String custom_b_name, boolean is_lower_better_for_custom_a, boolean is_lower_better_for_custom_b, boolean is_use_first_last, Timestamp created_date) {
+    @Column(name="is_registration_open")
+    private boolean is_registration_open;
+
+    @Column(name="is_completed")
+    private boolean is_completed;
+
+    public Tournament(Long id, Long owner_user_id, String tournament_name, String competition_type, Timestamp tournament_date, String venue, boolean is_player_registration_on, boolean is_player_results_on, double player_limit, double win_points, double loss_points, double draw_points, int first_tiebreaker, int second_tiebreaker, int third_tiebreaker, int fourth_tiebreaker, int fifth_tiebreaker, String custom_a_name, String custom_b_name, boolean is_lower_better_for_custom_a, boolean is_lower_better_for_custom_b, boolean is_use_first_last, Timestamp created_date) {
         this.id = id;
         this.owner_user_id = owner_user_id;
         this.tournament_name = tournament_name;
@@ -120,13 +126,15 @@ public class Tournament {
         this.is_lower_better_for_custom_b = is_lower_better_for_custom_b;
         this.is_use_first_last = is_use_first_last;
         this.created_date = created_date;
+        this.is_registration_open = is_player_registration_on;
+        this.is_completed = false;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getOwner_user_id() {
+    public Long getOwner_user_id() {
         return owner_user_id;
     }
 
@@ -218,7 +226,7 @@ public class Tournament {
         this.id = id;
     }
 
-    public void setOwner_user_id(String owner_user_id) {
+    public void setOwner_user_id(Long owner_user_id) {
         this.owner_user_id = owner_user_id;
     }
 
@@ -307,5 +315,21 @@ public class Tournament {
     }
 
     public Tournament() {
+    }
+
+    public boolean isIs_registration_open() {
+        return is_registration_open;
+    }
+
+    public void setIs_registration_open(boolean is_registration_open) {
+        this.is_registration_open = is_registration_open;
+    }
+
+    public boolean isIs_completed() {
+        return is_completed;
+    }
+
+    public void setIs_completed(boolean is_completed) {
+        this.is_completed = is_completed;
     }
 }

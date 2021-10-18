@@ -79,7 +79,6 @@ public class UserService {
         }
         Jws<Claims> jwt = Jwts.parser().setSigningKey(Constants.API_SECRET_KEY).parseClaimsJws(token);
         AuthedUser authedUser = new AuthedUser(userRepository.findOneByUsername(jwt.getBody().get("username").toString()));
-        System.out.println(authedUser.getEmailAddress());
         return new ResponseEntity<Object>(authedUser, HttpStatus.OK);
     }
 
@@ -89,6 +88,7 @@ public class UserService {
                 .signWith(SignatureAlgorithm.HS256, Constants.API_SECRET_KEY)
                 .setIssuedAt(new Date(timestamp))
                 .setExpiration(new Date(timestamp + Constants.TOKEN_VALIDITY))
+                .claim("id", user.getId())
                 .claim("username", user.getUsername())
                 .compact();
     }

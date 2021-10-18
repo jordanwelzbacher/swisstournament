@@ -22,14 +22,8 @@ public class TournamentController {
         return tournamentService.createTournament(config);
     }
 
-    @GetMapping(value={"/api/tournaments/{username}", "/api/tournaments"})
-    public ResponseEntity<?> getTournaments (@PathVariable(required = false) String username) {
-        System.out.println("here " + username);
-        return tournamentService.getTournaments();
-    }
-
-    @GetMapping("/api/tournament/{id}")
-    public ResponseEntity<?> getTournaments (@PathVariable Long id) {
-        return tournamentService.getTournamentById(id);
+    @GetMapping(value={"/api/tournaments/{userId}", "/api/tournaments"})
+    public ResponseEntity<?> getTournaments (@PathVariable(required = false) Long userId) {
+        return tournamentService.getTournaments(userId);
     }
 }

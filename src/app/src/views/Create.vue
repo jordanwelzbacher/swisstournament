@@ -509,7 +509,7 @@ export default {
       http
         .post("/protected/tournament", {
           tournament_name: this.tournamentName,
-          owner_user_id: this.user.username,
+          owner_user_id: this.user.id,
           competition_type: this.competitionType,
           tournament_date: this.date + " " + this.time + " " + timezone,
           venue: this.venue,

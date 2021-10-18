@@ -1,15 +1,16 @@
 package com.jwelzbacher.swisstournament.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity(name="st_user")
 @Table(name="st_user")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", unique = true, nullable = false)
+    private Long id;
+
     @Column(name="username", unique = true, nullable = false)
     private String username;
 
@@ -25,7 +26,8 @@ public class User {
     @Column(name="is_verified")
     private boolean isVerified;
 
-    public User(String username, String fullName, String emailAddress, String password, Boolean isVerified) {
+    public User(Long id, String username, String fullName, String emailAddress, String password, Boolean isVerified) {
+        this.id = id;
         this.username = username;
         this.fullName = fullName;
         this.emailAddress = emailAddress;
@@ -74,5 +76,13 @@ public class User {
 
     public void setVerified(boolean verified) {
         isVerified = verified;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

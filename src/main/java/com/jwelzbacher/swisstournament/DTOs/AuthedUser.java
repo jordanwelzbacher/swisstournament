@@ -3,6 +3,8 @@ package com.jwelzbacher.swisstournament.DTOs;
 import com.jwelzbacher.swisstournament.models.User;
 
 public class AuthedUser {
+    private Long id;
+
     private String username;
 
     private String fullName;
@@ -12,6 +14,7 @@ public class AuthedUser {
     private boolean isVerified;
 
     public AuthedUser(User user) {
+        this.id = user.getId();
         this.username = user.getUsername();
         this.fullName = user.getFullName();
         this.emailAddress = user.getEmailAddress();
@@ -50,4 +53,11 @@ public class AuthedUser {
         isVerified = verified;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
