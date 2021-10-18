@@ -26,4 +26,9 @@ public class TournamentController {
     public ResponseEntity<?> getTournaments (@PathVariable(required = false) Long userId) {
         return tournamentService.getTournaments(userId);
     }
+
+    @GetMapping("/api/tournament/{id}")
+    public ResponseEntity<?> getTournamentById (@PathVariable Long id) {
+        return tournamentService.getTournamentById(id);
+    }
 }

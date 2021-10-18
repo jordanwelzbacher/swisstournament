@@ -25,9 +25,8 @@ public class TournamentService {
     }
 
     public ResponseEntity<?> getTournaments (Long userId) {
-        System.out.println(userId);
         if (userId == null || userId == 0) {
-            return new ResponseEntity<Object>(tournamentRepository.findAll(), HttpStatus.OK);
+            return new ResponseEntity<Object>(tournamentAtAGlanceRepository.getTournamentsAtAGlance(), HttpStatus.OK);
         }
         return new ResponseEntity<Object>(tournamentAtAGlanceRepository.getTournamentsAtAGlance(userId), HttpStatus.OK);
     }

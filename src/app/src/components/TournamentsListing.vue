@@ -14,16 +14,17 @@
                 {{ tournament.tournament_name }}
               </router-link>
               <div class="fs-6" style="margin-left: auto; margin-top: auto">
-                Registration Open
+                {{ getStatus(tournament) }}
               </div>
             </div>
             <div class="mt-1">
-              <MDBIcon size="lg" icon="calendar-alt" />&nbsp;{{tournament.tournament_date}}&emsp; <MDBIcon size="lg" icon="trophy" />&nbsp;{{
-                tournament.competition_type
-              }}&emsp; <MDBIcon size="lg" icon="users" />&nbsp;20&emsp;
-              <MDBIcon size="lg" icon="map-marker-alt" />&nbsp;{{
-                tournament.venue
-              }}&emsp;
+              <MDBIcon size="lg" icon="calendar-alt" />
+              &nbsp;{{tournament.tournament_date}}&emsp;
+              <MDBIcon size="lg" icon="trophy" />
+              &nbsp;{{tournament.competition_type}}&emsp;
+              <MDBIcon size="lg" icon="users" />&nbsp;20&emsp;
+              <MDBIcon size="lg" icon="map-marker-alt" />
+              &nbsp;{{tournament.venue}}&emsp;
             </div>
           </MDBListGroupItem>
         </div>
@@ -42,8 +43,8 @@ import {
 import http from "../http-common";
 import { onMounted } from "vue";
 import { ref } from "vue";
-import { mapGetters } from 'vuex';
-import store from '@/store'
+import { mapGetters } from "vuex";
+import store from "@/store";
 
 export default {
   name: "tournaments",
@@ -58,15 +59,36 @@ export default {
       user: "auth/user",
     }),
   },
+  methods: {
+    getStatus(tournament) {
+      return tournament.is_completed
+        ? "Completed"
+        : tournament.count_rounds > 0
+        ? "In-Progress"
+        : tournament.count_rounds == 0 && tournament.in_tourney
+        ? "Registered"
+        : tournament.is_player_registration_on &&
+          tournament.is_registration_open &&
+          tournament.count_rounds == 0 &&
+          !tournament.in_tourney
+        ? "Registration is Open"
+        : tournament.is_player_registration_on ||
+          !tournament.is_registration_open ||
+          (tournament.count_rounds == 0 && !tournament.in_tourney)
+        ? "Registration is Closed"
+        : "You should never see this"; //TODO remove for prod
+    },
+  },
   setup() {
-
     const tournaments = ref(null);
     const loading = ref(true);
     const error = ref(null);
 
     function fetchData() {
       loading.value = true;
-      const uId = store.getters['auth/user'] ? (store.getters['auth/user'].id) : "";
+      const uId = store.getters["auth/user"]
+        ? store.getters["auth/user"].id
+        : "";
       console.log(uId);
       http
         .get("/tournaments/" + uId, {})
