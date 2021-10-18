@@ -80,6 +80,7 @@ export default {
     },
   },
   setup() {
+    //test
     const tournaments = ref(null);
     const loading = ref(true);
     const error = ref(null);
