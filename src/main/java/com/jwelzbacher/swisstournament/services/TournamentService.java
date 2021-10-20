@@ -1,8 +1,8 @@
 package com.jwelzbacher.swisstournament.services;
 
-import com.jwelzbacher.swisstournament.models.Tournament;
-import com.jwelzbacher.swisstournament.repositories.TournamentAtAGlanceRepository;
-import com.jwelzbacher.swisstournament.repositories.TournamentRepository;
+import com.jwelzbacher.swisstournament.DTOs.TournamentInFull;
+import com.jwelzbacher.swisstournament.models.*;
+import com.jwelzbacher.swisstournament.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +17,14 @@ public class TournamentService {
     TournamentRepository tournamentRepository;
     @Autowired
     TournamentAtAGlanceRepository tournamentAtAGlanceRepository;
+    @Autowired
+    PlayerRepository playerRepository;
+    @Autowired
+    AdminRepository adminRepository;
+    @Autowired
+    RoundRepository roundRepository;
+    @Autowired
+    PairingRepository pairingRepository;
 
     public ResponseEntity<?> createTournament (Tournament config) {
         Tournament tournament = tournamentRepository.save(config);
@@ -31,6 +39,14 @@ public class TournamentService {
     }
 
     public ResponseEntity<?> getTournamentById (Long id) {
-        return new ResponseEntity<Object>(tournamentRepository.findById(id), HttpStatus.OK);
+        TournamentInFull tournamentInFull = new TournamentInFull();
+        tournamentInFull.setTournament(tournamentRepository.findById(id).get());
+        tournamentInFull.setAdmins(adminRepository.findByTournamentId(id));
+        tournamentInFull.setPlayers(playerRepository.findByTournamentId(id));
+        tournamentInFull.setRounds(roundRepository.findByTournamentId(id));
+        for (Round round : tournamentInFull.getRounds()) {
+            round.setPairings(pairingRepository.findByRoundId(round.getId()));
+        }
+        return new ResponseEntity<Object>(tournamentInFull, HttpStatus.OK);
     }
 }

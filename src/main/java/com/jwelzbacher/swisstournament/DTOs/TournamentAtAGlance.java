@@ -14,45 +14,48 @@ public class TournamentAtAGlance {
     @Column
     private Long id;
     @Column
-    private String owner_username;
+    private String ownerUsername;
     @Column
-    private String tournament_name;
+    private String tournamentName;
     @Column
-    private String competition_type;
+    private String competitionType;
     @Column
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm a z")
-    private Timestamp tournament_date;
+    private Timestamp tournamentDate;
     @Column
     private String venue;
     @Column
-    private boolean is_player_registration_on;
+    private boolean isPlayerRegistrationOn;
     @Column
-    private double player_limit;
+    private double playerLimit;
     @Column
-    private boolean is_registration_open;
+    private boolean isRegistrationOpen;
     @Column
-    private boolean is_completed;
+    private boolean isCompleted;
     @Column
-    private boolean in_tourney;
+    private boolean inTourney;
     @Column
-    private int count_players;
+    private int countPlayers;
     @Column
-    private int count_rounds;
+    private int countRounds;
 
-    public TournamentAtAGlance(Long id, String owner_username, String tournament_name, String competition_type, Timestamp tournament_date, String venue, boolean is_player_registration_on, double player_limit, boolean is_registration_open, boolean is_completed, boolean in_tourney, int count_players, int count_rounds) {
+    public TournamentAtAGlance(Long id, String ownerUsername, String tournamentName, String competitionType, Timestamp tournamentDate, String venue, boolean isPlayerRegistrationOn, double playerLimit, boolean isRegistrationOpen, boolean isCompleted, boolean inTourney, int countPlayers, int countRounds) {
         this.id = id;
-        this.owner_username = owner_username;
-        this.tournament_name = tournament_name;
-        this.competition_type = competition_type;
-        this.tournament_date = tournament_date;
+        this.ownerUsername = ownerUsername;
+        this.tournamentName = tournamentName;
+        this.competitionType = competitionType;
+        this.tournamentDate = tournamentDate;
         this.venue = venue;
-        this.is_player_registration_on = is_player_registration_on;
-        this.player_limit = player_limit;
-        this.is_registration_open = is_registration_open;
-        this.is_completed = is_completed;
-        this.in_tourney = in_tourney;
-        this.count_players = count_players;
-        this.count_rounds = count_rounds;
+        this.isPlayerRegistrationOn = isPlayerRegistrationOn;
+        this.playerLimit = playerLimit;
+        this.isRegistrationOpen = isRegistrationOpen;
+        this.isCompleted = isCompleted;
+        this.inTourney = inTourney;
+        this.countPlayers = countPlayers;
+        this.countRounds = countRounds;
+    }
+
+    public TournamentAtAGlance() {
     }
 
     public Long getId() {
@@ -63,36 +66,36 @@ public class TournamentAtAGlance {
         this.id = id;
     }
 
-    public String getOwner_username() {
-        return owner_username;
+    public String getOwnerUsername() {
+        return ownerUsername;
     }
 
-    public void setOwner_username(String owner_username) {
-        this.owner_username = owner_username;
+    public void setOwnerUsername(String ownerUsername) {
+        this.ownerUsername = ownerUsername;
     }
 
-    public String getTournament_name() {
-        return tournament_name;
+    public String getTournamentName() {
+        return tournamentName;
     }
 
-    public void setTournament_name(String tournament_name) {
-        this.tournament_name = tournament_name;
+    public void setTournamentName(String tournamentName) {
+        this.tournamentName = tournamentName;
     }
 
-    public String getCompetition_type() {
-        return competition_type;
+    public String getCompetitionType() {
+        return competitionType;
     }
 
-    public void setCompetition_type(String competition_type) {
-        this.competition_type = competition_type;
+    public void setCompetitionType(String competitionType) {
+        this.competitionType = competitionType;
     }
 
-    public Timestamp getTournament_date() {
-        return tournament_date;
+    public Timestamp getTournamentDate() {
+        return tournamentDate;
     }
 
-    public void setTournament_date(Timestamp tournament_date) {
-        this.tournament_date = tournament_date;
+    public void setTournamentDate(Timestamp tournamentDate) {
+        this.tournamentDate = tournamentDate;
     }
 
     public String getVenue() {
@@ -103,62 +106,59 @@ public class TournamentAtAGlance {
         this.venue = venue;
     }
 
-    public boolean isIs_player_registration_on() {
-        return is_player_registration_on;
+    public boolean isPlayerRegistrationOn() {
+        return isPlayerRegistrationOn;
     }
 
-    public void setIs_player_registration_on(boolean is_player_registration_on) {
-        this.is_player_registration_on = is_player_registration_on;
+    public void setPlayerRegistrationOn(boolean playerRegistrationOn) {
+        isPlayerRegistrationOn = playerRegistrationOn;
     }
 
-    public double getPlayer_limit() {
-        return player_limit;
+    public double getPlayerLimit() {
+        return playerLimit;
     }
 
-    public void setPlayer_limit(double player_limit) {
-        this.player_limit = player_limit;
+    public void setPlayerLimit(double playerLimit) {
+        this.playerLimit = playerLimit;
     }
 
-    public boolean isIs_registration_open() {
-        return is_registration_open;
+    public boolean isRegistrationOpen() {
+        return isRegistrationOpen;
     }
 
-    public void setIs_registration_open(boolean is_registration_open) {
-        this.is_registration_open = is_registration_open;
+    public void setRegistrationOpen(boolean registrationOpen) {
+        isRegistrationOpen = registrationOpen;
     }
 
-    public boolean isIs_completed() {
-        return is_completed;
+    public boolean isCompleted() {
+        return isCompleted;
     }
 
-    public void setIs_completed(boolean is_completed) {
-        this.is_completed = is_completed;
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 
-    public int getCount_players() {
-        return count_players;
+    public boolean isInTourney() {
+        return inTourney;
     }
 
-    public void setCount_players(int count_players) {
-        this.count_players = count_players;
+    public void setInTourney(boolean inTourney) {
+        this.inTourney = inTourney;
     }
 
-    public int getCount_rounds() {
-        return count_rounds;
+    public int getCountPlayers() {
+        return countPlayers;
     }
 
-    public void setCount_rounds(int count_rounds) {
-        this.count_rounds = count_rounds;
+    public void setCountPlayers(int countPlayers) {
+        this.countPlayers = countPlayers;
     }
 
-    public boolean isIn_tourney() {
-        return in_tourney;
+    public int getCountRounds() {
+        return countRounds;
     }
 
-    public void setIn_tourney(boolean in_tourney) {
-        this.in_tourney = in_tourney;
-    }
-
-    public TournamentAtAGlance() {
+    public void setCountRounds(int countRounds) {
+        this.countRounds = countRounds;
     }
 }

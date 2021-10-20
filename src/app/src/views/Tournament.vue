@@ -41,12 +41,13 @@ export default {
       .get("/tournament/" + this.tournamentId)
       .then((response) => {
         this.tournamentHeadingData.tournamentName =
-          response.data.tournament_name;
+          response.data.tournament.tournamentName;
         this.tournamentHeadingData.competitionType =
-          response.data.competition_type;
-        this.tournamentHeadingData.dateTime = response.data.tournament_date;
-        this.tournamentHeadingData.venue = response.data.venue;
-        this.tournamentHeadingData.playerLimit = response.data.player_limit;
+          response.data.tournament.competitionType;
+        this.tournamentHeadingData.dateTime = response.data.tournament.tournamentDate;
+        this.tournamentHeadingData.venue = response.data.tournament.venue;
+        this.tournamentHeadingData.playerLimit = response.data.tournament.playerLimit;
+        console.log(this.tournamentHeadingData)
       })
       .catch((e) => {
         console.log(e);

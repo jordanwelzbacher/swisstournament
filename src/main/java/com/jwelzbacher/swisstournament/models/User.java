@@ -8,22 +8,22 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private Long id;
 
-    @Column(name="username", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String username;
 
-    @Column(name="full_name")
+    @Column
     private String fullName;
 
-    @Column(name="email_address", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String emailAddress;
 
-    @Column(name="password")
+    @Column
     private String password;
 
-    @Column(name="is_verified")
+    @Column
     private boolean isVerified;
 
     public User(Long id, String username, String fullName, String emailAddress, String password, Boolean isVerified) {

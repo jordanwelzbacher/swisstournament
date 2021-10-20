@@ -1,6 +1,10 @@
 package com.jwelzbacher.swisstournament.repositories;
 
-import com.jwelzbacher.swisstournament.models.User;
+import com.jwelzbacher.swisstournament.models.Player;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PlayerRepository extends JpaRepository<User, String> {}
+import java.util.List;
+
+public interface PlayerRepository extends JpaRepository<Player, String> {
+    List<Player> findByTournamentId(Long tournament_id);
+}

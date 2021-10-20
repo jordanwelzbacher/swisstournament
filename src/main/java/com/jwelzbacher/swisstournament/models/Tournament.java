@@ -25,311 +25,311 @@ public class Tournament {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", unique=true, nullable = false)
+    @Column(unique=true, nullable = false)
     private Long id;
 
-    @Column(name="owner_user_id")
-    private Long owner_user_id;
+    @Column
+    private Long ownerUserId;
 
-    @Column(name="tournament_name")
-    private String tournament_name;
+    @Column
+    private String tournamentName;
 
-    @Column(name="competition_type")
-    private String competition_type;
+    @Column
+    private String competitionType;
 
-    @Column(name="tournament_date")
+    @Column
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm a z")
-    private Timestamp tournament_date;
+    private Timestamp tournamentDate;
 
-    @Column(name="venue")
+    @Column
     private String venue;
 
-    @Column(name="is_player_registration_on")
-    private boolean is_player_registration_on;
+    @Column
+    private boolean isPlayerRegistrationOn;
 
-    @Column(name="is_player_results_on")
-    private boolean is_player_results_on;
+    @Column
+    private boolean isPlayerResultsOn;
 
-    @Column(name="player_limit")
-    private double player_limit;
+    @Column
+    private double playerLimit;
 
-    @Column(name="win_points")
-    private double win_points;
+    @Column
+    private double winPoints;
 
-    @Column(name="loss_points")
-    private double loss_points;
+    @Column
+    private double lossPoints;
 
-    @Column(name="draw_points")
-    private double draw_points;
+    @Column
+    private double drawPoints;
 
-    @Column(name="first_tiebreaker")
-    private int first_tiebreaker;
+    @Column
+    private int firstTiebreaker;
 
-    @Column(name="second_tiebreaker")
-    private int second_tiebreaker;
+    @Column
+    private int secondTiebreaker;
 
-    @Column(name="third_tiebreaker")
-    private int third_tiebreaker;
+    @Column
+    private int thirdTiebreaker;
 
-    @Column(name="fourth_tiebreaker")
-    private int fourth_tiebreaker;
+    @Column
+    private int fourthTiebreaker;
 
-    @Column(name="fifth_tiebreaker")
-    private int fifth_tiebreaker;
+    @Column
+    private int fifthTiebreaker;
 
     @Column(name="custom_a_name")
-    private String custom_a_name;
+    private String customAName;
 
     @Column(name="custom_b_name")
-    private String custom_b_name;
+    private String customBName;
 
     @Column(name="is_lower_better_for_custom_a")
-    private boolean is_lower_better_for_custom_a;
+    private boolean isLowerBetterForCustomA;
 
     @Column(name="is_lower_better_for_custom_b")
-    private boolean is_lower_better_for_custom_b;
+    private boolean isLowerBetterForCustomB;
 
-    @Column(name="is_use_first_last")
-    private boolean is_use_first_last;
+    @Column
+    private boolean isUseFirstLast;
 
-    @Column(name="created_date")
+    @Column
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss a z")
-    private Timestamp created_date;
+    private Timestamp createdDate;
 
-    @Column(name="is_registration_open")
-    private boolean is_registration_open;
+    @Column
+    private boolean isRegistrationOpen;
 
-    @Column(name="is_completed")
-    private boolean is_completed;
+    @Column
+    private boolean isCompleted;
 
-    public Tournament(Long id, Long owner_user_id, String tournament_name, String competition_type, Timestamp tournament_date, String venue, boolean is_player_registration_on, boolean is_player_results_on, double player_limit, double win_points, double loss_points, double draw_points, int first_tiebreaker, int second_tiebreaker, int third_tiebreaker, int fourth_tiebreaker, int fifth_tiebreaker, String custom_a_name, String custom_b_name, boolean is_lower_better_for_custom_a, boolean is_lower_better_for_custom_b, boolean is_use_first_last, Timestamp created_date) {
+    public Tournament(Long id, Long ownerUserId, String tournamentName, String competitionType, Timestamp tournamentDate, String venue, boolean isPlayerRegistrationOn, boolean isPlayerResultsOn, double playerLimit, double winPoints, double lossPoints, double drawPoints, int firstTiebreaker, int secondTiebreaker, int thirdTiebreaker, int fourthTiebreaker, int fifthTiebreaker, String customAName, String customBName, boolean isLowerBetterForCustomA, boolean isLowerBetterForCustomB, boolean isUseFirstLast, Timestamp createdDate, boolean isRegistrationOpen, boolean isCompleted) {
         this.id = id;
-        this.owner_user_id = owner_user_id;
-        this.tournament_name = tournament_name;
-        this.competition_type = competition_type;
-        this.tournament_date = tournament_date;
+        this.ownerUserId = ownerUserId;
+        this.tournamentName = tournamentName;
+        this.competitionType = competitionType;
+        this.tournamentDate = tournamentDate;
         this.venue = venue;
-        this.is_player_registration_on = is_player_registration_on;
-        this.is_player_results_on = is_player_results_on;
-        this.player_limit = player_limit;
-        this.win_points = win_points;
-        this.loss_points = loss_points;
-        this.draw_points = draw_points;
-        this.first_tiebreaker = first_tiebreaker;
-        this.second_tiebreaker = second_tiebreaker;
-        this.third_tiebreaker = third_tiebreaker;
-        this.fourth_tiebreaker = fourth_tiebreaker;
-        this.fifth_tiebreaker = fifth_tiebreaker;
-        this.custom_a_name = custom_a_name;
-        this.custom_b_name = custom_b_name;
-        this.is_lower_better_for_custom_a = is_lower_better_for_custom_a;
-        this.is_lower_better_for_custom_b = is_lower_better_for_custom_b;
-        this.is_use_first_last = is_use_first_last;
-        this.created_date = created_date;
-        this.is_registration_open = is_player_registration_on;
-        this.is_completed = false;
+        this.isPlayerRegistrationOn = isPlayerRegistrationOn;
+        this.isPlayerResultsOn = isPlayerResultsOn;
+        this.playerLimit = playerLimit;
+        this.winPoints = winPoints;
+        this.lossPoints = lossPoints;
+        this.drawPoints = drawPoints;
+        this.firstTiebreaker = firstTiebreaker;
+        this.secondTiebreaker = secondTiebreaker;
+        this.thirdTiebreaker = thirdTiebreaker;
+        this.fourthTiebreaker = fourthTiebreaker;
+        this.fifthTiebreaker = fifthTiebreaker;
+        this.customAName = customAName;
+        this.customBName = customBName;
+        this.isLowerBetterForCustomA = isLowerBetterForCustomA;
+        this.isLowerBetterForCustomB = isLowerBetterForCustomB;
+        this.isUseFirstLast = isUseFirstLast;
+        this.createdDate = createdDate;
+        this.isRegistrationOpen = isRegistrationOpen;
+        this.isCompleted = isCompleted;
+    }
+
+    public Tournament() {
     }
 
     public Long getId() {
         return id;
     }
 
-    public Long getOwner_user_id() {
-        return owner_user_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getTournament_name() {
-        return tournament_name;
+    public Long getOwnerUserId() {
+        return ownerUserId;
     }
 
-    public String getCompetition_type() {
-        return competition_type;
+    public void setOwnerUserId(Long ownerUserId) {
+        this.ownerUserId = ownerUserId;
     }
 
-    public Timestamp getTournament_date() {
-        return tournament_date;
+    public String getTournamentName() {
+        return tournamentName;
+    }
+
+    public void setTournamentName(String tournamentName) {
+        this.tournamentName = tournamentName;
+    }
+
+    public String getCompetitionType() {
+        return competitionType;
+    }
+
+    public void setCompetitionType(String competitionType) {
+        this.competitionType = competitionType;
+    }
+
+    public Timestamp getTournamentDate() {
+        return tournamentDate;
+    }
+
+    public void setTournamentDate(Timestamp tournamentDate) {
+        this.tournamentDate = tournamentDate;
     }
 
     public String getVenue() {
         return venue;
     }
 
-    public boolean isIs_player_registration_on() {
-        return is_player_registration_on;
-    }
-
-    public boolean isIs_player_results_on() {
-        return is_player_results_on;
-    }
-
-    public double getPlayer_limit() {
-        return player_limit;
-    }
-
-    public double getWin_points() {
-        return win_points;
-    }
-
-    public double getLoss_points() {
-        return loss_points;
-    }
-
-    public double getDraw_points() {
-        return draw_points;
-    }
-
-    public int getFirst_tiebreaker() {
-        return first_tiebreaker;
-    }
-
-    public int getSecond_tiebreaker() {
-        return second_tiebreaker;
-    }
-
-    public int getThird_tiebreaker() {
-        return third_tiebreaker;
-    }
-
-    public int getFourth_tiebreaker() {
-        return fourth_tiebreaker;
-    }
-
-    public int getFifth_tiebreaker() {
-        return fifth_tiebreaker;
-    }
-
-    public String getCustom_a_name() {
-        return custom_a_name;
-    }
-
-    public String getCustom_b_name() {
-        return custom_b_name;
-    }
-
-    public boolean isIs_lower_better_for_custom_a() {
-        return is_lower_better_for_custom_a;
-    }
-
-    public boolean isIs_lower_better_for_custom_b() {
-        return is_lower_better_for_custom_b;
-    }
-
-    public boolean isIs_use_first_last() {
-        return is_use_first_last;
-    }
-
-    public Timestamp getCreated_date() {
-        return created_date;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setOwner_user_id(Long owner_user_id) {
-        this.owner_user_id = owner_user_id;
-    }
-
-    public void setTournament_name(String tournament_name) {
-        this.tournament_name = tournament_name;
-    }
-
-    public void setCompetition_type(String competition_type) {
-        this.competition_type = competition_type;
-    }
-
-    public void setTournament_date(Timestamp tournament_date) {
-        this.tournament_date = tournament_date;
-    }
-
     public void setVenue(String venue) {
         this.venue = venue;
     }
 
-    public void setIs_player_registration_on(boolean is_player_registration_on) {
-        this.is_player_registration_on = is_player_registration_on;
+    public boolean isPlayerRegistrationOn() {
+        return isPlayerRegistrationOn;
     }
 
-    public void setIs_player_results_on(boolean is_player_results_on) {
-        this.is_player_results_on = is_player_results_on;
+    public void setPlayerRegistrationOn(boolean playerRegistrationOn) {
+        isPlayerRegistrationOn = playerRegistrationOn;
     }
 
-    public void setPlayer_limit(double player_limit) {
-        this.player_limit = player_limit;
+    public boolean isPlayerResultsOn() {
+        return isPlayerResultsOn;
     }
 
-    public void setWin_points(double win_points) {
-        this.win_points = win_points;
+    public void setPlayerResultsOn(boolean playerResultsOn) {
+        isPlayerResultsOn = playerResultsOn;
     }
 
-    public void setLoss_points(double loss_points) {
-        this.loss_points = loss_points;
+    public double getPlayerLimit() {
+        return playerLimit;
     }
 
-    public void setDraw_points(double draw_points) {
-        this.draw_points = draw_points;
+    public void setPlayerLimit(double playerLimit) {
+        this.playerLimit = playerLimit;
     }
 
-    public void setFirst_tiebreaker(int first_tiebreaker) {
-        this.first_tiebreaker = first_tiebreaker;
+    public double getWinPoints() {
+        return winPoints;
     }
 
-    public void setSecond_tiebreaker(int second_tiebreaker) {
-        this.second_tiebreaker = second_tiebreaker;
+    public void setWinPoints(double winPoints) {
+        this.winPoints = winPoints;
     }
 
-    public void setThird_tiebreaker(int third_tiebreaker) {
-        this.third_tiebreaker = third_tiebreaker;
+    public double getLossPoints() {
+        return lossPoints;
     }
 
-    public void setFourth_tiebreaker(int fourth_tiebreaker) {
-        this.fourth_tiebreaker = fourth_tiebreaker;
+    public void setLossPoints(double lossPoints) {
+        this.lossPoints = lossPoints;
     }
 
-    public void setFifth_tiebreaker(int fifth_tiebreaker) {
-        this.fifth_tiebreaker = fifth_tiebreaker;
+    public double getDrawPoints() {
+        return drawPoints;
     }
 
-    public void setCustom_a_name(String custom_a_name) {
-        this.custom_a_name = custom_a_name;
+    public void setDrawPoints(double drawPoints) {
+        this.drawPoints = drawPoints;
     }
 
-    public void setCustom_b_name(String custom_b_name) {
-        this.custom_b_name = custom_b_name;
+    public int getFirstTiebreaker() {
+        return firstTiebreaker;
     }
 
-    public void setIs_lower_better_for_custom_a(boolean is_lower_better_for_custom_a) {
-        this.is_lower_better_for_custom_a = is_lower_better_for_custom_a;
+    public void setFirstTiebreaker(int firstTiebreaker) {
+        this.firstTiebreaker = firstTiebreaker;
     }
 
-    public void setIs_lower_better_for_custom_b(boolean is_lower_better_for_custom_b) {
-        this.is_lower_better_for_custom_b = is_lower_better_for_custom_b;
+    public int getSecondTiebreaker() {
+        return secondTiebreaker;
     }
 
-    public void setIs_use_first_last(boolean is_use_first_last) {
-        this.is_use_first_last = is_use_first_last;
+    public void setSecondTiebreaker(int secondTiebreaker) {
+        this.secondTiebreaker = secondTiebreaker;
     }
 
-    public void setCreated_date(Timestamp created_date) {
-        this.created_date = created_date;
+    public int getThirdTiebreaker() {
+        return thirdTiebreaker;
     }
 
-    public Tournament() {
+    public void setThirdTiebreaker(int thirdTiebreaker) {
+        this.thirdTiebreaker = thirdTiebreaker;
     }
 
-    public boolean isIs_registration_open() {
-        return is_registration_open;
+    public int getFourthTiebreaker() {
+        return fourthTiebreaker;
     }
 
-    public void setIs_registration_open(boolean is_registration_open) {
-        this.is_registration_open = is_registration_open;
+    public void setFourthTiebreaker(int fourthTiebreaker) {
+        this.fourthTiebreaker = fourthTiebreaker;
     }
 
-    public boolean isIs_completed() {
-        return is_completed;
+    public int getFifthTiebreaker() {
+        return fifthTiebreaker;
     }
 
-    public void setIs_completed(boolean is_completed) {
-        this.is_completed = is_completed;
+    public void setFifthTiebreaker(int fifthTiebreaker) {
+        this.fifthTiebreaker = fifthTiebreaker;
+    }
+
+    public String getCustomAName() {
+        return customAName;
+    }
+
+    public void setCustomAName(String customAName) {
+        this.customAName = customAName;
+    }
+
+    public String getCustomBName() {
+        return customBName;
+    }
+
+    public void setCustomBName(String customBName) {
+        this.customBName = customBName;
+    }
+
+    public boolean isLowerBetterForCustomA() {
+        return isLowerBetterForCustomA;
+    }
+
+    public void setLowerBetterForCustomA(boolean lowerBetterForCustomA) {
+        isLowerBetterForCustomA = lowerBetterForCustomA;
+    }
+
+    public boolean isLowerBetterForCustomB() {
+        return isLowerBetterForCustomB;
+    }
+
+    public void setLowerBetterForCustomB(boolean lowerBetterForCustomB) {
+        isLowerBetterForCustomB = lowerBetterForCustomB;
+    }
+
+    public boolean isUseFirstLast() {
+        return isUseFirstLast;
+    }
+
+    public void setUseFirstLast(boolean useFirstLast) {
+        isUseFirstLast = useFirstLast;
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public boolean isRegistrationOpen() {
+        return isRegistrationOpen;
+    }
+
+    public void setRegistrationOpen(boolean registrationOpen) {
+        isRegistrationOpen = registrationOpen;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 }
