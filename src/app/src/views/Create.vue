@@ -76,6 +76,7 @@
                 class="mt-4"
                 v-model="registrationCloseTime"
                 type="number"
+                :key="regKey"
               />
             </div>
             <div v-show="playerRegistrationOn" class="mt-1">
@@ -101,6 +102,7 @@
                 v-model="playerLimit"
                 type="number"
                 formText="Optional"
+                :key="regKey"
               />
             </div>
             <div></div>
@@ -182,6 +184,7 @@
                 v-model:options="secondTiebreakerOptions"
                 v-model:selected="secondTiebreaker"
                 :disabled="preset != 0"
+                :key="inputKey"
                 style="width: calc(100% - 55px)"
               />
               <div class="d-inline-block">
@@ -207,6 +210,7 @@
                 v-model:selected="thirdTiebreaker"
                 :disabled="preset != 0"
                 style="width: calc(100% - 55px)"
+                :key="inputKey"
               />
               <MDBBtn
                 v-show="numTiebreakers == 3"
@@ -229,6 +233,7 @@
                 v-model:selected="fourthTiebreaker"
                 :disabled="preset != 0"
                 style="width: calc(100% - 55px)"
+                :key="inputKey"
               />
               <MDBBtn
                 v-show="numTiebreakers == 4"
@@ -251,6 +256,7 @@
                 v-model:selected="fifthTiebreaker"
                 :disabled="preset != 0"
                 style="width: calc(100% - 55px)"
+                :key="inputKey"
               />
               <MDBBtn
                 v-show="numTiebreakers == 5"
@@ -285,6 +291,7 @@
                 label="Custom Tiebreaker A Name"
                 v-model="customAName"
                 :disabled="preset != 0"
+                :key="inputKey"
               />
               <div class="ms-4 mt-2">
                 <MDBCheckbox
@@ -308,6 +315,7 @@
                 label="Custom Tiebreaker B Name"
                 v-model="customBName"
                 :disabled="preset != 0"
+                :key="inputKey"
               />
               <div class="ms-4 mt-2">
                 <MDBCheckbox
@@ -395,7 +403,7 @@ import {
   MDBTimepicker,
   MDBRadio,
 } from "mdb-vue-ui-kit";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { mapGetters } from "vuex";
 import dateFormat from "dateformat";
 
@@ -505,7 +513,6 @@ export default {
     submitTournament() {
       let timezone = new Date().toString().match(/([A-Z]+[\\+-][0-9]+)/)[1];
       timezone = timezone.slice(0, timezone.length - 2) + ":" + timezone.slice(timezone.length - 2);
-      console.log(dateFormat(new Date(), "dd-MM-yyyy hh:mm:ss TT Z"))
       http
         .post("/protected/tournament", {
           tournament_name: this.tournamentName,
@@ -595,6 +602,11 @@ export default {
     const customALowerIsBetter = ref(false);
     const customBLowerIsBetter = ref(false);
 
+    const regKey = ref(0);
+    const inputKey = ref(0);
+    watch(() => playerRegistrationOn.value, () => regKey.value++);
+    watch(() => numTiebreakers.value, () => inputKey.value++);
+
     return {
       playerRegistrationOn,
       playerResultsOn,
@@ -639,6 +651,8 @@ export default {
       OGWP,
       CUSTOM_A,
       CUSTOM_B,
+      regKey,
+      inputKey,
     };
   },
 };

@@ -12,12 +12,18 @@
         <MDBTabContent>
           <MDBTabPane tabId="login">
             <form tag="form" @submit.prevent="login()">
-              <MDBInput label="Username" v-model="username" required />
+              <MDBInput
+                label="Username"
+                v-model="username"
+                :key="inputKey"
+                required
+              />
               <MDBInput
                 class="mt-3"
                 label="Password"
                 v-model="password"
                 type="password"
+                :key="inputKey"
                 required
               />
               <div class="text-center mt-4">
@@ -40,6 +46,7 @@
               <MDBInput
                 label="Username"
                 v-model="username"
+                :key="inputKey"
                 required
               />
               <MDBInput
@@ -47,6 +54,7 @@
                 v-model="password"
                 type="password"
                 class="mt-3"
+                :key="inputKey"
                 required
               />
               <MDBInput
@@ -54,6 +62,7 @@
                 v-model="email"
                 class="mt-3"
                 formText="We'll never share your email address."
+                :key="inputKey"
                 required
               />
               <MDBInput
@@ -61,6 +70,7 @@
                 v-model="fullName"
                 class="mt-3"
                 formText="May be publicly displayed."
+                :key="inputKey"
                 required
               />
               <div class="text-center mt-4" v-show="!processingRequest">
@@ -81,10 +91,10 @@
                 <MDBRow>
                   <MDBCol md="1" class="d-flex align-items-center">
                     <span style="color: #f93154">
-                    <MDBIcon
-                      icon="exclamation-circle"
-                      iconStyle="fas"
-                      size="lg"
+                      <MDBIcon
+                        icon="exclamation-circle"
+                        iconStyle="fas"
+                        size="lg"
                     /></span>
                   </MDBCol>
                   <MDBCol>Error: {{ errorMessage }} </MDBCol>
@@ -128,8 +138,8 @@ import {
   MDBRow,
   MDBCol,
   MDBIcon,
-} from "mdb-vue-ui-kit";
-import { ref } from "vue";
+} from 'mdb-vue-ui-kit';
+import { ref, watch } from 'vue';
 
 export default {
   name: "Login",
@@ -157,6 +167,9 @@ export default {
     const processingRequest = ref(false);
     const errorMessage = ref("");
     const success = ref(false);
+    const inputKey = ref(0);
+
+    watch(() => userTab.value, () => inputKey.value++);
 
     const validateRegister = (e) => {
       e.target.classList.add("was-validated");
@@ -181,7 +194,7 @@ export default {
           fullName.value = "";
           email.value = "";
           processingRequest.value = false;
-          e.target.classList.remove("was-validated")
+          e.target.classList.remove("was-validated");
         })
         .catch((e) => {
           errorMessage.value = e.response.data.message;
@@ -204,6 +217,7 @@ export default {
       errorMessage,
       success,
       validateRegister,
+      inputKey,
     };
   },
   methods: {

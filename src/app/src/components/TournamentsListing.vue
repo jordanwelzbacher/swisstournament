@@ -90,7 +90,6 @@ export default {
       const uId = store.getters["auth/user"]
         ? store.getters["auth/user"].id
         : "";
-      console.log(uId);
       http
         .get("/tournaments/" + uId, {})
         .then((json) => {
