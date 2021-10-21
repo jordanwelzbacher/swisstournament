@@ -63,6 +63,9 @@ public class Tournament {
     private double drawPoints;
 
     @Column
+    private int gamesPerMatch;
+
+    @Column
     private int firstTiebreaker;
 
     @Column
@@ -102,7 +105,7 @@ public class Tournament {
     @Column
     private boolean isCompleted;
 
-    public Tournament(Long id, Long ownerUserId, String tournamentName, String competitionType, Timestamp tournamentDate, String venue, boolean isPlayerRegistrationOn, boolean isPlayerResultsOn, double playerLimit, double winPoints, double lossPoints, double drawPoints, int firstTiebreaker, int secondTiebreaker, int thirdTiebreaker, int fourthTiebreaker, int fifthTiebreaker, String customAName, String customBName, boolean isLowerBetterForCustomA, boolean isLowerBetterForCustomB, boolean isUseFirstLast, Timestamp createdDate, boolean isRegistrationOpen, boolean isCompleted) {
+    public Tournament(Long id, Long ownerUserId, String tournamentName, String competitionType, Timestamp tournamentDate, String venue, boolean isPlayerRegistrationOn, boolean isPlayerResultsOn, double playerLimit, double winPoints, double lossPoints, double drawPoints, int gamesPerMatch, int firstTiebreaker, int secondTiebreaker, int thirdTiebreaker, int fourthTiebreaker, int fifthTiebreaker, String customAName, String customBName, boolean isLowerBetterForCustomA, boolean isLowerBetterForCustomB, boolean isUseFirstLast, Timestamp createdDate, boolean isRegistrationOpen, boolean isCompleted) {
         this.id = id;
         this.ownerUserId = ownerUserId;
         this.tournamentName = tournamentName;
@@ -115,6 +118,7 @@ public class Tournament {
         this.winPoints = winPoints;
         this.lossPoints = lossPoints;
         this.drawPoints = drawPoints;
+        this.gamesPerMatch = gamesPerMatch;
         this.firstTiebreaker = firstTiebreaker;
         this.secondTiebreaker = secondTiebreaker;
         this.thirdTiebreaker = thirdTiebreaker;
@@ -331,5 +335,13 @@ public class Tournament {
 
     public void setCompleted(boolean completed) {
         isCompleted = completed;
+    }
+
+    public int getGamesPerMatch() {
+        return gamesPerMatch;
+    }
+
+    public void setGamesPerMatch(int gamesPerMatch) {
+        this.gamesPerMatch = gamesPerMatch;
     }
 }

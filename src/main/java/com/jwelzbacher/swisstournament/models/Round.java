@@ -21,16 +21,11 @@ public class Round {
     @Column
     private Integer topCut;
 
-    @OneToMany
-    @JoinColumn(name="pairing")
-    private List<Pairing> pairings;
-
-    public Round(Long id, Long tournamentId, int roundNumber, int topCut, List<Pairing> pairings) {
+    public Round(Long id, Long tournamentId, int roundNumber, int topCut) {
         this.id = id;
         this.tournamentId = tournamentId;
         this.roundNumber = roundNumber;
         this.topCut = topCut;
-        this.pairings = pairings;
     }
 
     public Round() {
@@ -66,14 +61,6 @@ public class Round {
 
     public void setTopCut(Integer topCut) {
         this.topCut = topCut;
-    }
-
-    public List<Pairing> getPairings() {
-        return pairings;
-    }
-
-    public void setPairings(List<Pairing> pairings) {
-        this.pairings = pairings;
     }
 
 }

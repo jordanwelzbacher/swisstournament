@@ -56,6 +56,7 @@ CREATE TABLE IF NOT EXISTS tournament
         win_points real,
         loss_points real,
         draw_points real,
+        games_per_match smallint,
         first_tiebreaker smallint,
         second_tiebreaker smallint,
         third_tiebreaker smallint,

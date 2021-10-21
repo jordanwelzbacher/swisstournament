@@ -1,19 +1,32 @@
 package com.jwelzbacher.swisstournament.DTOs;
 
-import com.jwelzbacher.swisstournament.models.Admin;
-import com.jwelzbacher.swisstournament.models.Player;
-import com.jwelzbacher.swisstournament.models.Round;
-import com.jwelzbacher.swisstournament.models.Tournament;
+import com.jwelzbacher.swisstournament.models.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class TournamentInFull {
 
     private Tournament tournament;
-    private List<Player> players;
-    private List<Admin> admins;
-    private List<Round> rounds;
+    private List<Player> players = new ArrayList<>();
+    private List<Admin> admins = new ArrayList<>();
+    private List<Round> rounds = new ArrayList<>();
+    private Map<Integer, List<Pairing>> pairings = new HashMap<>();
+
+    public void addPairingsOfRound(Integer round, List<Pairing> pairings) {
+        this.pairings.put(round, pairings);
+    }
+
+    public Map<Integer, List<Pairing>> getPairings() {
+        return pairings;
+    }
+
+    public void setPairings(Map<Integer, List<Pairing>> pairings) {
+        this.pairings = pairings;
+    }
 
     public Tournament getTournament() {
         return tournament;

@@ -21,10 +21,10 @@ public class Pairing {
     private Long roundId;
 
     @Column(name="match_result_player_a")
-    private Long matchResultPlayerA;
+    private String matchResultPlayerA;
 
     @Column(name="match_result_player_b")
-    private Long matchResultPlayerB;
+    private String matchResultPlayerB;
 
     @Column(name="game_wins_player_a")
     private Long gameWinsPlayerA;
@@ -56,7 +56,7 @@ public class Pairing {
     @Column(name="custom_b_player_b")
     private Long customBPlayerB;
 
-    public Pairing(Long id, Long playerAId, Long playerBId, Long roundId, Long matchResultPlayerA, Long matchResultPlayerB, Long gameWinsPlayerA, Long gameWinsPlayerB, Long gameDrawsPlayerA, Long gameDrawsPlayerB, Long gameLossesPlayerA, Long gameLossesPlayerB, Long customAPlayerA, Long customAPlayerB, Long customBPlayerA, Long customBPlayerB) {
+    public Pairing(Long id, Long playerAId, Long playerBId, Long roundId, String matchResultPlayerA, String matchResultPlayerB, Long gameWinsPlayerA, Long gameWinsPlayerB, Long gameDrawsPlayerA, Long gameDrawsPlayerB, Long gameLossesPlayerA, Long gameLossesPlayerB, Long customAPlayerA, Long customAPlayerB, Long customBPlayerA, Long customBPlayerB) {
         this.id = id;
         this.playerAId = playerAId;
         this.playerBId = playerBId;
@@ -110,19 +110,19 @@ public class Pairing {
         this.roundId = roundId;
     }
 
-    public Long getMatchResultPlayerA() {
+    public String getMatchResultPlayerA() {
         return matchResultPlayerA;
     }
 
-    public void setMatchResultPlayerA(Long matchResultPlayerA) {
+    public void setMatchResultPlayerA(String matchResultPlayerA) {
         this.matchResultPlayerA = matchResultPlayerA;
     }
 
-    public Long getMatchResultPlayerB() {
+    public String getMatchResultPlayerB() {
         return matchResultPlayerB;
     }
 
-    public void setMatchResultPlayerB(Long matchResultPlayerB) {
+    public void setMatchResultPlayerB(String matchResultPlayerB) {
         this.matchResultPlayerB = matchResultPlayerB;
     }
 
