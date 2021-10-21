@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface PlayerRepository extends JpaRepository<Player, String> {
-    List<Player> findByTournamentId(Long tournament_id);
+public interface PlayerRepository extends JpaRepository<Player, Long> {
+    List<Player> findByTournamentId(Long tournamentId);
 }

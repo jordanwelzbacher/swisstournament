@@ -32,10 +32,11 @@ public class TournamentService {
     }
 
     public ResponseEntity<?> getTournaments (Long userId) {
+        System.out.println(userId);
         if (userId == null || userId == 0) {
             return new ResponseEntity<Object>(tournamentAtAGlanceRepository.getTournamentsAtAGlance(), HttpStatus.OK);
         }
-        return new ResponseEntity<Object>(tournamentAtAGlanceRepository.getTournamentsAtAGlance(userId), HttpStatus.OK);
+        else return new ResponseEntity<Object>(tournamentAtAGlanceRepository.getTournamentsAtAGlance(userId), HttpStatus.OK);
     }
 
     public ResponseEntity<?> getTournamentById (Long id) {
@@ -44,9 +45,15 @@ public class TournamentService {
         tournamentInFull.setAdmins(adminRepository.findByTournamentId(id));
         tournamentInFull.setPlayers(playerRepository.findByTournamentId(id));
         tournamentInFull.setRounds(roundRepository.findByTournamentId(id));
+        System.out.println(tournamentInFull.getRounds().size());
         for (Round round : tournamentInFull.getRounds()) {
+            System.out.println("here");
             round.setPairings(pairingRepository.findByRoundId(round.getId()));
+            for (Pairing pairing : round.getPairings()) {
+                System.out.println(pairing.getPlayerAId() + " vs " + pairing.getPlayerBId());
+            }
         }
+
         return new ResponseEntity<Object>(tournamentInFull, HttpStatus.OK);
     }
 }

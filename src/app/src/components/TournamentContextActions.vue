@@ -18,7 +18,7 @@
         aria-controls="advanced"
         :aria-expanded="isShowAdvanced"
         color="info"
-      >ks
+      >
         Advanced Options&nbsp;&nbsp;&nbsp;
         <MDBIcon v-show="!isShowAdvanced" icon="chevron-up" size="lg" />
         <MDBIcon v-show="isShowAdvanced" icon="chevron-down" size="lg" />

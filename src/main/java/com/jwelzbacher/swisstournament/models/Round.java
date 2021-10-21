@@ -19,7 +19,7 @@ public class Round {
     private int roundNumber;
 
     @Column
-    private int topCut;
+    private Integer topCut;
 
     @OneToMany
     @JoinColumn(name="pairing")
@@ -60,11 +60,11 @@ public class Round {
         this.roundNumber = roundNumber;
     }
 
-    public int getTopCut() {
+    public Integer getTopCut() {
         return topCut;
     }
 
-    public void setTopCut(int topCut) {
+    public void setTopCut(Integer topCut) {
         this.topCut = topCut;
     }
 
@@ -75,4 +75,5 @@ public class Round {
     public void setPairings(List<Pairing> pairings) {
         this.pairings = pairings;
     }
+
 }

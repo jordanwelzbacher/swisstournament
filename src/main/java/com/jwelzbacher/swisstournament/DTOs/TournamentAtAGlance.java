@@ -33,7 +33,7 @@ public class TournamentAtAGlance {
     @Column
     private boolean isCompleted;
     @Column
-    private boolean inTourney;
+    private Boolean inTourney;
     @Column
     private int countPlayers;
     @Column
@@ -138,11 +138,11 @@ public class TournamentAtAGlance {
         isCompleted = completed;
     }
 
-    public boolean isInTourney() {
+    public Boolean isInTourney() {
         return inTourney;
     }
 
-    public void setInTourney(boolean inTourney) {
+    public void setInTourney(Boolean inTourney) {
         this.inTourney = inTourney;
     }
 
