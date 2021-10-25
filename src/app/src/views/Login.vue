@@ -35,6 +35,21 @@
                 >
               </div>
             </form>
+            <div class="mt-4 fw-bold" v-show="from == 'create'">
+              <p class="note note-danger">
+                <MDBRow>
+                  <MDBCol md="1" class="d-flex align-items-center">
+                    <span style="color: #f93154">
+                      <MDBIcon
+                        icon="exclamation-circle"
+                        iconStyle="fas"
+                        size="lg"
+                    /></span>
+                  </MDBCol>
+                  <MDBCol>Please login to create a tournament!</MDBCol>
+                </MDBRow>
+              </p>
+            </div>
           </MDBTabPane>
           <MDBTabPane tabId="create">
             <form
@@ -138,8 +153,8 @@ import {
   MDBRow,
   MDBCol,
   MDBIcon,
-} from 'mdb-vue-ui-kit';
-import { ref, watch } from 'vue';
+} from "mdb-vue-ui-kit";
+import { ref, watch } from "vue";
 
 export default {
   name: "Login",
@@ -158,6 +173,12 @@ export default {
     MDBIcon,
   },
 
+  data() {
+    return {
+      from: this.$route.params.from,
+    };
+  },
+
   setup() {
     const username = ref("");
     const password = ref("");
@@ -169,7 +190,10 @@ export default {
     const success = ref(false);
     const inputKey = ref(0);
 
-    watch(() => userTab.value, () => inputKey.value++);
+    watch(
+      () => userTab.value,
+      () => inputKey.value++
+    );
 
     const validateRegister = (e) => {
       e.target.classList.add("was-validated");
@@ -230,9 +254,17 @@ export default {
         password: this.password,
       })
         .then(() => {
-          this.$router.replace({
+          console.log(this.from);
+          if (this.from == "create") {
+            this.$router.replace({
+              name: "Create",
+            });
+          }
+          else {
+            this.$router.replace({
             name: "Home",
           });
+          }
         })
         .catch(() => {
           console.log("failed");

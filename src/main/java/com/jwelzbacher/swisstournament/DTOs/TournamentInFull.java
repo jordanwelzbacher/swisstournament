@@ -11,7 +11,7 @@ import java.util.Map;
 public class TournamentInFull {
 
     private Tournament tournament;
-    private List<Player> players = new ArrayList<>();
+    private List<PlayerScore> players = new ArrayList<>();
     private List<Admin> admins = new ArrayList<>();
     private List<Round> rounds = new ArrayList<>();
     private Map<Integer, List<Pairing>> pairings = new HashMap<>();
@@ -36,12 +36,14 @@ public class TournamentInFull {
         this.tournament = tournament;
     }
 
-    public List<Player> getPlayers() {
+    public List<PlayerScore> getPlayers() {
         return players;
     }
 
     public void setPlayers(List<Player> players) {
-        this.players = players;
+        for(Player player : players) {
+            this.players.add(new PlayerScore(player));
+        }
     }
 
     public List<Admin> getAdmins() {

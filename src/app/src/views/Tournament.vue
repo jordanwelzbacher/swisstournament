@@ -4,7 +4,7 @@
     <hr />
     <TournamentContextActions />
     <hr />
-    <TournamentTabs />
+    <TournamentTabs :data="tournamentTabsData" />
   </MDBContainer>
 </template>
 
@@ -34,20 +34,33 @@ export default {
         venue: null,
         playerLimit: null,
       },
+      tournamentContextActionsData: {
+        admins: null,
+      },
+      tournamentTabsData: {
+        tournament: null,
+        players: null,
+        pairings: null,
+        rounds: null,
+      }
     };
   },
   mounted() {
     http
       .get("/tournament/" + this.tournamentId)
       .then((response) => {
-        this.tournamentHeadingData.tournamentName =
-          response.data.tournament.tournamentName;
-        this.tournamentHeadingData.competitionType =
-          response.data.tournament.competitionType;
+        this.tournamentHeadingData.tournamentName = response.data.tournament.tournamentName;
+        this.tournamentHeadingData.competitionType = response.data.tournament.competitionType;
         this.tournamentHeadingData.dateTime = response.data.tournament.tournamentDate;
         this.tournamentHeadingData.venue = response.data.tournament.venue;
         this.tournamentHeadingData.playerLimit = response.data.tournament.playerLimit;
-        console.log(this.tournamentHeadingData)
+
+        this.tournamentContextActionsData.admins = response.data.admins;
+
+        this.tournamentTabsData.tournament = response.data.tournament;
+        this.tournamentTabsData.players = response.data.players;
+        this.tournamentTabsData.rounds = response.data.rounds;
+        this.tournamentTabsData.pairings = response.data.rounds;
       })
       .catch((e) => {
         console.log(e);

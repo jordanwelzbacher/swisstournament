@@ -1,10 +1,12 @@
 --create two user accounts on frontend before running this
 
+BEGIN TRANSACTION;
+
 INSERT INTO tournament 
 (owner_user_id, tournament_name, competition_type, tournament_date, venue, 
 is_player_registration_on, is_player_results_on, player_limit, win_points, loss_points, draw_points, games_per_match,
 first_tiebreaker, second_tiebreaker, third_tiebreaker, fourth_tiebreaker, fifth_tiebreaker,
-custom_a_name, custom_b_name, is_lower_better_for_custom_a, is_lower_better_for_custom_b,
+first_custom_tiebreaker_name, second_custom_tiebreaker_name, lower_better_for_first_custom, lower_better_for_second_custom,
 is_use_first_last, created_date, is_registration_open, is_completed)
 VALUES 
 (1, 'Grand Prix Powell', 'Programming 1v1', '2021-10-23 03:00:00', 'PCC', 
@@ -49,7 +51,7 @@ VALUES
 
 
 INSERT INTO pairing
-(player_a_id, player_b_id, round_id, match_result_player_a, match_result_player_b)
+(first_player_id, second_player_id, round_id, match_result_first_player, match_result_second_player)
 VALUES
 (1,2,1,'WIN','LOSS'),
 (3,4,1,'WIN','LOSS'),
@@ -76,5 +78,7 @@ VALUES
 (1,3,4,'WIN','LOSS'),
 (2,5,4,'WIN','LOSS'),
 (1,2,5,'WIN','LOSS');
+
+COMMIT;
 
 SELECT * FROM pairing;

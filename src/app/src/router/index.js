@@ -36,7 +36,10 @@ const routes = [
     beforeEnter: (to, from, next) => {
       if(! store.getters['auth/authenticated'])
         return next({
-          name: 'Login'
+          name: 'Login',
+          params: {
+            from: 'create'
+          },
         })
       next()
     }
@@ -72,7 +75,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
 })
 
 export default router

@@ -19,15 +19,19 @@ public class Player {
     private Long userId;
 
     @Column
+    private String displayName;
+
+    @Column
     private boolean isDropped;
 
     @Column
     private boolean isConfirmed;
 
-    public Player(Long id, Long tournamentId, Long userId, boolean isDropped, boolean isConfirmed) {
+    public Player(Long id, Long tournamentId, Long userId, String displayName, boolean isDropped, boolean isConfirmed) {
         this.id = id;
         this.tournamentId = tournamentId;
         this.userId = userId;
+        this.displayName = displayName;
         this.isDropped = isDropped;
         this.isConfirmed = isConfirmed;
     }
@@ -73,5 +77,13 @@ public class Player {
 
     public void setConfirmed(boolean confirmed) {
         isConfirmed = confirmed;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

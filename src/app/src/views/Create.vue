@@ -441,7 +441,6 @@ export default {
   },
   methods: {
     showModal(e) {
-      console.log(this.isUseFirstLast);
       switch (e) {
         case "userRegistration":
           this.modalHeaderText = "Enable Player Registration";
@@ -511,6 +510,8 @@ export default {
       if (this.numTiebreakers < 2) this.$refs.tiebreaker2.setOption(NONE);
     },
     submitTournament() {
+      console.log(this.customALowerIsBetter)
+      console.log(this.customBLowerIsBetter)
       let timezone = new Date().toString().match(/([A-Z]+[\\+-][0-9]+)/)[1];
       timezone = timezone.slice(0, timezone.length - 2) + ":" + timezone.slice(timezone.length - 2);
       http
@@ -526,15 +527,16 @@ export default {
           winPoints: this.winPoints,
           lossPoints: this.lossPoints,
           drawPoints: this.drawPoints,
+          gamesPerMatch: this.gamesPerMatch,
           firstTiebreaker: this.firstTiebreaker,
           secondTiebreaker: this.secondTiebreaker,
           thirdTiebreaker: this.thirdTiebreaker,
           fourthTiebreaker: this.fourthTiebreaker,
           fifthTiebreaker: this.fifthTiebreaker,
-          customAName: this.customAName,
-          customBName: this.customBName,
-          isLowerBetterForCustomA: this.customALowerIsBetter,
-          isLowerBetterForCustomB: this.customBLowerIsBetter,
+          firstCustomTiebreakerName: this.customAName,
+          secondCustomTiebreakerName: this.customBName,
+          lowerBetterForFirstCustom: this.customALowerIsBetter,
+          lowerBetterForSecondCustom: this.customBLowerIsBetter,
           isUseFirstLast: this.isUseFirstLast,
           createdDate: dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss TT Z")
         })

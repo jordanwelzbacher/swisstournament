@@ -9,14 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
-//        const NONE = 0;
-//        const OMWP = 1;
-//        const MEDIAN_BUCHHOLZ = 2;
-//        const GWP = 3;
-//        const OGWP = 4;
-//        const CUSTOM_A = 5;
-//        const CUSTOM_B = 6;
-
 import java.sql.Timestamp;
 
 @Entity(name="tournament")
@@ -80,17 +72,17 @@ public class Tournament {
     @Column
     private int fifthTiebreaker;
 
-    @Column(name="custom_a_name")
-    private String customAName;
+    @Column
+    private String firstCustomTiebreakerName;
 
-    @Column(name="custom_b_name")
-    private String customBName;
+    @Column
+    private String secondCustomTiebreakerName;
 
-    @Column(name="is_lower_better_for_custom_a")
-    private boolean isLowerBetterForCustomA;
+    @Column
+    private Boolean lowerBetterForFirstCustom;
 
-    @Column(name="is_lower_better_for_custom_b")
-    private boolean isLowerBetterForCustomB;
+    @Column
+    private Boolean lowerBetterForSecondCustom;
 
     @Column
     private boolean isUseFirstLast;
@@ -105,7 +97,10 @@ public class Tournament {
     @Column
     private boolean isCompleted;
 
-    public Tournament(Long id, Long ownerUserId, String tournamentName, String competitionType, Timestamp tournamentDate, String venue, boolean isPlayerRegistrationOn, boolean isPlayerResultsOn, double playerLimit, double winPoints, double lossPoints, double drawPoints, int gamesPerMatch, int firstTiebreaker, int secondTiebreaker, int thirdTiebreaker, int fourthTiebreaker, int fifthTiebreaker, String customAName, String customBName, boolean isLowerBetterForCustomA, boolean isLowerBetterForCustomB, boolean isUseFirstLast, Timestamp createdDate, boolean isRegistrationOpen, boolean isCompleted) {
+    public Tournament() {
+    }
+
+    public Tournament(Long id, Long ownerUserId, String tournamentName, String competitionType, Timestamp tournamentDate, String venue, boolean isPlayerRegistrationOn, boolean isPlayerResultsOn, double playerLimit, double winPoints, double lossPoints, double drawPoints, int gamesPerMatch, int firstTiebreaker, int secondTiebreaker, int thirdTiebreaker, int fourthTiebreaker, int fifthTiebreaker, String firstCustomTiebreakerName, String secondCustomTiebreakerName, boolean lowerBetterForFirstCustom, boolean lowerBetterForSecondCustom, boolean isUseFirstLast, Timestamp createdDate, boolean isRegistrationOpen, boolean isCompleted) {
         this.id = id;
         this.ownerUserId = ownerUserId;
         this.tournamentName = tournamentName;
@@ -124,17 +119,14 @@ public class Tournament {
         this.thirdTiebreaker = thirdTiebreaker;
         this.fourthTiebreaker = fourthTiebreaker;
         this.fifthTiebreaker = fifthTiebreaker;
-        this.customAName = customAName;
-        this.customBName = customBName;
-        this.isLowerBetterForCustomA = isLowerBetterForCustomA;
-        this.isLowerBetterForCustomB = isLowerBetterForCustomB;
+        this.firstCustomTiebreakerName = firstCustomTiebreakerName;
+        this.secondCustomTiebreakerName = secondCustomTiebreakerName;
+        this.lowerBetterForFirstCustom = lowerBetterForFirstCustom;
+        this.lowerBetterForSecondCustom = lowerBetterForSecondCustom;
         this.isUseFirstLast = isUseFirstLast;
         this.createdDate = createdDate;
         this.isRegistrationOpen = isRegistrationOpen;
         this.isCompleted = isCompleted;
-    }
-
-    public Tournament() {
     }
 
     public Long getId() {
@@ -233,6 +225,14 @@ public class Tournament {
         this.drawPoints = drawPoints;
     }
 
+    public int getGamesPerMatch() {
+        return gamesPerMatch;
+    }
+
+    public void setGamesPerMatch(int gamesPerMatch) {
+        this.gamesPerMatch = gamesPerMatch;
+    }
+
     public int getFirstTiebreaker() {
         return firstTiebreaker;
     }
@@ -273,36 +273,36 @@ public class Tournament {
         this.fifthTiebreaker = fifthTiebreaker;
     }
 
-    public String getCustomAName() {
-        return customAName;
+    public String getFirstCustomTiebreakerName() {
+        return firstCustomTiebreakerName;
     }
 
-    public void setCustomAName(String customAName) {
-        this.customAName = customAName;
+    public void setFirstCustomTiebreakerName(String firstCustomTiebreakerName) {
+        this.firstCustomTiebreakerName = firstCustomTiebreakerName;
     }
 
-    public String getCustomBName() {
-        return customBName;
+    public String getSecondCustomTiebreakerName() {
+        return secondCustomTiebreakerName;
     }
 
-    public void setCustomBName(String customBName) {
-        this.customBName = customBName;
+    public void setSecondCustomTiebreakerName(String secondCustomTiebreakerName) {
+        this.secondCustomTiebreakerName = secondCustomTiebreakerName;
     }
 
-    public boolean isLowerBetterForCustomA() {
-        return isLowerBetterForCustomA;
+    public Boolean isLowerBetterForFirstCustom() {
+        return lowerBetterForFirstCustom;
     }
 
-    public void setLowerBetterForCustomA(boolean lowerBetterForCustomA) {
-        isLowerBetterForCustomA = lowerBetterForCustomA;
+    public void setLowerBetterForFirstCustom(Boolean lowerBetterForFirstCustom) {
+        this.lowerBetterForFirstCustom = lowerBetterForFirstCustom;
     }
 
-    public boolean isLowerBetterForCustomB() {
-        return isLowerBetterForCustomB;
+    public Boolean isLowerBetterForSecondCustom() {
+        return lowerBetterForSecondCustom;
     }
 
-    public void setLowerBetterForCustomB(boolean lowerBetterForCustomB) {
-        isLowerBetterForCustomB = lowerBetterForCustomB;
+    public void setLowerBetterForSecondCustom(Boolean lowerBetterForSecondCustom) {
+        this.lowerBetterForSecondCustom = lowerBetterForSecondCustom;
     }
 
     public boolean isUseFirstLast() {
@@ -335,13 +335,5 @@ public class Tournament {
 
     public void setCompleted(boolean completed) {
         isCompleted = completed;
-    }
-
-    public int getGamesPerMatch() {
-        return gamesPerMatch;
-    }
-
-    public void setGamesPerMatch(int gamesPerMatch) {
-        this.gamesPerMatch = gamesPerMatch;
     }
 }

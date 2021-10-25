@@ -11,68 +11,68 @@ public class Pairing {
     @Column(unique = true, nullable = false)
     private Long id;
 
-    @Column(name="player_a_id")
-    private Long playerAId;
+    @Column
+    private Long firstPlayerId;
 
-    @Column(name="player_b_id")
-    private Long playerBId;
+    @Column
+    private Long secondPlayerId;
 
-    @Column(name="round_id")
+    @Column
     private Long roundId;
 
-    @Column(name="match_result_player_a")
-    private String matchResultPlayerA;
+    @Column
+    private String matchResultFirstPlayer;
 
-    @Column(name="match_result_player_b")
-    private String matchResultPlayerB;
+    @Column
+    private String matchResultSecondPlayer;
 
-    @Column(name="game_wins_player_a")
-    private Long gameWinsPlayerA;
+    @Column
+    private Long gameWinsFirstPlayer;
 
-    @Column(name="game_wins_player_b")
-    private Long gameWinsPlayerB;
+    @Column
+    private Long gameWinsSecondPlayer;
 
-    @Column(name="game_draws_player_a")
-    private Long gameDrawsPlayerA;
+    @Column
+    private Long gameDrawsFirstPlayer;
 
-    @Column(name="game_draws_player_b")
-    private Long gameDrawsPlayerB;
+    @Column
+    private Long gameDrawsSecondPlayer;
 
-    @Column(name="game_losses_player_a")
-    private Long gameLossesPlayerA;
+    @Column
+    private Long gameLossesFirstPlayer;
 
-    @Column(name="game_losses_player_b")
-    private Long gameLossesPlayerB;
+    @Column
+    private Long gameLossesSecondPlayer;
 
-    @Column(name="custom_a_player_a")
-    private Long customAPlayerA;
+    @Column
+    private Long firstCustomFirstPlayer;
 
-    @Column(name="custom_a_player_b")
-    private Long customAPlayerB;
+    @Column
+    private Long firstCustomSecondPlayer;
 
-    @Column(name="custom_b_player_a")
-    private Long customBPlayerA;
+    @Column
+    private Long secondCustomFirstPlayer;
 
-    @Column(name="custom_b_player_b")
-    private Long customBPlayerB;
+    @Column
+    private Long secondCustomSecondPlayer;
 
-    public Pairing(Long id, Long playerAId, Long playerBId, Long roundId, String matchResultPlayerA, String matchResultPlayerB, Long gameWinsPlayerA, Long gameWinsPlayerB, Long gameDrawsPlayerA, Long gameDrawsPlayerB, Long gameLossesPlayerA, Long gameLossesPlayerB, Long customAPlayerA, Long customAPlayerB, Long customBPlayerA, Long customBPlayerB) {
+    public Pairing(Long id, Long firstPlayerId, Long secondPlayerId, Long roundId, String matchResultFirstPlayer, String matchResultSecondPlayer, Long gameWinsFirstPlayer, Long gameWinsSecondPlayer, Long gameDrawsFirstPlayer, Long gameDrawsSecondPlayer, Long gameLossesFirstPlayer, Long gameLossesSecondPlayer, Long firstCustomFirstPlayer, Long firstCustomSecondPlayer, Long secondCustomFirstPlayer, Long secondCustomSecondPlayer) {
         this.id = id;
-        this.playerAId = playerAId;
-        this.playerBId = playerBId;
+        this.firstPlayerId = firstPlayerId;
+        this.secondPlayerId = secondPlayerId;
         this.roundId = roundId;
-        this.matchResultPlayerA = matchResultPlayerA;
-        this.matchResultPlayerB = matchResultPlayerB;
-        this.gameWinsPlayerA = gameWinsPlayerA;
-        this.gameWinsPlayerB = gameWinsPlayerB;
-        this.gameDrawsPlayerA = gameDrawsPlayerA;
-        this.gameDrawsPlayerB = gameDrawsPlayerB;
-        this.gameLossesPlayerA = gameLossesPlayerA;
-        this.gameLossesPlayerB = gameLossesPlayerB;
-        this.customAPlayerA = customAPlayerA;
-        this.customAPlayerB = customAPlayerB;
-        this.customBPlayerA = customBPlayerA;
-        this.customBPlayerB = customBPlayerB;
+        this.matchResultFirstPlayer = matchResultFirstPlayer;
+        this.matchResultSecondPlayer = matchResultSecondPlayer;
+        this.gameWinsFirstPlayer = gameWinsFirstPlayer;
+        this.gameWinsSecondPlayer = gameWinsSecondPlayer;
+        this.gameDrawsFirstPlayer = gameDrawsFirstPlayer;
+        this.gameDrawsSecondPlayer = gameDrawsSecondPlayer;
+        this.gameLossesFirstPlayer = gameLossesFirstPlayer;
+        this.gameLossesSecondPlayer = gameLossesSecondPlayer;
+        this.firstCustomFirstPlayer = firstCustomFirstPlayer;
+        this.firstCustomSecondPlayer = firstCustomSecondPlayer;
+        this.secondCustomFirstPlayer = secondCustomFirstPlayer;
+        this.secondCustomSecondPlayer = secondCustomSecondPlayer;
     }
 
     public Pairing() {
@@ -86,20 +86,20 @@ public class Pairing {
         this.id = id;
     }
 
-    public Long getPlayerAId() {
-        return playerAId;
+    public Long getFirstPlayerId() {
+        return firstPlayerId;
     }
 
-    public void setPlayerAId(Long playerAId) {
-        this.playerAId = playerAId;
+    public void setFirstPlayerId(Long firstPlayerId) {
+        this.firstPlayerId = firstPlayerId;
     }
 
-    public Long getPlayerBId() {
-        return playerBId;
+    public Long getSecondPlayerId() {
+        return secondPlayerId;
     }
 
-    public void setPlayerBId(Long playerBId) {
-        this.playerBId = playerBId;
+    public void setSecondPlayerId(Long secondPlayerId) {
+        this.secondPlayerId = secondPlayerId;
     }
 
     public Long getRoundId() {
@@ -110,99 +110,99 @@ public class Pairing {
         this.roundId = roundId;
     }
 
-    public String getMatchResultPlayerA() {
-        return matchResultPlayerA;
+    public String getMatchResultFirstPlayer() {
+        return matchResultFirstPlayer;
     }
 
-    public void setMatchResultPlayerA(String matchResultPlayerA) {
-        this.matchResultPlayerA = matchResultPlayerA;
+    public void setMatchResultFirstPlayer(String matchResultFirstPlayer) {
+        this.matchResultFirstPlayer = matchResultFirstPlayer;
     }
 
-    public String getMatchResultPlayerB() {
-        return matchResultPlayerB;
+    public String getMatchResultSecondPlayer() {
+        return matchResultSecondPlayer;
     }
 
-    public void setMatchResultPlayerB(String matchResultPlayerB) {
-        this.matchResultPlayerB = matchResultPlayerB;
+    public void setMatchResultSecondPlayer(String matchResultSecondPlayer) {
+        this.matchResultSecondPlayer = matchResultSecondPlayer;
     }
 
-    public Long getGameWinsPlayerA() {
-        return gameWinsPlayerA;
+    public Long getGameWinsFirstPlayer() {
+        return gameWinsFirstPlayer;
     }
 
-    public void setGameWinsPlayerA(Long gameWinsPlayerA) {
-        this.gameWinsPlayerA = gameWinsPlayerA;
+    public void setGameWinsFirstPlayer(Long gameWinsFirstPlayer) {
+        this.gameWinsFirstPlayer = gameWinsFirstPlayer;
     }
 
-    public Long getGameWinsPlayerB() {
-        return gameWinsPlayerB;
+    public Long getGameWinsSecondPlayer() {
+        return gameWinsSecondPlayer;
     }
 
-    public void setGameWinsPlayerB(Long gameWinsPlayerB) {
-        this.gameWinsPlayerB = gameWinsPlayerB;
+    public void setGameWinsSecondPlayer(Long gameWinsSecondPlayer) {
+        this.gameWinsSecondPlayer = gameWinsSecondPlayer;
     }
 
-    public Long getGameDrawsPlayerA() {
-        return gameDrawsPlayerA;
+    public Long getGameDrawsFirstPlayer() {
+        return gameDrawsFirstPlayer;
     }
 
-    public void setGameDrawsPlayerA(Long gameDrawsPlayerA) {
-        this.gameDrawsPlayerA = gameDrawsPlayerA;
+    public void setGameDrawsFirstPlayer(Long gameDrawsFirstPlayer) {
+        this.gameDrawsFirstPlayer = gameDrawsFirstPlayer;
     }
 
-    public Long getGameDrawsPlayerB() {
-        return gameDrawsPlayerB;
+    public Long getGameDrawsSecondPlayer() {
+        return gameDrawsSecondPlayer;
     }
 
-    public void setGameDrawsPlayerB(Long gameDrawsPlayerB) {
-        this.gameDrawsPlayerB = gameDrawsPlayerB;
+    public void setGameDrawsSecondPlayer(Long gameDrawsSecondPlayer) {
+        this.gameDrawsSecondPlayer = gameDrawsSecondPlayer;
     }
 
-    public Long getGameLossesPlayerA() {
-        return gameLossesPlayerA;
+    public Long getGameLossesFirstPlayer() {
+        return gameLossesFirstPlayer;
     }
 
-    public void setGameLossesPlayerA(Long gameLossesPlayerA) {
-        this.gameLossesPlayerA = gameLossesPlayerA;
+    public void setGameLossesFirstPlayer(Long gameLossesFirstPlayer) {
+        this.gameLossesFirstPlayer = gameLossesFirstPlayer;
     }
 
-    public Long getGameLossesPlayerB() {
-        return gameLossesPlayerB;
+    public Long getGameLossesSecondPlayer() {
+        return gameLossesSecondPlayer;
     }
 
-    public void setGameLossesPlayerB(Long gameLossesPlayerB) {
-        this.gameLossesPlayerB = gameLossesPlayerB;
+    public void setGameLossesSecondPlayer(Long gameLossesSecondPlayer) {
+        this.gameLossesSecondPlayer = gameLossesSecondPlayer;
     }
 
-    public Long getCustomAPlayerA() {
-        return customAPlayerA;
+    public Long getFirstCustomFirstPlayer() {
+        return firstCustomFirstPlayer;
     }
 
-    public void setCustomAPlayerA(Long customAPlayerA) {
-        this.customAPlayerA = customAPlayerA;
+    public void setFirstCustomFirstPlayer(Long firstCustomFirstPlayer) {
+        this.firstCustomFirstPlayer = firstCustomFirstPlayer;
     }
 
-    public Long getCustomAPlayerB() {
-        return customAPlayerB;
+    public Long getFirstCustomSecondPlayer() {
+        return firstCustomSecondPlayer;
     }
 
-    public void setCustomAPlayerB(Long customAPlayerB) {
-        this.customAPlayerB = customAPlayerB;
+    public void setFirstCustomSecondPlayer(Long firstCustomSecondPlayer) {
+        this.firstCustomSecondPlayer = firstCustomSecondPlayer;
     }
 
-    public Long getCustomBPlayerA() {
-        return customBPlayerA;
+    public Long getSecondCustomFirstPlayer() {
+        return secondCustomFirstPlayer;
     }
 
-    public void setCustomBPlayerA(Long customBPlayerA) {
-        this.customBPlayerA = customBPlayerA;
+    public void setSecondCustomFirstPlayer(Long secondCustomFirstPlayer) {
+        this.secondCustomFirstPlayer = secondCustomFirstPlayer;
     }
 
-    public Long getCustomBPlayerB() {
-        return customBPlayerB;
+    public Long getSecondCustomSecondPlayer() {
+        return secondCustomSecondPlayer;
     }
 
-    public void setCustomBPlayerB(Long customBPlayerB) {
-        this.customBPlayerB = customBPlayerB;
+    public void setSecondCustomSecondPlayer(Long secondCustomSecondPlayer) {
+        this.secondCustomSecondPlayer = secondCustomSecondPlayer;
     }
 }
