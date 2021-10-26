@@ -21,8 +21,7 @@ export default {
   },
   setup(props) {
     console.log(props);
-    const copy = JSON.parse(JSON.stringify(props));
-    console.log(copy);
+
     // let myObj = ref({
     //   players: props.players,
     // });

@@ -20,8 +20,8 @@ export default {
       status,
     };
   },
-  mounted() {
-      console.log(this.data)
+  created() {
+    console.log(this.data)
     this.status = this.data.completed
       ? "Completed"
       : this.data.countRounds > 0

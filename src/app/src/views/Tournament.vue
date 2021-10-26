@@ -47,6 +47,8 @@ export default {
         inTourney: null,
         playerRegistrationOn: null,
         registrationOpen: null,
+        countRounds: null,
+        completed: null,
       },
       tournamentTabsData: {
         tournament: null,
@@ -89,7 +91,7 @@ export default {
         //Box up data for the tournamentContextActions component
         this.tournamentContextActionsData.isOwner = false;
         this.tournamentContextActionsData.isAdmin = false;
-        this.tournamentContextActionsData.isInTournament = false;
+        this.tournamentContextActionsData.inTourney = false;
         //Is user logged in?
         if (store.getters["auth/user"]) {
           //check isOwner
@@ -109,21 +111,23 @@ export default {
           //check isInTournament
           for (let player in response.data.players) {
             if (player.userId == store.getters["auth/user"].id) {
-              this.tournamentContextActionsData.isInTournament = true;
+              this.tournamentContextActionsData.inTourney = true;
             }
           }
           console.log(
-            "is the user a player in the tournament? " + this.tournamentContextActionsData
+            "is the user a player in the tournament? " + this.tournamentContextActionsData.inTourney
           );
         }
         this.tournamentContextActionsData.playerRegistrationOn = response.data.tournament.playerRegistrationOn;
         this.tournamentContextActionsData.registrationOpen = response.data.tournament.registrationOpen;
+        this.tournamentContextActionsData.countRounds = response.data.rounds.length;
+        this.tournamentContextActionsData.completed = response.data.tournament.completed;
         //End tournamentContextActions data
 
         this.tournamentTabsData.tournament = response.data.tournament;
         this.tournamentTabsData.players = response.data.players;
         this.tournamentTabsData.rounds = response.data.rounds;
-        this.tournamentTabsData.pairings = response.data.rounds;
+        this.tournamentTabsData.pairings = response.data.pairings;
       })
       .catch((e) => {
         console.log(e);

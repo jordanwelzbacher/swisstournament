@@ -3,19 +3,19 @@
     {{ data }}
     <MDBContainer>
       <div class="text-center button-container">
-        <MDBBtn color="success">
+        <MDBBtn color="success" v-if="!data.inTourney && data.playerRegistrationOn && data.registrationOpen && !data.completed">
           Join Event<MDBIcon icon="sign-in-alt" size="lg" />
         </MDBBtn>
-        <MDBBtn color="danger">
+        <MDBBtn v-if="data.inTourney && countRounds < 1 && !data.completed" color="danger">
           Leave Event<MDBIcon icon="sign-out-alt" size="lg" />
         </MDBBtn>
-        <MDBBtn color="primary">
+        <MDBBtn v-if="(data.isOwner || data.isAdmin) && !data.completed" color="primary">
           Add Player<MDBIcon icon="user-plus" size="lg" />
         </MDBBtn>
-        <MDBBtn color="secondary">
+        <MDBBtn v-if="data.isOwner && !data.completed" color="secondary">
           Edit Event<MDBIcon icon="edit" size="lg" />
         </MDBBtn>
-        <MDBBtn @click="isShowAdvanced = !isShowAdvanced" color="info">
+        <MDBBtn v-if="data.isOwner || data.isAdmin" @click="isShowAdvanced = !isShowAdvanced" color="info">
           Advanced Options
           <MDBIcon v-show="!isShowAdvanced" icon="chevron-up" size="lg" />
           <MDBIcon v-show="isShowAdvanced" icon="chevron-down" size="lg" />
@@ -24,16 +24,19 @@
       <div>
         <MDBCollapse id="advanced" v-model="isShowAdvanced"
           ><div class="text-center button-container">
-            <MDBBtn outline="dark" @click="showNextRoundModal()">
+            <MDBBtn v-if="(data.isOwner || data.isAdmin) && !data.completed" outline="dark" @click="showNextRoundModal()">
               Create Round<MDBIcon icon="plus-square" size="lg" />
             </MDBBtn>
-            <MDBBtn outline="primary">
+            <MDBBtn v-if="(data.isOwner || data.isAdmin) && !data.completed" outline="primary">
               Add Admin<MDBIcon icon="user-shield" size="lg" />
             </MDBBtn>
-            <MDBBtn outline="warning">
+            <MDBBtn v-if="(data.isOwner || data.isAdmin) && data.countRounds < 1 && !data.completed" outline="warning">
               Kick All Pending<MDBIcon icon="user-times" size="lg" />
             </MDBBtn>
-            <MDBBtn outline="danger">
+            <MDBBtn v-if="data.isOwner && data.countRounds > 0 && !data.completed" outline="success">
+              Finish Tournament<MDBIcon icon="trophy" size="lg" />
+            </MDBBtn>
+            <MDBBtn v-if="data.isOwner" outline="danger">
               Delete Tournament<MDBIcon icon="trash" size="lg" />
             </MDBBtn>
           </div>
