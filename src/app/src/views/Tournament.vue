@@ -35,13 +35,18 @@ export default {
         venue: null,
         playerLimit: null,
         countPlayers: null,
+        completed: null,
+        inTourney: null,
+        playerRegistrationOn: null,
+        registrationOpen: null,
+        countRounds: null,
       },
       tournamentContextActionsData: {
         isOwner: null,
         isAdmin: null,
-        isInTournament: null,
-        isPlayerRegistrationOn: null,
-        isRegistrationOpen: null,
+        inTourney: null,
+        playerRegistrationOn: null,
+        registrationOpen: null,
       },
       tournamentTabsData: {
         tournament: null,
@@ -52,7 +57,6 @@ export default {
     };
   },
   mounted() {
-    console.log("do we have id here?" + store.getters["auth/user"].id);
     http
       .get("/tournament/" + this.tournamentId)
       .then((response) => {
@@ -66,7 +70,20 @@ export default {
         this.tournamentHeadingData.venue = response.data.tournament.venue;
         this.tournamentHeadingData.playerLimit =
           response.data.tournament.playerLimit;
-        this.tournamentHeadingData.countPlayers = response.data.players.length
+        this.tournamentHeadingData.countPlayers = response.data.players.length;
+        this.tournamentHeadingData.completed = response.data.tournament.completed;
+        this.tournamentHeadingData.inTourney = false;
+        if (store.getters["auth/user"]) {
+           for (let player in response.data.players) {
+            if (player.userId == store.getters["auth/user"].id) {
+              this.tournamentHeadingData.inTourney = true;
+            }
+          }
+        } 
+        this.tournamentHeadingData.playerRegistrationOn = response.data.tournament.playerRegistrationOn;
+        this.tournamentHeadingData.registrationOpen = response.data.tournament.registrationOpen;
+        this.tournamentHeadingData.countRounds = response.data.rounds.length;
+
         //End tournamentHeading data
 
         //Box up data for the tournamentContextActions component
@@ -99,8 +116,8 @@ export default {
             "is the user a player in the tournament? " + this.tournamentContextActionsData
           );
         }
-        this.tournamentContextActionsData.isPlayerRegistrationOn = response.data.tournament.playerRegistrationOn;
-        this.tournamentContextActionsData.isRegistrationOpen = response.data.tournament.registrationOpen;
+        this.tournamentContextActionsData.playerRegistrationOn = response.data.tournament.playerRegistrationOn;
+        this.tournamentContextActionsData.registrationOpen = response.data.tournament.registrationOpen;
         //End tournamentContextActions data
 
         this.tournamentTabsData.tournament = response.data.tournament;

@@ -1,5 +1,6 @@
 <template>
   <main>
+    {{data}}
     <MDBContainer class="mt-4">
       <div class="text-center mt-8" v-show="data.tournamentName == null">
         <MDBSpinner />
@@ -8,7 +9,7 @@
         <div style="display: flex">
           <h1 class="mt-4 text-uppercase">{{ data.tournamentName }}</h1>
           <div class="fs-6" style="margin-left: auto; margin-top: auto">
-            <h3>Registration Open</h3>
+            <h3><TournamentStatus :data="data" /></h3>
           </div>
         </div>
         <div class="mt-2 iconContainer">
@@ -31,9 +32,11 @@
 
 <script>
 import { MDBContainer, MDBIcon, MDBSpinner } from "mdb-vue-ui-kit";
+import TournamentStatus from '@/components/TournamentStatus'
 
 export default {
   components: {
+    TournamentStatus,
     MDBContainer,
     MDBIcon,
     MDBSpinner,

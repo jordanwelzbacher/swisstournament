@@ -14,7 +14,7 @@
                 {{ tournament.tournamentName }}
               </router-link>
               <div class="fs-6" style="margin-left: auto; margin-top: auto">
-                {{ getStatus(tournament) }}
+                <TournamentStatus :data="tournament" />
               </div>
             </div>
             <div class="mt-1">
@@ -45,10 +45,12 @@ import { onMounted } from "vue";
 import { ref } from "vue";
 import { mapGetters } from "vuex";
 import store from "@/store";
+import TournamentStatus from '@/components/TournamentStatus'
 
 export default {
   name: "tournaments",
   components: {
+    TournamentStatus,
     MDBContainer,
     MDBListGroup,
     MDBListGroupItem,
@@ -58,26 +60,6 @@ export default {
     ...mapGetters({
       user: "auth/user",
     }),
-  },
-  methods: {
-    getStatus(tournament) {
-      return tournament.is_completed
-        ? "Completed"
-        : tournament.countRounds > 0
-        ? "In-Progress"
-        : tournament.countRounds == 0 && tournament.inTourney
-        ? "Registered"
-        : tournament.isPlayerRegistrationOn &&
-          tournament.isRegistrationOpen &&
-          tournament.countRounds == 0 &&
-          !tournament.inTourney
-        ? "Registration is Open"
-        : tournament.isPlayerRegistrationOn ||
-          !tournament.isRegistrationOpen ||
-          (tournament.countRounds == 0 && !tournament.inTourney)
-        ? "Registration is Closed"
-        : "You should never see this"; //TODO remove for prod
-    },
   },
   setup() {
     //test
