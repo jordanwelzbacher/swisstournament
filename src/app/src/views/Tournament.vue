@@ -2,7 +2,7 @@
   <MDBContainer>
     <TournamentHeading :data="tournamentHeadingData" />
     <hr />
-    <TournamentContextActions />
+    <TournamentContextActions :data="tournamentContextActionsData" />
     <hr />
     <TournamentTabs :data="tournamentTabsData" />
   </MDBContainer>
@@ -35,7 +35,9 @@ export default {
         playerLimit: null,
       },
       tournamentContextActionsData: {
+        ownerId: null,
         admins: null,
+        players: null,
       },
       tournamentTabsData: {
         tournament: null,
@@ -55,7 +57,9 @@ export default {
         this.tournamentHeadingData.venue = response.data.tournament.venue;
         this.tournamentHeadingData.playerLimit = response.data.tournament.playerLimit;
 
+        this.tournamentContextActionsData.ownerId = response.data.tournament.ownerUserId;
         this.tournamentContextActionsData.admins = response.data.admins;
+        this.tournamentContextActionsData.players = response.data.players;
 
         this.tournamentTabsData.tournament = response.data.tournament;
         this.tournamentTabsData.players = response.data.players;

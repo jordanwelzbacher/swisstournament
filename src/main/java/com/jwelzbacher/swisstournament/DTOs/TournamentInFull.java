@@ -40,10 +40,8 @@ public class TournamentInFull {
         return players;
     }
 
-    public void setPlayers(List<Player> players) {
-        for(Player player : players) {
-            this.players.add(new PlayerScore(player));
-        }
+    public void setPlayers(List<PlayerScore> players) {
+        this.players = players;
     }
 
     public List<Admin> getAdmins() {

@@ -1,7 +1,8 @@
 <template>
   <main>
+    {{ data }}
     <MDBContainer>
-      <div class="mt-4 text-center button-container">
+      <div class="text-center button-container">
         <MDBBtn color="success">
           Join Event<MDBIcon icon="sign-in-alt" size="lg" />
         </MDBBtn>
@@ -20,35 +21,20 @@
           <MDBIcon v-show="isShowAdvanced" icon="chevron-down" size="lg" />
         </MDBBtn>
       </div>
-      <div class="my-4">
-        <MDBCollapse
-          id="advanced"
-          v-model="isShowAdvanced"
+      <div>
+        <MDBCollapse id="advanced" v-model="isShowAdvanced"
           ><div class="text-center button-container">
             <MDBBtn outline="dark" @click="showNextRoundModal()">
-              Create Round<MDBIcon
-                icon="plus-square"
-                size="lg"
-
-              />
+              Create Round<MDBIcon icon="plus-square" size="lg" />
             </MDBBtn>
             <MDBBtn outline="primary">
-              Add Admin<MDBIcon
-                icon="user-shield"
-                size="lg"
-              />
+              Add Admin<MDBIcon icon="user-shield" size="lg" />
             </MDBBtn>
             <MDBBtn outline="warning">
-              Kick All Pending<MDBIcon
-                icon="user-times"
-                size="lg"
-              />
+              Kick All Pending<MDBIcon icon="user-times" size="lg" />
             </MDBBtn>
             <MDBBtn outline="danger">
-              Delete Tournament<MDBIcon
-                icon="trash"
-                size="lg"
-              />
+              Delete Tournament<MDBIcon icon="trash" size="lg" />
             </MDBBtn>
           </div>
           <div class="outerBox" style="display: flex; justify-content: center">
@@ -66,37 +52,37 @@
       v-model="roundModal"
     >
       <MDBModalHeader>
-        <MDBModalTitle id="roundModalLabel">
-          Create Next Round
-        </MDBModalTitle>
+        <MDBModalTitle id="roundModalLabel"> Create Next Round </MDBModalTitle>
       </MDBModalHeader>
       <MDBModalBody>
         <div class="next-round-container">
-        <div>
-          <MDBRadio
-            label="Swiss Round"
-            name="nextRoundType"
-            v-model="nextRoundType"
-            value="swiss"
-          />
-          <MDBRadio
-            label="Top Cut Round"
-            name="nextRoundType"
-            v-model="nextRoundType"
-            value="topCut"
-          />
-        </div>
-        <div>
-          <MDBSelect
-            v-model:options="countTopPlayers"
-            v-model:selected="isCutTopPlayers"
-            :disabled="nextRoundType=='swiss'"
-            label="Cut to Top:"
-          />
-        </div>
-        <div style="text-align: center">
-          <MDBBtn color="success">Create<MDBIcon icon="th-list" size="lg" /></MDBBtn>
-        </div>
+          <div>
+            <MDBRadio
+              label="Swiss Round"
+              name="nextRoundType"
+              v-model="nextRoundType"
+              value="swiss"
+            />
+            <MDBRadio
+              label="Top Cut Round"
+              name="nextRoundType"
+              v-model="nextRoundType"
+              value="topCut"
+            />
+          </div>
+          <div>
+            <MDBSelect
+              v-model:options="countTopPlayers"
+              v-model:selected="isCutTopPlayers"
+              :disabled="nextRoundType == 'swiss'"
+              label="Cut to Top:"
+            />
+          </div>
+          <div style="text-align: center">
+            <MDBBtn color="success"
+              >Create<MDBIcon icon="th-list" size="lg"
+            /></MDBBtn>
+          </div>
         </div>
       </MDBModalBody>
       <MDBModalFooter>
@@ -124,6 +110,7 @@ import { ref } from "vue";
 
 export default {
   name: "TournamentContextActions",
+  props: ["data"],
   components: {
     MDBContainer,
     MDBBtn,
@@ -155,7 +142,7 @@ export default {
       { text: "128", value: 128 },
       { text: "256", value: 256 },
     ]);
-    const nextRoundType = ref('swiss');
+    const nextRoundType = ref("swiss");
     const roundModal = ref(false);
     return {
       isShowAdvanced,
@@ -169,7 +156,9 @@ export default {
 
 <style scoped>
 .button-container > * {
+  margin-top: 1em;
   margin-right: 2em;
+  margin-bottom: 1em;
 }
 .next-round-container > * {
   margin-bottom: 1.5em;

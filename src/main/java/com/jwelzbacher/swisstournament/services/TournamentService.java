@@ -18,13 +18,13 @@ public class TournamentService {
     @Autowired
     TournamentAtAGlanceRepository tournamentAtAGlanceRepository;
     @Autowired
-    PlayerRepository playerRepository;
-    @Autowired
     AdminRepository adminRepository;
     @Autowired
     RoundRepository roundRepository;
     @Autowired
     PairingRepository pairingRepository;
+    @Autowired
+    PlayerService playerService;
 
     public ResponseEntity<?> createTournament (Tournament config) {
         System.out.println(config.isLowerBetterForFirstCustom());
@@ -42,11 +42,10 @@ public class TournamentService {
 
     public ResponseEntity<?> getTournamentById (Long id) {
         TournamentInFull tournamentInFull = new TournamentInFull();
-
         tournamentInFull.setTournament(tournamentRepository.findById(id).get());
         tournamentInFull.setAdmins(adminRepository.findByTournamentId(id));
-        tournamentInFull.setPlayers(playerRepository.findByTournamentId(id));
         tournamentInFull.setRounds(roundRepository.findByTournamentIdOrderByRoundNumber(id));
+        tournamentInFull.setPlayers(playerService.getPlayersByTournamentId(id));
         int i = 0;
         for (Round round : tournamentInFull.getRounds()) {
             tournamentInFull.addPairingsOfRound(++i, pairingRepository.findByRoundId(round.getId()));

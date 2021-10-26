@@ -13,7 +13,7 @@
       <!-- Tabs navs -->
       <!-- Tabs content -->
       <MDBTabContent>
-        <MDBTabPane tabId="players"><TournamentPlayers :data="data.players" /></MDBTabPane>
+        <MDBTabPane tabId="players"><TournamentPlayers :data='{"players": data.players, "tournament": data.tournament}' /></MDBTabPane>
         <MDBTabPane tabId="standings">Content #5</MDBTabPane>
         <MDBTabPane tabId="rounds">Content #2</MDBTabPane>
         <MDBTabPane tabId="results">Content #3</MDBTabPane>
