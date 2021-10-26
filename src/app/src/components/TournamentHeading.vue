@@ -16,7 +16,7 @@
             data.dateTime
           }}&emsp; <MDBIcon size="lg" icon="trophy" />&nbsp;{{
             data.competitionType
-          }}&emsp; <MDBIcon size="lg" icon="users" />&nbsp;20<span
+          }}&emsp; <MDBIcon size="lg" icon="users" />&nbsp;{{data.countPlayers}}<span
             v-show="data.playerLimit > 0"
           >
             / {{ data.playerLimit }}</span
