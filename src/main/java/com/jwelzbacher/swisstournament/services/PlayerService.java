@@ -2,6 +2,7 @@ package com.jwelzbacher.swisstournament.services;
 
 import com.jwelzbacher.swisstournament.Constants;
 import com.jwelzbacher.swisstournament.DTOs.PlayerScore;
+import com.jwelzbacher.swisstournament.DTOs.comparators.PlayerScoreComparator;
 import com.jwelzbacher.swisstournament.models.Pairing;
 import com.jwelzbacher.swisstournament.models.Player;
 import com.jwelzbacher.swisstournament.models.Tournament;
@@ -9,14 +10,14 @@ import com.jwelzbacher.swisstournament.repositories.PairingRepository;
 import com.jwelzbacher.swisstournament.repositories.PlayerRepository;
 import com.jwelzbacher.swisstournament.repositories.TournamentRepository;
 import com.jwelzbacher.swisstournament.repositories.UserRepository;
+import org.decimal4j.util.DoubleRounder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Transactional
@@ -34,9 +35,9 @@ public class PlayerService {
 
         List<Player> players = playerRepository.findByTournamentId(id);
 
-        List<PlayerScore> playerScores = new ArrayList<>();
-
         Tournament tournament = tournamentRepository.findById(id).get();
+
+        List<PlayerScore> playerScores = new ArrayList<>();
 
         for (Player player : players) {
             PlayerScore playerScore = new PlayerScore();
@@ -65,15 +66,20 @@ public class PlayerService {
             playerScore.setDraws(draws);
             playerScore.setMatchPoints(wins * tournament.getWinPoints() + draws * tournament.getDrawPoints() + losses * tournament.getLossPoints());
 
-            Map<Integer, Double> tiebreakers = new HashMap<>();
-            tiebreakers.put(1, getTiebreakerScore(tournament.getFirstTiebreaker(), player));
-            tiebreakers.put(2, getTiebreakerScore(tournament.getSecondTiebreaker(), player));
-            tiebreakers.put(3, getTiebreakerScore(tournament.getThirdTiebreaker(), player));
-            tiebreakers.put(4, getTiebreakerScore(tournament.getFourthTiebreaker(), player));
-            tiebreakers.put(5, getTiebreakerScore(tournament.getFifthTiebreaker(), player));
-            playerScore.setTiebreakers(tiebreakers);
+            playerScore.setFirstTiebreaker(getTiebreakerScore(tournament.getFirstTiebreaker(), player));
+            playerScore.setSecondTiebreaker(getTiebreakerScore(tournament.getSecondTiebreaker(), player));
+            playerScore.setThirdTiebreaker(getTiebreakerScore(tournament.getThirdTiebreaker(), player));
+            playerScore.setFourthTiebreaker(getTiebreakerScore(tournament.getFourthTiebreaker(), player));
+            playerScore.setFifthTiebreaker(getTiebreakerScore(tournament.getFifthTiebreaker(), player));
 
             playerScores.add(playerScore);
+        }
+
+        playerScores.sort(new PlayerScoreComparator());
+
+        int rank = 0;
+        for(PlayerScore playerScore : playerScores) {
+            playerScore.setRank(++rank);
         }
         return playerScores;
     }
@@ -113,7 +119,10 @@ public class PlayerService {
             }
             else sum += getMatchWinPercentage(playerRepository.getById(pairing.getFirstPlayerId()));
         }
-        return sum / pairings.size();
+//        System.out.println("total match win percentage: " + sum);
+//        System.out.println("number of rounds: " + pairings.size());
+//        System.out.println("total OMW%: " + sum / pairings.size());
+        return DoubleRounder.round(sum / pairings.size(), 6);
     }
 
     private Double getMatchWinPercentage(Player player) {

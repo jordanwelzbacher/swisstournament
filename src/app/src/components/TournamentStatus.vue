@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { computed } from "vue";
 //Tournament Status Component
 //Requires tournamentAtAGlance as prop, or these fields:
 //  completed
@@ -15,29 +16,29 @@
 export default {
   name: "TournamentStatus",
   props: ["data"],
-  data() {
+  setup(props) {
+    const status = computed(() => {
+      console.log(props.data)
+      return props.data.completed
+        ? "Completed"
+        : props.data.countRounds > 0
+        ? "In-Progress"
+        : props.data.countRounds == 0 && props.data.inTourney
+        ? "Registered"
+        : props.data.playerRegistrationOn &&
+          props.data.registrationOpen &&
+          props.data.countRounds == 0 &&
+          !props.data.inTourney
+        ? "Registration is Open"
+        : props.data.playerRegistrationOn ||
+          !props.data.registrationOpen ||
+          (props.data.countRounds == 0 && !props.data.inTourney)
+        ? "Registration is Closed"
+        : "You should never see this"; //TODO remove for prod
+    })
     return {
-      status,
-    };
-  },
-  created() {
-    console.log(this.data)
-    this.status = this.data.completed
-      ? "Completed"
-      : this.data.countRounds > 0
-      ? "In-Progress"
-      : this.data.countRounds == 0 && this.data.inTourney
-      ? "Registered"
-      : this.data.playerRegistrationOn &&
-        this.data.registrationOpen &&
-        this.data.countRounds == 0 &&
-        !this.data.inTourney
-      ? "Registration is Open"
-      : this.data.playerRegistrationOn ||
-        !this.data.registrationOpen ||
-        (this.data.countRounds == 0 && !this.data.inTourney)
-      ? "Registration is Closed"
-      : "You should never see this"; //TODO remove for prod
+      status
+    }
   },
 };
 </script>

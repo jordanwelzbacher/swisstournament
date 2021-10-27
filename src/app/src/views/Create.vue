@@ -521,8 +521,8 @@ export default {
           competitionType: this.competitionType,
           tournamentDate: this.date + " " + this.time + " " + timezone,
           venue: this.venue,
-          isPlayerRegistrationOn: this.playerRegistrationOn,
-          isPlayerResultsOn: this.playerResultsOn,
+          playerRegistrationOn: this.playerRegistrationOn,
+          playerResultsOn: this.playerResultsOn,
           playerLimit: this.playerLimit,
           winPoints: this.winPoints,
           lossPoints: this.lossPoints,
@@ -537,7 +537,7 @@ export default {
           secondCustomTiebreakerName: this.customBName,
           lowerBetterForFirstCustom: this.customALowerIsBetter,
           lowerBetterForSecondCustom: this.customBLowerIsBetter,
-          isUseFirstLast: this.isUseFirstLast,
+          useFirstLast: this.isUseFirstLast,
           createdDate: dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss TT Z")
         })
         .then((response) => {

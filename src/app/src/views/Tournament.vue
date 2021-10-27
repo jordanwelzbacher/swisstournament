@@ -101,7 +101,8 @@ export default {
           console.log("is the user the tournament owner? " + this.tournamentContextActionsData.isOwner);
 
           //check isAdmin
-          for (let admin in response.data.admins) {
+          for (let admin of response.data.admins) {
+            console.log("this admin is " + admin)
             if (admin.userId == store.getters["auth/user"].id) {
               this.tournamentContextActionsData.isAdmin = true;
             }
@@ -109,7 +110,7 @@ export default {
           console.log("is the user a tournament admin? " + this.tournamentContextActionsData.isAdmin);
 
           //check isInTournament
-          for (let player in response.data.players) {
+          for (let player of response.data.players) {
             if (player.userId == store.getters["auth/user"].id) {
               this.tournamentContextActionsData.inTourney = true;
             }

@@ -1,4 +1,4 @@
-const constants = {
+export default Object.freeze({
     CHESS: 1,
     FFTCG: 2,
     MTG: 3,
@@ -9,4 +9,4 @@ const constants = {
     OGWP: 4,
     FIRST_CUSTOM: 5,
     SECOND_CUSTOM: 6,
-}
+})

@@ -22,7 +22,7 @@
               &nbsp;{{tournament.tournamentDate}}&emsp;
               <MDBIcon size="lg" icon="trophy" />
               &nbsp;{{tournament.competitionType}}&emsp;
-              <MDBIcon size="lg" icon="users" />&nbsp;20&emsp;
+              <MDBIcon size="lg" icon="users" />&nbsp;{{tournament.countPlayers}}&emsp;
               <MDBIcon size="lg" icon="map-marker-alt" />
               &nbsp;{{tournament.venue}}&emsp;
             </div>
