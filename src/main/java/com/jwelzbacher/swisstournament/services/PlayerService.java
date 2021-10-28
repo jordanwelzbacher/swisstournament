@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -75,11 +74,23 @@ public class PlayerService {
             playerScores.add(playerScore);
         }
 
-        playerScores.sort(new PlayerScoreComparator());
+        if (playerScores.size() > 1) {
+            playerScores.sort(new PlayerScoreComparator());
 
-        int rank = 0;
-        for(PlayerScore playerScore : playerScores) {
-            playerScore.setRank(++rank);
+            int rank = 1;
+            int countSame = 0;
+            playerScores.get(0).setRank(1);
+
+            for (int i = 0; i < playerScores.size() - 1; i++) {
+                if (playerScores.get(i).compareTo(playerScores.get(i + 1)) == 0) {
+                    countSame++;
+                    playerScores.get(i + 1).setRank(rank);
+                } else {
+                    rank += countSame + 1;
+                    playerScores.get(i + 1).setRank(rank);
+                    countSame = 0;
+                }
+            }
         }
         return playerScores;
     }
@@ -119,9 +130,6 @@ public class PlayerService {
             }
             else sum += getMatchWinPercentage(playerRepository.getById(pairing.getFirstPlayerId()));
         }
-//        System.out.println("total match win percentage: " + sum);
-//        System.out.println("number of rounds: " + pairings.size());
-//        System.out.println("total OMW%: " + sum / pairings.size());
         return DoubleRounder.round(sum / pairings.size(), 6);
     }
 

@@ -43,7 +43,7 @@ public class TournamentService {
     public ResponseEntity<?> getTournamentById (Long id) {
         TournamentInFull tournamentInFull = new TournamentInFull();
         tournamentInFull.setTournament(tournamentRepository.findById(id).get());
-        tournamentInFull.setAdmins(adminRepository.findByTournamentId(id));
+        tournamentInFull.setAdmins(adminRepository.findByTournamentIdd(id));
         tournamentInFull.setRounds(roundRepository.findByTournamentIdOrderByRoundNumber(id));
         tournamentInFull.setPlayers(playerService.getPlayersByTournamentId(id));
         int i = 0;

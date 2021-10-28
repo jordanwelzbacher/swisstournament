@@ -109,8 +109,6 @@ import {
   MDBModalFooter,
 } from "mdb-vue-ui-kit";
 import { ref } from "vue";
-// import { mapGetters } from "vuex";
-// import store from "@/store";
 
 export default {
   name: "TournamentContextActions",

@@ -129,6 +129,7 @@ export default {
         this.tournamentTabsData.players = response.data.players;
         this.tournamentTabsData.rounds = response.data.rounds;
         this.tournamentTabsData.pairings = response.data.pairings;
+        this.tournamentTabsData.admins = response.data.admins;
       })
       .catch((e) => {
         console.log(e);

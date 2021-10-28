@@ -18,7 +18,7 @@
         <MDBTabPane tabId="rounds">Content #2</MDBTabPane>
         <MDBTabPane tabId="results">Content #3</MDBTabPane>
         <MDBTabPane tabId="pending">Content #4</MDBTabPane>
-        <MDBTabPane tabId="pending">Content #6</MDBTabPane>
+        <MDBTabPane tabId="admins"><TournamentAdmins :data='data.admins' /></MDBTabPane>
       </MDBTabContent>
       <!-- Tabs content -->
     </MDBTabs>
@@ -36,12 +36,15 @@ import {
 } from "mdb-vue-ui-kit";
 import { ref } from "vue";
 import TournamentPlayers from "@/components/TournamentPlayers.vue";
+import TournamentAdmins from "@/components/TournamentAdmins.vue";
+
 
 export default {
   name: "TournamentTabs",
   props: ["data"],
   components: {
     TournamentPlayers,
+    TournamentAdmins,
     MDBContainer,
     MDBTabs,
     MDBTabNav,

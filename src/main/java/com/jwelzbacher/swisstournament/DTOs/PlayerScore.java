@@ -72,8 +72,7 @@ public class PlayerScore implements Comparable {
             return this.fifthTiebreaker - playerScore.fifthTiebreaker > 0 ? 1 : -1;
         }
         else {
-            Random rd = new Random(); // creating Random object
-            return rd.nextBoolean() ? 1 : -1;
+            return 0;
         }
     }
 

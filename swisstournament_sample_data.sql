@@ -24,14 +24,14 @@ VALUES
 INSERT INTO player
 (tournament_id, display_name, is_dropped, is_confirmed)
 VALUES
-(10000, 'Cass Kay', false, true),
-(10000, 'Ron Shabon', false, true),
-(10000, 'Wil Rad', false, true),
-(10000, 'Faf Ron', false, true),
-(10000, 'Kick Stand', false, true),
-(10000, 'Squar Ed', false, true),
-(10000, 'Dia Wheaties', false, true),
-(10000, 'Grack Son', false, true);
+(10000, 'Drake Alexus', false, true),
+(10000, 'Shannen Ebba', false, true),
+(10000, 'Eleanor Gisselle', false, true),
+(10000, 'Joanna Justy', false, true),
+(10000, 'Tamara Stu', false, true),
+(10000, 'Rollo Venetia', false, true),
+(10000, 'Evelina Edith', false, true),
+(10000, 'Odetta Zachary', false, true);
 
 INSERT INTO round
 (tournament_id, round_number)
@@ -96,14 +96,14 @@ VALUES
 INSERT INTO player
 (tournament_id, display_name, is_dropped, is_confirmed)
 VALUES
-(10001, 'Cass Kay', false, true),
-(10001, 'Ron Shabon', false, true),
-(10001, 'Wil Rad', false, true),
-(10001, 'Faf Ron', false, true),
-(10001, 'Kick Stand', false, true),
-(10001, 'Squar Ed', false, true),
-(10001, 'Dia Wheaties', false, true),
-(10001, 'Grack Son', false, true);
+(10001, 'Johnathan Albert', false, true),
+(10001, 'Weston Serina', false, true),
+(10001, 'Lennox Trina', false, true),
+(10001, 'Dusty Alexia', false, true),
+(10001, 'Jocelyn Lucinda', false, true),
+(10001, 'Lexi Joseph', false, true),
+(10001, 'Polly Alex', false, true),
+(10001, 'Lorayne Sienna', false, true);
 
 INSERT INTO round
 (tournament_id, round_number)

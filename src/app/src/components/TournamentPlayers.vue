@@ -5,9 +5,8 @@
       sortField="rank"
       sortOrder="asc"
       defaultValue="0"
-      entires=64
-      entiresOptions=[8,16,32,64,128,256]
-      fixedHeader="true"
+      entires="64"
+      entiresOptions="[8,16,32,64,128,256]"
       noFoundMessage="No players signed up yet"
     />
   </MDBContainer>
@@ -16,7 +15,6 @@
 <script>
 import { MDBContainer, MDBDatatable } from "mdb-vue-ui-kit";
 import { computed } from "vue";
-// import { defineComponent, ref } from 'vue';
 import _ from "lodash";
 import constants from "@/constants/constants.js";
 
@@ -28,15 +26,7 @@ export default {
     MDBDatatable,
   },
   setup(props) {
-    // let myObj = ref({
-    //   players: props.players,
-    // });
-    // console.log(myObj);
     const dataset = computed(() => {
-      console.log(props.data);
-      // if(props.data.tournament) {
-      // let tiebreakers = {...props.data.players[0].tiebreakers};
-      // console.log(tiebreakers['1']); }
       let table = {
         columns: [
           { label: "Rank", field: "rank" },
@@ -52,43 +42,69 @@ export default {
       if (props.data.tournament) {
         addTiebreakerColumn(
           props.data.tournament.firstTiebreaker,
-          table.columns.length
+          table.columns.length,
+          "firstTiebreaker"
         );
         addTiebreakerColumn(
           props.data.tournament.secondTiebreaker,
-          table.columns.length
+          table.columns.length,
+          "secondTiebreaker"
         );
         addTiebreakerColumn(
           props.data.tournament.thirdTiebreaker,
-          table.columns.length
+          table.columns.length,
+          "thirdTiebreaker"
         );
         addTiebreakerColumn(
           props.data.tournament.fourthTiebreaker,
-          table.columns.length
+          table.columns.length,
+          "fourthTiebreaker"
         );
         addTiebreakerColumn(
           props.data.tournament.fifthTiebreaker,
-          table.columns.length
+          table.columns.length,
+          "fifthTiebreaker"
         );
       }
       return table;
 
-      function addTiebreakerColumn(tiebreaker, i) {
+      function addTiebreakerColumn(tiebreaker, i, which) {
         switch (tiebreaker) {
           case constants.NONE:
             break;
           case constants.OMWP:
-            console.log("here!!!");
             console.log(table.columns);
             _.set(table.columns, `[${i}]`, {
-              label: "OMW%",
-              field: "firstTiebreaker",
+              label: "OMW %",
+              field: which,
             });
             break;
           case constants.GWP:
-            _.set(table, `columns[${i}]`, {
-              label: "GW%",
-              field: "tiebreakers",
+            console.log(table.columns);
+            _.set(table.columns, `[${i}]`, {
+              label: "GW %",
+              field: which,
+            });
+            break;
+          case constants.OGWP:
+            console.log(table.columns);
+            _.set(table.columns, `[${i}]`, {
+              label: "OGW %",
+              field: which,
+            });
+            break;
+          case constants.FIRST_CUSTOM:
+            console.log(table.columns);
+            _.set(table.columns, `[${i}]`, {
+              label: props.data.tournament.firstCustomTiebreakerName,
+              field: which,
+            });
+            break;
+          case constants.SECOND_CUSTOM:
+            console.log(table.columns);
+            _.set(table.columns, `[${i}]`, {
+              label: props.data.tournament.secondCustomTiebreakerName,
+              field: which,
             });
             break;
           default:
