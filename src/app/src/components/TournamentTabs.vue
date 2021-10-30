@@ -1,6 +1,7 @@
 <template>
   <MDBContainer class="mt-5">
-    <MDBTabs v-if="data.tournament" @show="getPlayers" v-model="tournamentTab">
+    {{data}}
+    <MDBTabs v-if="data.tournament" @show="getTab" v-model="tournamentTab">
       <!-- Tabs navs -->
       <MDBTabNav tabsClasses="mb-3">
         <MDBTabItem tabId="players" href="players">Players</MDBTabItem>
@@ -65,8 +66,7 @@ export default {
     };
   },
   methods: {
-    getPlayers(e) {
-      this.players = null;
+    getTab(e) {
       let tab = e.target.id;
       if (tab === "tab-players") tab = "players";
       else if (tab === "tab-admins") tab = "admins";

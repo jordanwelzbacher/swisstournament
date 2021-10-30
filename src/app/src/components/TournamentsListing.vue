@@ -19,12 +19,14 @@
             </div>
             <div class="mt-1">
               <MDBIcon size="lg" icon="calendar-alt" />
-              &nbsp;{{tournament.tournamentDate}}&emsp;
+              &nbsp;{{ tournament.tournamentDate }}&emsp;
               <MDBIcon size="lg" icon="trophy" />
-              &nbsp;{{tournament.competitionType}}&emsp;
-              <MDBIcon size="lg" icon="users" />&nbsp;{{tournament.countPlayers}}&emsp;
+              &nbsp;{{ tournament.competitionType }}&emsp;
+              <MDBIcon size="lg" icon="users" />&nbsp;{{
+                tournament.countPlayers
+              }}&emsp;
               <MDBIcon size="lg" icon="map-marker-alt" />
-              &nbsp;{{tournament.venue}}&emsp;
+              &nbsp;{{ tournament.venue }}&emsp;
             </div>
           </MDBListGroupItem>
         </div>
@@ -45,7 +47,7 @@ import { onMounted } from "vue";
 import { ref } from "vue";
 import { mapGetters } from "vuex";
 import store from "@/store";
-import TournamentStatus from '@/components/TournamentStatus'
+import TournamentStatus from "@/components/TournamentStatus";
 
 export default {
   name: "tournaments",
@@ -68,6 +70,7 @@ export default {
     const error = ref(null);
 
     function fetchData() {
+      loading.value = true;
       loading.value = true;
       const uId = store.getters["auth/user"]
         ? store.getters["auth/user"].id

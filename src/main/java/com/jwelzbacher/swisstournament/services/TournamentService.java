@@ -20,11 +20,7 @@ public class TournamentService {
     @Autowired
     AdminRepository adminRepository;
     @Autowired
-    RoundRepository roundRepository;
-    @Autowired
-    PairingRepository pairingRepository;
-    @Autowired
-    PlayerService playerService;
+    PlayerRepository playerRepository;
 
     public ResponseEntity<?> createTournament (Tournament config) {
         Tournament tournament = tournamentRepository.save(config);
@@ -32,20 +28,21 @@ public class TournamentService {
     }
 
     public ResponseEntity<?> getTournaments (Long userId) {
-        if (userId == null || userId == 0) {
+        if (userId == null || userId == 0)
             return new ResponseEntity<Object>(tournamentAtAGlanceRepository.getTournamentsAtAGlance(), HttpStatus.OK);
-        }
         else return new ResponseEntity<Object>(tournamentAtAGlanceRepository.getTournamentsAtAGlance(userId), HttpStatus.OK);
     }
 
     public ResponseEntity<?> getTournamentById (Long id) {
         TournamentInFull tournamentInFull = new TournamentInFull();
-        tournamentInFull.setTournament(tournamentRepository.findById(id).get());
-        tournamentInFull.setRounds(roundRepository.findByTournamentIdOrderByRoundNumber(id));
-        int i = 0;
-        for (Round round : tournamentInFull.getRounds()) {
-            tournamentInFull.addPairingsOfRound(++i, pairingRepository.findByRoundId(round.getId()));
-        }
+        tournamentInFull.setTournament(tournamentAtAGlanceRepository.findByTournamentId(id));
+        tournamentInFull.setAdmins(adminRepository.findByTournamentId(id));
+        tournamentInFull.setPlayers(playerRepository.findByTournamentId(id));
+//        tournamentInFull.setRounds(roundRepository.findByTournamentIdOrderByRoundNumber(id));
+//        int i = 0;
+//        for (Round round : tournamentInFull.getRounds()) {
+//            tournamentInFull.addPairingsOfRound(++i, pairingRepository.findByRoundId(round.getId()));
+//        }
         return new ResponseEntity<Object>(tournamentInFull, HttpStatus.OK);
     }
 }

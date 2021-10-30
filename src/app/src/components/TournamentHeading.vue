@@ -1,5 +1,6 @@
 <template>
   <main>
+    {{data}}
     <MDBContainer class="mt-4">
       <div class="text-center mt-8" v-show="data.tournamentName == null">
         <MDBSpinner />

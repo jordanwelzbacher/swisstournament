@@ -52,9 +52,6 @@ export default {
       },
       tournamentTabsData: {
         tournament: null,
-        players: null,
-        pairings: null,
-        rounds: null,
       },
     };
   },
@@ -63,6 +60,7 @@ export default {
       .get("/tournament/" + this.tournamentId)
       .then((response) => {
         //Box up data for the tournamentHeading component
+        console.log(response.data)
         this.tournamentHeadingData.tournamentName =
           response.data.tournament.tournamentName;
         this.tournamentHeadingData.competitionType =
@@ -84,7 +82,7 @@ export default {
         } 
         this.tournamentHeadingData.playerRegistrationOn = response.data.tournament.playerRegistrationOn;
         this.tournamentHeadingData.registrationOpen = response.data.tournament.registrationOpen;
-        this.tournamentHeadingData.countRounds = response.data.rounds.length;
+        this.tournamentHeadingData.countRounds = response.data.tournament.countRounds;
 
         //End tournamentHeading data
 
@@ -95,7 +93,7 @@ export default {
         //Is user logged in?
         if (store.getters["auth/user"]) {
           //check isOwner
-          if (response.data.tournament.ownerUserId == store.getters["auth/user"].id) {
+          if (response.data.tournament.ownerUsername == store.getters["auth/user"].username) {
             this.tournamentContextActionsData.isOwner = true;
             this.tournamentTabsData.isOwner = true;
           }
@@ -122,16 +120,11 @@ export default {
         }
         this.tournamentContextActionsData.playerRegistrationOn = response.data.tournament.playerRegistrationOn;
         this.tournamentContextActionsData.registrationOpen = response.data.tournament.registrationOpen;
-        this.tournamentContextActionsData.countRounds = response.data.rounds.length;
+        this.tournamentContextActionsData.countRounds = response.data.tournament.countRounds;
         this.tournamentContextActionsData.completed = response.data.tournament.completed;
         //End tournamentContextActions data
 
         this.tournamentTabsData.tournament = response.data.tournament;
-        this.tournamentTabsData.players = response.data.players;
-        this.tournamentTabsData.rounds = response.data.rounds;
-        this.tournamentTabsData.pairings = response.data.pairings;
-        this.tournamentTabsData.admins = response.data.admins;
-        this.tournamentTabsData.countRounds = response.data.rounds.length;
       })
       .catch((e) => {
         console.log(e);

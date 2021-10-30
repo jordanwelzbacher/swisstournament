@@ -10,37 +10,23 @@ import java.util.Map;
 
 public class TournamentInFull {
 
-    private Tournament tournament;
-    private List<PlayerScore> players = new ArrayList<>();
+    private TournamentAtAGlance tournament;
+    private List<Player> players = new ArrayList<Player>();
     private List<Admin> admins = new ArrayList<>();
-    private List<Round> rounds = new ArrayList<>();
-    private Map<Integer, List<Pairing>> pairings = new HashMap<>();
 
-    public void addPairingsOfRound(Integer round, List<Pairing> pairings) {
-        this.pairings.put(round, pairings);
-    }
-
-    public Map<Integer, List<Pairing>> getPairings() {
-        return pairings;
-    }
-
-    public void setPairings(Map<Integer, List<Pairing>> pairings) {
-        this.pairings = pairings;
-    }
-
-    public Tournament getTournament() {
+    public TournamentAtAGlance getTournament() {
         return tournament;
     }
 
-    public void setTournament(Tournament tournament) {
+    public void setTournament(TournamentAtAGlance tournament) {
         this.tournament = tournament;
     }
 
-    public List<PlayerScore> getPlayers() {
+    public List<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<PlayerScore> players) {
+    public void setPlayers(List<Player> players) {
         this.players = players;
     }
 
@@ -52,11 +38,4 @@ public class TournamentInFull {
         this.admins = admins;
     }
 
-    public List<Round> getRounds() {
-        return rounds;
-    }
-
-    public void setRounds(List<Round> rounds) {
-        this.rounds = rounds;
-    }
 }

@@ -1,6 +1,7 @@
 package com.jwelzbacher.swisstournament.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -33,13 +34,11 @@ public class TournamentAtAGlance {
     @Column
     private boolean isCompleted;
     @Column
-    private Boolean inTourney;
-    @Column
     private int countPlayers;
     @Column
     private int countRounds;
 
-    public TournamentAtAGlance(Long id, String ownerUsername, String tournamentName, String competitionType, Timestamp tournamentDate, String venue, boolean isPlayerRegistrationOn, double playerLimit, boolean isRegistrationOpen, boolean isCompleted, boolean inTourney, int countPlayers, int countRounds) {
+    public TournamentAtAGlance(Long id, String ownerUsername, String tournamentName, String competitionType, Timestamp tournamentDate, String venue, boolean isPlayerRegistrationOn, double playerLimit, boolean isRegistrationOpen, boolean isCompleted, int countPlayers, int countRounds) {
         this.id = id;
         this.ownerUsername = ownerUsername;
         this.tournamentName = tournamentName;
@@ -50,7 +49,6 @@ public class TournamentAtAGlance {
         this.playerLimit = playerLimit;
         this.isRegistrationOpen = isRegistrationOpen;
         this.isCompleted = isCompleted;
-        this.inTourney = inTourney;
         this.countPlayers = countPlayers;
         this.countRounds = countRounds;
     }
@@ -136,14 +134,6 @@ public class TournamentAtAGlance {
 
     public void setCompleted(boolean completed) {
         isCompleted = completed;
-    }
-
-    public Boolean isInTourney() {
-        return inTourney;
-    }
-
-    public void setInTourney(Boolean inTourney) {
-        this.inTourney = inTourney;
     }
 
     public int getCountPlayers() {
