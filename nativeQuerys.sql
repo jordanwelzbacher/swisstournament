@@ -26,3 +26,14 @@ GROUP BY tournament.id, owner_username, tournament_name, competition_type, tourn
 venue, is_player_registration_on, player_limit, is_registration_open, is_completed
 ORDER BY tournament_date;
                 
+                
+-- AdminRepository findByTournamentId                
+SELECT user_id, username FROM tournament_admin
+JOIN st_user ON tournament_admin.user_id = st_user.id
+WHERE tournament_id = :tournamentId
+ORDER BY username;
+
+--PairingRepository findByPlayerId
+SELECT * FROM pairing
+WHERE first_player_id = :playerId OR second_player_id = :playerId
+ORDER BY round_id;

@@ -15,5 +15,5 @@ public interface AdminRepository extends JpaRepository<Admin, Long> {
             "JOIN st_user ON tournament_admin.user_id = st_user.id " +
             "WHERE tournament_id = :tournamentId " +
             "ORDER BY username;", nativeQuery = true)
-    List<Admin> findByTournamentIdd(@Param("tournamentId") Long tournamentId);
+    List<Admin> findByTournamentId(@Param("tournamentId") Long tournamentId);
 }

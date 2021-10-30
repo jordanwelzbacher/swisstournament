@@ -76,7 +76,6 @@ export default {
         .get("/tournaments/" + uId, {})
         .then((json) => {
           tournaments.value = json.data;
-          console.log(json.data);
         })
         .then(() => {
           loading.value = false;

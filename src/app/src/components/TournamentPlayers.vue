@@ -73,35 +73,30 @@ export default {
           case constants.NONE:
             break;
           case constants.OMWP:
-            console.log(table.columns);
             _.set(table.columns, `[${i}]`, {
               label: "OMW %",
               field: which,
             });
             break;
           case constants.GWP:
-            console.log(table.columns);
             _.set(table.columns, `[${i}]`, {
               label: "GW %",
               field: which,
             });
             break;
           case constants.OGWP:
-            console.log(table.columns);
             _.set(table.columns, `[${i}]`, {
               label: "OGW %",
               field: which,
             });
             break;
           case constants.FIRST_CUSTOM:
-            console.log(table.columns);
             _.set(table.columns, `[${i}]`, {
               label: props.data.tournament.firstCustomTiebreakerName,
               field: which,
             });
             break;
           case constants.SECOND_CUSTOM:
-            console.log(table.columns);
             _.set(table.columns, `[${i}]`, {
               label: props.data.tournament.secondCustomTiebreakerName,
               field: which,
@@ -110,7 +105,6 @@ export default {
           default:
             break;
         }
-        console.log(table);
       }
     });
     return {

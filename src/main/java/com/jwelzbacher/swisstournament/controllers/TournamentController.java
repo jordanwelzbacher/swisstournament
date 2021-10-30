@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class TournamentController {
+
     @Autowired
     TournamentService tournamentService;
 

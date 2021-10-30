@@ -97,6 +97,7 @@ export default {
           //check isOwner
           if (response.data.tournament.ownerUserId == store.getters["auth/user"].id) {
             this.tournamentContextActionsData.isOwner = true;
+            this.tournamentTabsData.isOwner = true;
           }
           console.log("is the user the tournament owner? " + this.tournamentContextActionsData.isOwner);
 
@@ -130,6 +131,7 @@ export default {
         this.tournamentTabsData.rounds = response.data.rounds;
         this.tournamentTabsData.pairings = response.data.pairings;
         this.tournamentTabsData.admins = response.data.admins;
+        this.tournamentTabsData.countRounds = response.data.rounds.length;
       })
       .catch((e) => {
         console.log(e);

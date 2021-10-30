@@ -18,7 +18,6 @@ export default {
   props: ["data"],
   setup(props) {
     const status = computed(() => {
-      console.log(props.data)
       return props.data.completed
         ? "Completed"
         : props.data.countRounds > 0

@@ -1,24 +1,30 @@
 <template>
   <MDBContainer class="mt-5">
-    <MDBTabs v-model="tournamentTab">
+    <MDBTabs v-if="data.tournament" @show="getPlayers" v-model="tournamentTab">
       <!-- Tabs navs -->
       <MDBTabNav tabsClasses="mb-3">
         <MDBTabItem tabId="players" href="players">Players</MDBTabItem>
-        <MDBTabItem tabId="standings" href="standings">Standings</MDBTabItem>
         <MDBTabItem tabId="rounds" href="rounds">Rounds</MDBTabItem>
         <MDBTabItem tabId="results" href="results">Submit Results</MDBTabItem>
         <MDBTabItem tabId="pending" href="pending">Pending Invites</MDBTabItem>
-        <MDBTabItem tabId="admins" href="pending">Admins</MDBTabItem>
+        <MDBTabItem tabId="admins" href="admins">Admins</MDBTabItem>
       </MDBTabNav>
       <!-- Tabs navs -->
       <!-- Tabs content -->
       <MDBTabContent>
-        <MDBTabPane tabId="players"><TournamentPlayers :data='{"players": data.players, "tournament": data.tournament}' /></MDBTabPane>
-        <MDBTabPane tabId="standings">Content #5</MDBTabPane>
+        <MDBTabPane tabId="players">
+          <TournamentPlayers
+            :data="{ players: players, tournament: data.tournament }"
+          />
+        </MDBTabPane>
         <MDBTabPane tabId="rounds">Content #2</MDBTabPane>
         <MDBTabPane tabId="results">Content #3</MDBTabPane>
         <MDBTabPane tabId="pending">Content #4</MDBTabPane>
-        <MDBTabPane tabId="admins"><TournamentAdmins :data='data.admins' /></MDBTabPane>
+        <MDBTabPane tabId="admins">
+          <TournamentAdmins
+            :data="{ isOwner: data.isOwner, admins: admins }"
+          />
+        </MDBTabPane>
       </MDBTabContent>
       <!-- Tabs content -->
     </MDBTabs>
@@ -37,7 +43,7 @@ import {
 import { ref } from "vue";
 import TournamentPlayers from "@/components/TournamentPlayers.vue";
 import TournamentAdmins from "@/components/TournamentAdmins.vue";
-
+import http from "../http-common";
 
 export default {
   name: "TournamentTabs",
@@ -51,6 +57,29 @@ export default {
     MDBTabContent,
     MDBTabItem,
     MDBTabPane,
+  },
+  data() {
+    return {
+      players: null,
+      admins: null,
+    };
+  },
+  methods: {
+    getPlayers(e) {
+      this.players = null;
+      let tab = e.target.id;
+      if (tab === "tab-players") tab = "players";
+      else if (tab === "tab-admins") tab = "admins";
+      http
+        .get(tab + "/" + this.data.tournament.id, {})
+        .then((json) => {
+          this[`${tab}`] = json.data;
+        })
+        .then(() => {})
+        .catch((e) => {
+          console.log(e);
+        });
+    },
   },
   setup() {
     const tournamentTab = ref("players");

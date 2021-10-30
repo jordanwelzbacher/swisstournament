@@ -27,8 +27,6 @@ public class TournamentService {
     PlayerService playerService;
 
     public ResponseEntity<?> createTournament (Tournament config) {
-        System.out.println(config.isLowerBetterForFirstCustom());
-        System.out.println(config.isLowerBetterForSecondCustom());
         Tournament tournament = tournamentRepository.save(config);
         return new ResponseEntity<Object>(tournament, HttpStatus.OK);
     }
@@ -43,9 +41,7 @@ public class TournamentService {
     public ResponseEntity<?> getTournamentById (Long id) {
         TournamentInFull tournamentInFull = new TournamentInFull();
         tournamentInFull.setTournament(tournamentRepository.findById(id).get());
-        tournamentInFull.setAdmins(adminRepository.findByTournamentIdd(id));
         tournamentInFull.setRounds(roundRepository.findByTournamentIdOrderByRoundNumber(id));
-        tournamentInFull.setPlayers(playerService.getPlayersByTournamentId(id));
         int i = 0;
         for (Round round : tournamentInFull.getRounds()) {
             tournamentInFull.addPairingsOfRound(++i, pairingRepository.findByRoundId(round.getId()));
