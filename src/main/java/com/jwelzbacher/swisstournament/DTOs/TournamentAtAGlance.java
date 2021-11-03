@@ -37,8 +37,27 @@ public class TournamentAtAGlance {
     private int countPlayers;
     @Column
     private int countRounds;
+    @Column
+    private int firstTiebreaker;
+    @Column
+    private int secondTiebreaker;
+    @Column
+    private int thirdTiebreaker;
+    @Column
+    private int fourthTiebreaker;
+    @Column
+    private int fifthTiebreaker;
+    @Column
+    private String firstCustomTiebreakerName;
+    @Column
+    private String secondCustomTiebreakerName;
+    @Column
+    private Boolean lowerBetterForFirstCustom;
+    @Column
+    private Boolean lowerBetterForSecondCustom;
 
-    public TournamentAtAGlance(Long id, String ownerUsername, String tournamentName, String competitionType, Timestamp tournamentDate, String venue, boolean isPlayerRegistrationOn, double playerLimit, boolean isRegistrationOpen, boolean isCompleted, int countPlayers, int countRounds) {
+
+    public TournamentAtAGlance(Long id, String ownerUsername, String tournamentName, String competitionType, Timestamp tournamentDate, String venue, boolean isPlayerRegistrationOn, double playerLimit, boolean isRegistrationOpen, boolean isCompleted, int countPlayers, int countRounds, int firstTiebreaker, int secondTiebreaker, int thirdTiebreaker, int fourthTiebreaker, int fifthTiebreaker, String firstCustomTiebreakerName, String secondCustomTiebreakerName, Boolean lowerBetterForFirstCustom, Boolean lowerBetterForSecondCustom) {
         this.id = id;
         this.ownerUsername = ownerUsername;
         this.tournamentName = tournamentName;
@@ -51,9 +70,90 @@ public class TournamentAtAGlance {
         this.isCompleted = isCompleted;
         this.countPlayers = countPlayers;
         this.countRounds = countRounds;
+        this.firstTiebreaker = firstTiebreaker;
+        this.secondTiebreaker = secondTiebreaker;
+        this.thirdTiebreaker = thirdTiebreaker;
+        this.fourthTiebreaker = fourthTiebreaker;
+        this.fifthTiebreaker = fifthTiebreaker;
+        this.firstCustomTiebreakerName = firstCustomTiebreakerName;
+        this.secondCustomTiebreakerName = secondCustomTiebreakerName;
+        this.lowerBetterForFirstCustom = lowerBetterForFirstCustom;
+        this.lowerBetterForSecondCustom = lowerBetterForSecondCustom;
     }
 
     public TournamentAtAGlance() {
+    }
+
+    public int getFirstTiebreaker() {
+        return firstTiebreaker;
+    }
+
+    public void setFirstTiebreaker(int firstTiebreaker) {
+        this.firstTiebreaker = firstTiebreaker;
+    }
+
+    public int getSecondTiebreaker() {
+        return secondTiebreaker;
+    }
+
+    public void setSecondTiebreaker(int secondTiebreaker) {
+        this.secondTiebreaker = secondTiebreaker;
+    }
+
+    public int getThirdTiebreaker() {
+        return thirdTiebreaker;
+    }
+
+    public void setThirdTiebreaker(int thirdTiebreaker) {
+        this.thirdTiebreaker = thirdTiebreaker;
+    }
+
+    public int getFourthTiebreaker() {
+        return fourthTiebreaker;
+    }
+
+    public void setFourthTiebreaker(int fourthTiebreaker) {
+        this.fourthTiebreaker = fourthTiebreaker;
+    }
+
+    public int getFifthTiebreaker() {
+        return fifthTiebreaker;
+    }
+
+    public void setFifthTiebreaker(int fifthTiebreaker) {
+        this.fifthTiebreaker = fifthTiebreaker;
+    }
+
+    public String getFirstCustomTiebreakerName() {
+        return firstCustomTiebreakerName;
+    }
+
+    public void setFirstCustomTiebreakerName(String firstCustomTiebreakerName) {
+        this.firstCustomTiebreakerName = firstCustomTiebreakerName;
+    }
+
+    public String getSecondCustomTiebreakerName() {
+        return secondCustomTiebreakerName;
+    }
+
+    public void setSecondCustomTiebreakerName(String secondCustomTiebreakerName) {
+        this.secondCustomTiebreakerName = secondCustomTiebreakerName;
+    }
+
+    public Boolean getLowerBetterForFirstCustom() {
+        return lowerBetterForFirstCustom;
+    }
+
+    public void setLowerBetterForFirstCustom(Boolean lowerBetterForFirstCustom) {
+        this.lowerBetterForFirstCustom = lowerBetterForFirstCustom;
+    }
+
+    public Boolean getLowerBetterForSecondCustom() {
+        return lowerBetterForSecondCustom;
+    }
+
+    public void setLowerBetterForSecondCustom(Boolean lowerBetterForSecondCustom) {
+        this.lowerBetterForSecondCustom = lowerBetterForSecondCustom;
     }
 
     public Long getId() {

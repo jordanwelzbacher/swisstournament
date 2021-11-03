@@ -142,6 +142,7 @@ CREATE TABLE IF NOT EXISTS pairing
 	second_player_id int,
 	CONSTRAINT second_player_fk FOREIGN KEY(second_player_id) REFERENCES player(id),
 	round_id int,
+	table_number int,
 	CONSTRAINT round_fk FOREIGN KEY(round_id) REFERENCES round(id),
 	match_result_first_player character varying(4),
 	match_result_second_player character varying(4),

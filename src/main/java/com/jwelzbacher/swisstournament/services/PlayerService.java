@@ -12,7 +12,6 @@ import com.jwelzbacher.swisstournament.repositories.TournamentRepository;
 import com.jwelzbacher.swisstournament.repositories.UserRepository;
 import org.decimal4j.util.DoubleRounder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -30,6 +29,10 @@ public class PlayerService {
     PairingRepository pairingRepository;
     @Autowired
     PlayerRepository playerRepository;
+
+    public List<Player> getPlayerNamesByTournamentId(Long id) {
+        return playerRepository.findByTournamentId(id);
+    }
 
     public List<PlayerScore> getPlayersByTournamentId(Long id) {
 

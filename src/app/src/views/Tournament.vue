@@ -1,9 +1,7 @@
 <template>
   <MDBContainer>
     <TournamentHeading :data="tournamentHeadingData" />
-    <hr />
     <TournamentContextActions :data="tournamentContextActionsData" />
-    <hr />
     <TournamentTabs :data="tournamentTabsData" />
   </MDBContainer>
 </template>
@@ -60,7 +58,6 @@ export default {
       .get("/tournament/" + this.tournamentId)
       .then((response) => {
         //Box up data for the tournamentHeading component
-        console.log(response.data)
         this.tournamentHeadingData.tournamentName =
           response.data.tournament.tournamentName;
         this.tournamentHeadingData.competitionType =
@@ -97,16 +94,16 @@ export default {
             this.tournamentContextActionsData.isOwner = true;
             this.tournamentTabsData.isOwner = true;
           }
-          console.log("is the user the tournament owner? " + this.tournamentContextActionsData.isOwner);
+     //     console.log("is the user the tournament owner? " + this.tournamentContextActionsData.isOwner);
 
           //check isAdmin
           for (let admin of response.data.admins) {
-            console.log("this admin is " + admin)
+       //     console.log("this admin is " + admin)
             if (admin.userId == store.getters["auth/user"].id) {
               this.tournamentContextActionsData.isAdmin = true;
             }
           }
-          console.log("is the user a tournament admin? " + this.tournamentContextActionsData.isAdmin);
+     //     console.log("is the user a tournament admin? " + this.tournamentContextActionsData.isAdmin);
 
           //check isInTournament
           for (let player of response.data.players) {
@@ -114,9 +111,7 @@ export default {
               this.tournamentContextActionsData.inTourney = true;
             }
           }
-          console.log(
-            "is the user a player in the tournament? " + this.tournamentContextActionsData.inTourney
-          );
+     //     console.log("is the user a player in the tournament? " + this.tournamentContextActionsData.inTourney);
         }
         this.tournamentContextActionsData.playerRegistrationOn = response.data.tournament.playerRegistrationOn;
         this.tournamentContextActionsData.registrationOpen = response.data.tournament.registrationOpen;

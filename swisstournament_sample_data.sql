@@ -1,4 +1,6 @@
---create two user accounts on frontend before running this
+--!                                                                             !--
+--!   create two user accounts (use postman for speed) before running this!     !--
+--!                                                                             !--
 
 BEGIN TRANSACTION;
 
@@ -46,32 +48,31 @@ VALUES
 (10000, 4, 4);
 
 INSERT INTO round
-(tournament_id, round_number)
+(tournament_id, round_number, top_cut)
 VALUES
-(10000, 5);
-
+(10000, 5, 2);
 
 INSERT INTO pairing
-(first_player_id, second_player_id, round_id, match_result_first_player, match_result_second_player)
+(first_player_id, second_player_id, round_id, table_number, match_result_first_player, match_result_second_player)
 VALUES
-(1,2,1,'WIN','LOSS'),
-(3,4,1,'WIN','LOSS'),
-(5,6,1,'WIN','LOSS'),
-(7,8,1,'WIN','LOSS'),
+(1,2,1,1,'WIN','LOSS'),
+(3,4,1,2,'WIN','LOSS'),
+(5,6,1,3,'WIN','LOSS'),
+(7,8,1,4,'WIN','LOSS'),
 
-(1,3,2,'WIN','LOSS'),
-(2,4,2,'WIN','LOSS'),
-(5,7,2,'WIN','LOSS'),
-(6,8,2,'WIN','LOSS'),
+(1,3,2,1,'WIN','LOSS'),
+(2,4,2,2,'WIN','LOSS'),
+(5,7,2,3,'WIN','LOSS'),
+(6,8,2,4,'WIN','LOSS'),
 
-(1,5,3,'WIN','LOSS'),
-(2,6,3,'WIN','LOSS'),
-(3,7,3,'WIN','LOSS'),
-(4,8,3,'WIN','LOSS'),
+(1,5,3,1,'WIN','LOSS'),
+(2,6,3,2,'WIN','LOSS'),
+(3,7,3,3,'WIN','LOSS'),
+(4,8,3,4,'WIN','LOSS'),
 
-(1,3,4,'WIN','LOSS'),
-(2,5,4,'WIN','LOSS'),
-(1,2,5,'WIN','LOSS');
+(1,3,4,1,'WIN','LOSS'),
+(2,5,4,2,'WIN','LOSS'),
+(1,2,5,1,'WIN','LOSS');
 
 --insert an in-progress tournament, no user accounts as players
 
@@ -111,12 +112,12 @@ VALUES
 (10001, 1);
 
 INSERT INTO pairing
-(first_player_id, second_player_id, round_id, match_result_first_player, match_result_second_player)
+(first_player_id, second_player_id, round_id, table_number, match_result_first_player, match_result_second_player)
 VALUES
-(9,10,6,'WIN','LOSS'),
-(11,12,6,'WIN','LOSS'),
-(13,14,6,'WIN','LOSS'),
-(15,16,6,'WIN','LOSS');
+(9,10,6,1,'WIN','LOSS'),
+(11,12,6,2,'WIN','LOSS'),
+(13,14,6,3,'WIN','LOSS'),
+(15,16,6,4,'WIN','LOSS');
 
 --insert a freshly made tournament, registration open
 INSERT INTO tournament 

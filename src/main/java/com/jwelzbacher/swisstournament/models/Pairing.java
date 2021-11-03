@@ -21,6 +21,9 @@ public class Pairing {
     private Long roundId;
 
     @Column
+    private Integer tableNumber;
+
+    @Column
     private String matchResultFirstPlayer;
 
     @Column
@@ -56,11 +59,12 @@ public class Pairing {
     @Column
     private Long secondCustomSecondPlayer;
 
-    public Pairing(Long id, Long firstPlayerId, Long secondPlayerId, Long roundId, String matchResultFirstPlayer, String matchResultSecondPlayer, Long gameWinsFirstPlayer, Long gameWinsSecondPlayer, Long gameDrawsFirstPlayer, Long gameDrawsSecondPlayer, Long gameLossesFirstPlayer, Long gameLossesSecondPlayer, Long firstCustomFirstPlayer, Long firstCustomSecondPlayer, Long secondCustomFirstPlayer, Long secondCustomSecondPlayer) {
+    public Pairing(Long id, Long firstPlayerId, Long secondPlayerId, Long roundId, int tableNumber, String matchResultFirstPlayer, String matchResultSecondPlayer, Long gameWinsFirstPlayer, Long gameWinsSecondPlayer, Long gameDrawsFirstPlayer, Long gameDrawsSecondPlayer, Long gameLossesFirstPlayer, Long gameLossesSecondPlayer, Long firstCustomFirstPlayer, Long firstCustomSecondPlayer, Long secondCustomFirstPlayer, Long secondCustomSecondPlayer) {
         this.id = id;
         this.firstPlayerId = firstPlayerId;
         this.secondPlayerId = secondPlayerId;
         this.roundId = roundId;
+        this.tableNumber = tableNumber;
         this.matchResultFirstPlayer = matchResultFirstPlayer;
         this.matchResultSecondPlayer = matchResultSecondPlayer;
         this.gameWinsFirstPlayer = gameWinsFirstPlayer;
@@ -76,6 +80,14 @@ public class Pairing {
     }
 
     public Pairing() {
+    }
+
+    public Integer getTableNumber() {
+        return tableNumber;
+    }
+
+    public void setTableNumber(Integer tableNumber) {
+        this.tableNumber = tableNumber;
     }
 
     public Long getId() {

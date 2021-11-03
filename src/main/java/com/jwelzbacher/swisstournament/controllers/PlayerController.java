@@ -17,8 +17,13 @@ public class PlayerController {
     PlayerService playerService;
 
     @GetMapping("/api/players/{tournamentId}")
-    public ResponseEntity<?> get(@PathVariable Long tournamentId) {
+    public ResponseEntity<?> getPlayerScores(@PathVariable Long tournamentId) {
         return new ResponseEntity<>(playerService.getPlayersByTournamentId(tournamentId), HttpStatus.OK);
+    }
+
+    @GetMapping("/api/playernames/{tournamentId}")
+    public ResponseEntity<?> getPlayers(@PathVariable Long tournamentId) {
+        return new ResponseEntity<>(playerService.getPlayerNamesByTournamentId(tournamentId), HttpStatus.OK);
     }
 
 }

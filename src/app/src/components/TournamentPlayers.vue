@@ -1,20 +1,24 @@
 <template>
-  <MDBContainer>
+  <MDBContainer v-if="dataset">
+    <MDBInput @input="search" label="Search Rank or Name" class="my-4" />
     <MDBDatatable
       :dataset="dataset"
       sortField="rank"
       sortOrder="asc"
       defaultValue="0"
-      entires="64"
-      entiresOptions="[8,16,32,64,128,256]"
+      :entries="64"
+      :entriesOptions="[8, 16, 32, 64, 128, 256]"
       noFoundMessage="No players signed up yet"
+      :search="searchPhrase"
+      :searchColumns="searchColumns"
     />
   </MDBContainer>
 </template>
 
 <script>
-import { MDBContainer, MDBDatatable } from "mdb-vue-ui-kit";
+import { MDBContainer, MDBDatatable, MDBInput } from "mdb-vue-ui-kit";
 import { computed } from "vue";
+import { ref } from "vue";
 import _ from "lodash";
 import constants from "@/constants/constants.js";
 
@@ -24,8 +28,17 @@ export default {
   components: {
     MDBContainer,
     MDBDatatable,
+    MDBInput,
   },
   setup(props) {
+    const input = ref("");
+    const searchPhrase = ref("");
+    const searchColumns = ref(["rank", "name"]);
+
+    const search = (event) => {
+      searchPhrase.value = event.target.value;
+    };
+    
     const dataset = computed(() => {
       let table = {
         columns: [
@@ -38,7 +51,6 @@ export default {
         ],
         rows: props.data.players,
       };
-
       if (props.data.tournament) {
         addTiebreakerColumn(
           props.data.tournament.firstTiebreaker,
@@ -109,6 +121,10 @@ export default {
     });
     return {
       dataset,
+      input,
+      searchPhrase,
+      searchColumns,
+      search,
     };
   },
 };

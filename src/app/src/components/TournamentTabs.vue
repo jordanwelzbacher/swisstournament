@@ -1,6 +1,5 @@
 <template>
   <MDBContainer class="mt-5">
-    {{data}}
     <MDBTabs v-if="data.tournament" @show="getTab" v-model="tournamentTab">
       <!-- Tabs navs -->
       <MDBTabNav tabsClasses="mb-3">
@@ -18,7 +17,7 @@
             :data="{ players: players, tournament: data.tournament }"
           />
         </MDBTabPane>
-        <MDBTabPane tabId="rounds">Content #2</MDBTabPane>
+        <MDBTabPane tabId="rounds"><TournamentRounds :data="{ rounds: rounds, tournamentId: data.tournament.id }" /></MDBTabPane>
         <MDBTabPane tabId="results">Content #3</MDBTabPane>
         <MDBTabPane tabId="pending">Content #4</MDBTabPane>
         <MDBTabPane tabId="admins">
@@ -44,6 +43,7 @@ import {
 import { ref } from "vue";
 import TournamentPlayers from "@/components/TournamentPlayers.vue";
 import TournamentAdmins from "@/components/TournamentAdmins.vue";
+import TournamentRounds from "@/components/TournamentRounds.vue";
 import http from "../http-common";
 
 export default {
@@ -52,6 +52,7 @@ export default {
   components: {
     TournamentPlayers,
     TournamentAdmins,
+    TournamentRounds,
     MDBContainer,
     MDBTabs,
     MDBTabNav,
@@ -63,13 +64,13 @@ export default {
     return {
       players: null,
       admins: null,
+      rounds: null,
     };
   },
   methods: {
     getTab(e) {
-      let tab = e.target.id;
-      if (tab === "tab-players") tab = "players";
-      else if (tab === "tab-admins") tab = "admins";
+      if (e.target === e.relatedTarget) return; //if user click the tab they are already on, do nothing
+      let tab = e.target.id.substring(4); //target.id will return, as example, "tab-rounds", need to chop off the "tab-"
       http
         .get(tab + "/" + this.data.tournament.id, {})
         .then((json) => {
