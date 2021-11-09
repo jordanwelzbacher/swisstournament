@@ -3,10 +3,7 @@ package com.jwelzbacher.swisstournament.DTOs;
 import com.jwelzbacher.swisstournament.models.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 
 public class TournamentInFull {
 

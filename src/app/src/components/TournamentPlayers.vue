@@ -1,6 +1,8 @@
 <template>
-  <MDBContainer v-if="dataset">
-    <MDBInput @input="search" label="Search Rank or Name" class="my-4" />
+  <MDBContainer v-if="dataset" class="mt-4">
+    <div class="mb-4" style="max-width: 400px">
+      <MDBInput @input="search" label="Search Rank or Name" />
+    </div>
     <MDBDatatable
       :dataset="dataset"
       sortField="rank"
@@ -38,8 +40,12 @@ export default {
     const search = (event) => {
       searchPhrase.value = event.target.value;
     };
-    
+
     const dataset = computed(() => {
+      // console.log(wtf)
+      // Object.keys(wtf).forEach(key => {
+      //   console.log(key, wtf[key]);
+      // });
       let table = {
         columns: [
           { label: "Rank", field: "rank" },

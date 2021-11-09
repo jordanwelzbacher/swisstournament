@@ -11,7 +11,7 @@
         <td>{{ admin.username }}</td>
         <td>
           <span v-if="data.isOwner">
-            <MDBPopconfirm confirm="doTheThing()"> Remove Admin </MDBPopconfirm>
+            <MDBPopconfirm v-on:confirm="deleteAdmin(data.tournamentId, admin.id)">Remove Admin</MDBPopconfirm>
           </span>
         </td>
       </tr>
@@ -21,7 +21,9 @@
 
 <script>
 import { MDBTable, MDBPopconfirm } from "mdb-vue-ui-kit";
+import http from "../http-common";
 import { ref } from "vue";
+
 
 export default {
   name: "TournamentAdmins",
@@ -30,10 +32,17 @@ export default {
     MDBTable,
     MDBPopconfirm,
   },
-  setup() {
+  setup(props, {emit}) {
     const adminTooltip = ref(false);
+    function deleteAdmin(tournamentId, adminId) {
+      http.delete("/protected/admins/" + tournamentId + "/" + adminId, {})
+      .then(
+        emit('deleteAdmin', adminId)
+      )
+    }
     return {
       adminTooltip,
+      deleteAdmin,
     };
   },
 };

@@ -4,7 +4,7 @@
 
 BEGIN TRANSACTION;
 
---insert a completed tournament, no user accounts as players
+--10000: insert a completed tournament, no user accounts as players
 INSERT INTO tournament 
 (owner_user_id, tournament_name, competition_type, tournament_date, venue, 
 is_player_registration_on, is_player_results_on, player_limit, win_points, loss_points, draw_points, games_per_match,
@@ -74,7 +74,7 @@ VALUES
 (2,5,4,2,'WIN','LOSS'),
 (1,2,5,1,'WIN','LOSS');
 
---insert an in-progress tournament, no user accounts as players
+--10001: insert an in-progress tournament, no user accounts as players
 
 INSERT INTO tournament 
 (owner_user_id, tournament_name, competition_type, tournament_date, venue, 
@@ -119,7 +119,7 @@ VALUES
 (13,14,6,3,'WIN','LOSS'),
 (15,16,6,4,'WIN','LOSS');
 
---insert a freshly made tournament, registration open
+--10002: insert a freshly made tournament, registration open
 INSERT INTO tournament 
 (owner_user_id, tournament_name, competition_type, tournament_date, venue, 
 is_player_registration_on, is_player_results_on, player_limit, win_points, loss_points, draw_points, games_per_match,
@@ -134,4 +134,50 @@ true, true, 128, 3, 0, 1, 1,
 false, '2021-09-23', true, false);
 
 
+--100003: insert an in progress tournament, one user account as a player
+INSERT INTO tournament 
+(owner_user_id, tournament_name, competition_type, tournament_date, venue, 
+is_player_registration_on, is_player_results_on, player_limit, win_points, loss_points, draw_points, games_per_match,
+first_tiebreaker, second_tiebreaker, third_tiebreaker, fourth_tiebreaker, fifth_tiebreaker,
+first_custom_tiebreaker_name, second_custom_tiebreaker_name, lower_better_for_first_custom, lower_better_for_second_custom,
+is_use_first_last, created_date, is_registration_open, is_completed)
+VALUES 
+(1, 'In-Progress Partial Round 1 With One st_user Player', 'Soccer 1v1', '2021-10-23 03:00:00', 'GCCC', 
+true, true, 64, 3, 0, 1, 3,
+1, 3, 4, 0, 0,
+'', '', false, false,
+false, '2021-09-23', false, false);
+
+INSERT INTO player
+(tournament_id, user_id, display_name, is_dropped, is_confirmed)
+VALUES
+(10003,2, 'Ron Do', false, true),
+(10003,null, 'Weston Serina', false, true),
+(10003,null, 'Lennox Trina', false, true),
+(10003,null, 'Dusty Alexia', false, true),
+(10003,null, 'Jocelyn Lucinda', false, true),
+(10003,null, 'Lexi Joseph', false, true),
+(10003,null, 'Polly Alex', false, true),
+(10003,null, 'Lorayne Sienna', false, true);
+
+INSERT INTO round
+(tournament_id, round_number)
+VALUES
+(10003, 1);
+
+INSERT INTO pairing
+(first_player_id, second_player_id, round_id, table_number, match_result_first_player, match_result_second_player, game_wins_first_player, game_wins_second_player, game_draws_first_player, game_draws_second_player, game_losses_first_player, game_losses_second_player)
+VALUES
+(17,18,7,1,'WIN','LOSS',2,1,0,0,1,2),
+(19,20,7,2,'WIN','LOSS',1,2,0,0,2,1);
+
+INSERT INTO pairing
+(first_player_id, second_player_id, round_id, table_number)
+VALUES
+(21,22,7,3),
+(23,24,7,4);
+
 COMMIT;
+
+
+SELECT * FROM pairing

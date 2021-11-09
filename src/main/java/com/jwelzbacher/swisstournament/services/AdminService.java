@@ -19,4 +19,14 @@ public class AdminService {
         return adminRepository.findByTournamentId(tournamentId);
     }
 
+    public boolean isAdmin(Long tournamentId, Long adminId) {
+        List<Admin> admins = adminRepository.findByTournamentId(tournamentId);
+        for (Admin admin : admins) if (admin.getUserId().equals(adminId)) return true;
+        return false;
+    }
+
+    public void deleteByAdminId(Long adminId) {
+        adminRepository.deleteById(adminId);
+    }
+
 }

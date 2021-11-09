@@ -1,6 +1,8 @@
 <template>
   <MDBContainer>
-    <MDBInput :value="input" @input="search" label="Search Table or Player" />
+    <div class="my-4" style="max-width: 400px">
+      <MDBInput :value="input" @input="search" label="Search Table or Player" />
+    </div>
     <MDBDatatable
       :dataset="dataset"
       sortField="tableNumber"
@@ -33,7 +35,7 @@ export default {
     const searchColumns = ref(["tableNumber", "firstPlayer", "secondPlayer"]);
 
     const search = (event) => {
-      console.log(event.target.value)
+      console.log(event.target.value);
       searchPhrase.value = event.target.value;
     };
 

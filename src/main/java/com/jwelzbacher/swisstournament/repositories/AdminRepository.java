@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Long> {
 
-    @Query(value = "SELECT user_id, username, st_user.id FROM tournament_admin " +
+    @Query(value = "SELECT tournament_admin.id as id, user_id, username FROM tournament_admin " +
             "JOIN st_user ON tournament_admin.user_id = st_user.id " +
             "WHERE tournament_id = :tournamentId " +
             "ORDER BY username;", nativeQuery = true)

@@ -45,4 +45,8 @@ public class TournamentService {
 //        }
         return new ResponseEntity<Object>(tournamentInFull, HttpStatus.OK);
     }
+
+    public boolean isOwner (Long tournamentId, Long ownerId) {
+        return tournamentRepository.getById(tournamentId).getOwnerUserId().equals(ownerId);
+    }
 }

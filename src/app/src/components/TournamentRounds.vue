@@ -1,8 +1,8 @@
 <template>
-  <MDBContainer>
+  <MDBContainer class="mt-4">
     <MDBTabs v-if="data.rounds != null" @show="getTab" v-model="roundTab">
       <!-- Tabs navs -->
-      <MDBTabNav tabsClasses="mb-3">
+      <MDBTabNav>
         <MDBTabItem
           v-for="round of data.rounds"
           :key="String(round.id)"
@@ -98,15 +98,16 @@ export default {
     getRows(data) {
       let rowData = [];
       data.forEach((pairing) => {
+        let firstPlayer = this.players.find((x) => x.id === pairing.firstPlayerId)
+        firstPlayer = firstPlayer.userId == null ? firstPlayer.displayName : firstPlayer.displayName + " (#" + firstPlayer.userId + ")"
+        let secondPlayer = this.players.find((x) => x.id === pairing.secondPlayerId)
+        secondPlayer = secondPlayer.userId == null ? secondPlayer.displayName : secondPlayer.displayName + " (#" + secondPlayer.userId + ")"
         rowData.push({
           tableNumber: pairing.tableNumber,
-          firstPlayer: this.players.find((x) => x.id === pairing.firstPlayerId)
-            .displayName,
+          firstPlayer: firstPlayer,
           matchResultFirstPlayer: pairing.matchResultFirstPlayer,
           matchResultSecondPlayer: pairing.matchResultSecondPlayer,
-          secondPlayer: this.players.find(
-            (x) => x.id === pairing.secondPlayerId
-          ).displayName,
+          secondPlayer: secondPlayer
         });
       });
       return rowData;

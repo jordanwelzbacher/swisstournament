@@ -1,5 +1,6 @@
 <template>
   <main class="mt-4">
+    {{data}}
     <MDBContainer>
       <div class="text-center button-container">
         <MDBBtn color="success" v-if="!data.inTourney && data.playerRegistrationOn && data.registrationOpen && !data.completed">

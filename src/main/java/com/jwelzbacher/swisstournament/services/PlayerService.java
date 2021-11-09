@@ -55,13 +55,15 @@ public class PlayerService {
 
             for (Pairing pairing : pairings) {
                 if (pairing.getFirstPlayerId().equals(player.getId())) {
-                    if (pairing.getMatchResultFirstPlayer().equals("WIN")) wins++;
-                    else if (pairing.getMatchResultFirstPlayer().equals("DRAW")) draws++;
-                    else losses++;
-                } else {
-                    if (pairing.getMatchResultSecondPlayer().equals("WIN")) wins++;
-                    else if (pairing.getMatchResultSecondPlayer().equals("DRAW")) draws++;
-                    else losses++;
+                    if (! (pairing.getMatchResultFirstPlayer()==null)) {
+                        if (pairing.getMatchResultFirstPlayer().equals("WIN")) wins++;
+                        else if (pairing.getMatchResultFirstPlayer().equals("DRAW")) draws++;
+                        else losses++;
+                    } else if (! (pairing.getMatchResultSecondPlayer()==null)) {
+                        if (pairing.getMatchResultSecondPlayer().equals("WIN")) wins++;
+                        else if (pairing.getMatchResultSecondPlayer().equals("DRAW")) draws++;
+                        else losses++;
+                    }
                 }
             }
             playerScore.setWins(wins);
@@ -142,10 +144,10 @@ public class PlayerService {
         double sum = 0.0;
         for (Pairing pairing : pairings) {
             if (pairing.getFirstPlayerId().equals(player.getId())) {
-                if (pairing.getMatchResultFirstPlayer().equals("WIN")) sum += 1;
-            }
-            else {
-                if (pairing.getMatchResultSecondPlayer().equals("WIN")) sum += 1;
+                if (!(pairing.getMatchResultFirstPlayer() == null || pairing.getMatchResultSecondPlayer() == null)) {
+                    if (pairing.getMatchResultFirstPlayer().equals("WIN")) sum += 1;
+                    else if (pairing.getMatchResultSecondPlayer().equals("WIN")) sum += 1;
+                }
             }
         }
         return sum / pairings.size();

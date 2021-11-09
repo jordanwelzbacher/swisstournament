@@ -2,13 +2,14 @@
   <MDBContainer class="mt-5">
     <MDBTabs v-if="data.tournament" @show="getTab" v-model="tournamentTab">
       <!-- Tabs navs -->
-      <MDBTabNav tabsClasses="mb-3">
+      <MDBTabNav>
         <MDBTabItem tabId="players" href="players">Players</MDBTabItem>
         <MDBTabItem tabId="rounds" href="rounds">Rounds</MDBTabItem>
         <MDBTabItem tabId="results" href="results">Submit Results</MDBTabItem>
         <MDBTabItem tabId="pending" href="pending">Pending Invites</MDBTabItem>
         <MDBTabItem tabId="admins" href="admins">Admins</MDBTabItem>
       </MDBTabNav>
+
       <!-- Tabs navs -->
       <!-- Tabs content -->
       <MDBTabContent>
@@ -17,12 +18,20 @@
             :data="{ players: players, tournament: data.tournament }"
           />
         </MDBTabPane>
-        <MDBTabPane tabId="rounds"><TournamentRounds :data="{ rounds: rounds, tournamentId: data.tournament.id }" /></MDBTabPane>
+        <MDBTabPane tabId="rounds"
+          ><TournamentRounds
+            :data="{ rounds: rounds, tournamentId: data.tournament.id }"
+        /></MDBTabPane>
         <MDBTabPane tabId="results">Content #3</MDBTabPane>
         <MDBTabPane tabId="pending">Content #4</MDBTabPane>
         <MDBTabPane tabId="admins">
           <TournamentAdmins
-            :data="{ isOwner: data.isOwner, admins: admins }"
+            :data="{
+              isOwner: data.isOwner,
+              admins: admins,
+              tournamentId: data.tournament.id,
+            }"
+            @deleteAdmin="deleteAdmin"
           />
         </MDBTabPane>
       </MDBTabContent>
@@ -45,6 +54,7 @@ import TournamentPlayers from "@/components/TournamentPlayers.vue";
 import TournamentAdmins from "@/components/TournamentAdmins.vue";
 import TournamentRounds from "@/components/TournamentRounds.vue";
 import http from "../http-common";
+import _ from "lodash";
 
 export default {
   name: "TournamentTabs",
@@ -80,6 +90,9 @@ export default {
         .catch((e) => {
           console.log(e);
         });
+    },
+    deleteAdmin(adminId) {
+      this.admins = _.reject(this.admins, {'id' : adminId});
     },
   },
   setup() {
