@@ -11,7 +11,7 @@
         <td>{{ admin.username }}</td>
         <td>
           <span v-if="data.isOwner">
-            <MDBPopconfirm v-on:confirm="deleteAdmin(data.tournamentId, admin.id)">Remove Admin</MDBPopconfirm>
+            <MDBPopconfirm v-on:confirm="deleteAdmin(admin.id)">Remove Admin</MDBPopconfirm>
           </span>
         </td>
       </tr>
@@ -34,8 +34,8 @@ export default {
   },
   setup(props, {emit}) {
     const adminTooltip = ref(false);
-    function deleteAdmin(tournamentId, adminId) {
-      http.delete("/protected/admins/" + tournamentId + "/" + adminId, {})
+    function deleteAdmin(adminId) {
+      http.delete("/protected/admins/" + adminId, {})
       .then(
         emit('deleteAdmin', adminId)
       )

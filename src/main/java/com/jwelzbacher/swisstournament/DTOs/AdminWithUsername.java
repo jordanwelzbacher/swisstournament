@@ -1,12 +1,10 @@
-package com.jwelzbacher.swisstournament.models;
-
-import org.springframework.lang.Nullable;
+package com.jwelzbacher.swisstournament.DTOs;
 
 import javax.persistence.*;
 
-@Entity(name="admin")
+@Entity(name="adminWithUsername")
 @Table(name="tournament_admin")
-public class Admin {
+public class AdminWithUsername {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,17 +17,17 @@ public class Admin {
     @Column
     private Long userId;
 
-   // @JoinColumn(name = "st_user", referencedColumnName = "username", insertable = false, updatable = false)
+    @Column
+    private String username;
 
-  //  private String username;
-
-    public Admin(Long id, Long tournamentId, Long userId) {
+    public AdminWithUsername(Long id, Long tournamentId, Long userId, String username) {
         this.id = id;
         this.tournamentId = tournamentId;
         this.userId = userId;
+        this.username = username;
     }
 
-    public Admin() {
+    public AdminWithUsername() {
     }
 
     public Long getId() {
@@ -48,13 +46,13 @@ public class Admin {
         this.userId = userId;
     }
 
-//    public String getUsername() {
-//        return username;
-//    }
-//
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public Long getTournamentId() {
         return tournamentId;

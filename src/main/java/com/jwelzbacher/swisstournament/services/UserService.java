@@ -81,6 +81,10 @@ public class UserService {
         return new ResponseEntity<Object>(authedUser, HttpStatus.OK);
     }
 
+    public boolean isUser(Long userId) {
+        return userRepository.existsById(userId);
+    }
+
     private String generateJWTToken(User user) {
         long timestamp = System.currentTimeMillis();
         return Jwts.builder()

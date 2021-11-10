@@ -29,7 +29,6 @@
             :data="{
               isOwner: data.isOwner,
               admins: admins,
-              tournamentId: data.tournament.id,
             }"
             @deleteAdmin="deleteAdmin"
           />

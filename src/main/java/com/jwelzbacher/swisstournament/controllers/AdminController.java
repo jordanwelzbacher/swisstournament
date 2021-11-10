@@ -1,6 +1,6 @@
 package com.jwelzbacher.swisstournament.controllers;
 
-import com.jwelzbacher.swisstournament.exceptions.UnauthorizedException;
+import com.jwelzbacher.swisstournament.exceptions.ForbiddenException;
 import com.jwelzbacher.swisstournament.services.AdminService;
 import com.jwelzbacher.swisstournament.services.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +24,31 @@ public class AdminController {
         return new ResponseEntity<>(adminService.getAdminsByTournamentId(tournamentId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/protected/admins/{tournamentId}/{adminId}")
-    public ResponseEntity<?> delete(@PathVariable Long tournamentId, @PathVariable Long adminId, HttpServletRequest request) {
+    @PostMapping("api/protected/admins/{tournamentId}/{userId}")
+    public ResponseEntity<?> add(@PathVariable Long tournamentId, @PathVariable Long userId, HttpServletRequest request) {
+        //only admins or the owner can add admin
+        if (
+            adminService.isAdmin(tournamentId, Long.parseLong(request.getAttribute("id").toString()))
+            || tournamentService.isOwner(tournamentId, Long.parseLong(request.getAttribute("id").toString()))
+        ) {
+            return new ResponseEntity<>(adminService.addAdmin(tournamentId, userId), HttpStatus.OK);
+        } else {
+            throw new ForbiddenException("Forbidden");
+        }
+    }
+
+    @DeleteMapping("/api/protected/admins/{adminId}")
+    public ResponseEntity<?> delete(@PathVariable Long adminId, HttpServletRequest request) {
+        //only admins or the owner can delete admin
+        Long tournamentId = adminService.getByAdminId(adminId).getTournamentId();
         if (
             adminService.isAdmin(tournamentId, Long.parseLong(request.getAttribute("id").toString()))
             || tournamentService.isOwner(tournamentId, Long.parseLong(request.getAttribute("id").toString()))
         ) {
             adminService.deleteByAdminId(adminId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            throw new ForbiddenException("Forbidden");
         }
-        else {
-            throw new UnauthorizedException("Unauthorized");
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

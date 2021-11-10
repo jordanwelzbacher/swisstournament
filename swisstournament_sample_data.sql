@@ -1,6 +1,10 @@
 --!                                                                             !--
 --!   create two user accounts (use postman for speed) before running this!     !--
 --!                                                                             !--
+select * from tournament
+select * from st_user
+select * from tournament_admin
+
 
 BEGIN TRANSACTION;
 
@@ -21,7 +25,10 @@ false, '2021-09-23', false, true);
 INSERT INTO tournament_admin
 (tournament_id, user_id)
 VALUES
+(10000, 1),
 (10000, 2);
+
+
 
 INSERT INTO player
 (tournament_id, display_name, is_dropped, is_confirmed)
@@ -180,4 +187,4 @@ VALUES
 COMMIT;
 
 
-SELECT * FROM pairing
+SELECT * FROM tournament_admin

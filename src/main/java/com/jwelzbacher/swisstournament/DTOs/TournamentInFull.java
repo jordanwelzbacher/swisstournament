@@ -9,7 +9,7 @@ public class TournamentInFull {
 
     private TournamentAtAGlance tournament;
     private List<Player> players = new ArrayList<Player>();
-    private List<Admin> admins = new ArrayList<>();
+    private List<AdminWithUsername> admins = new ArrayList<>();
 
     public TournamentAtAGlance getTournament() {
         return tournament;
@@ -27,11 +27,11 @@ public class TournamentInFull {
         this.players = players;
     }
 
-    public List<Admin> getAdmins() {
+    public List<AdminWithUsername> getAdmins() {
         return admins;
     }
 
-    public void setAdmins(List<Admin> admins) {
+    public void setAdmins(List<AdminWithUsername> admins) {
         this.admins = admins;
     }
 
