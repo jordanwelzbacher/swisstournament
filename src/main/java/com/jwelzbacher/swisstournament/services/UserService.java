@@ -81,8 +81,16 @@ public class UserService {
         return new ResponseEntity<Object>(authedUser, HttpStatus.OK);
     }
 
-    public boolean isUser(Long userId) {
+    public User getUserByUsername(String username) {
+        return userRepository.findOneByUsername(username);
+    }
+
+    public boolean isUserByUserId(Long userId) {
         return userRepository.existsById(userId);
+    }
+
+    public boolean isUserByUsername(String username) {
+        return userRepository.existsByUsername(username);
     }
 
     private String generateJWTToken(User user) {

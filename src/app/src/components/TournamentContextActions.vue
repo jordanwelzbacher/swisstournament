@@ -1,21 +1,39 @@
 <template>
   <main class="mt-4">
-    {{data}}
+    {{ data }}
     <MDBContainer>
       <div class="text-center button-container">
-        <MDBBtn color="success" v-if="!data.inTourney && data.playerRegistrationOn && data.registrationOpen && !data.completed">
+        <MDBBtn
+          color="success"
+          v-if="
+            !data.inTourney &&
+            data.playerRegistrationOn &&
+            data.registrationOpen &&
+            !data.completed
+          "
+        >
           Join Event<MDBIcon icon="sign-in-alt" size="lg" />
         </MDBBtn>
-        <MDBBtn v-if="data.inTourney && countRounds < 1 && !data.completed" color="danger">
+        <MDBBtn
+          v-if="data.inTourney && countRounds < 1 && !data.completed"
+          color="danger"
+        >
           Leave Event<MDBIcon icon="sign-out-alt" size="lg" />
         </MDBBtn>
-        <MDBBtn v-if="(data.isOwner || data.isAdmin) && !data.completed" color="primary">
+        <MDBBtn
+          v-if="(data.isOwner || data.isAdmin) && !data.completed"
+          color="primary"
+        >
           Add Player<MDBIcon icon="user-plus" size="lg" />
         </MDBBtn>
         <MDBBtn v-if="data.isOwner && !data.completed" color="secondary">
           Edit Event<MDBIcon icon="edit" size="lg" />
         </MDBBtn>
-        <MDBBtn v-if="data.isOwner || data.isAdmin" @click="isShowAdvanced = !isShowAdvanced" color="info">
+        <MDBBtn
+          v-if="data.isOwner || data.isAdmin"
+          @click="isShowAdvanced = !isShowAdvanced"
+          color="info"
+        >
           Advanced Options
           <MDBIcon v-show="!isShowAdvanced" icon="chevron-up" size="lg" />
           <MDBIcon v-show="isShowAdvanced" icon="chevron-down" size="lg" />
@@ -24,16 +42,34 @@
       <div>
         <MDBCollapse id="advanced" v-model="isShowAdvanced"
           ><div class="text-center button-container">
-            <MDBBtn v-if="(data.isOwner || data.isAdmin) && !data.completed" outline="dark" @click="showNextRoundModal()">
+            <MDBBtn
+              v-if="(data.isOwner || data.isAdmin) && !data.completed"
+              outline="dark"
+              @click="showNextRoundModal()"
+            >
               Create Round<MDBIcon icon="plus-square" size="lg" />
             </MDBBtn>
-            <MDBBtn v-if="(data.isOwner || data.isAdmin) && !data.completed" outline="primary">
+            <MDBBtn
+              v-if="(data.isOwner || data.isAdmin) && !data.completed"
+              outline="primary"
+              @click="showAddAdminModal()"
+            >
               Add Admin<MDBIcon icon="user-shield" size="lg" />
             </MDBBtn>
-            <MDBBtn v-if="(data.isOwner || data.isAdmin) && data.countRounds < 1 && !data.completed" outline="warning">
+            <MDBBtn
+              v-if="
+                (data.isOwner || data.isAdmin) &&
+                data.countRounds < 1 &&
+                !data.completed
+              "
+              outline="warning"
+            >
               Kick All Pending<MDBIcon icon="user-times" size="lg" />
             </MDBBtn>
-            <MDBBtn v-if="data.isOwner && data.countRounds > 0 && !data.completed" outline="success">
+            <MDBBtn
+              v-if="data.isOwner && data.countRounds > 0 && !data.completed"
+              outline="success"
+            >
               Finish Tournament<MDBIcon icon="trophy" size="lg" />
             </MDBBtn>
             <MDBBtn v-if="data.isOwner" outline="danger">
@@ -92,11 +128,30 @@
         <MDBBtn color="secondary" @click="roundModal = false">Close</MDBBtn>
       </MDBModalFooter>
     </MDBModal>
+
+    <MDBModal
+      id="adminModal"
+      tabindex="-1"
+      labelledby="adminModalLabel"
+      v-model="adminModal"
+    >
+      <MDBModalHeader>
+        <MDBModalTitle id="adminModalLabel"> Add Admin </MDBModalTitle>
+      </MDBModalHeader>
+      <MDBModalBody>
+        <MDBInput class="my-4" label="Username" type="text" v-model="adminToAdd" />
+      </MDBModalBody>
+      <MDBModalFooter>
+        <MDBBtn color="primary" @click="addAdmin()" class="me-2">Add</MDBBtn>
+        <MDBBtn color="secondary" @click="adminModal = false">Close</MDBBtn>
+      </MDBModalFooter>
+    </MDBModal>
   </main>
 </template>
 
 <script>
 import {
+  MDBInput,
   MDBContainer,
   MDBBtn,
   MDBCollapse,
@@ -110,11 +165,14 @@ import {
   MDBModalFooter,
 } from "mdb-vue-ui-kit";
 import { ref } from "vue";
+import { useRoute } from 'vue-router'
+import http from "../http-common";
 
 export default {
   name: "TournamentContextActions",
   props: ["data"],
   components: {
+    MDBInput,
     MDBContainer,
     MDBBtn,
     MDBCollapse,
@@ -127,14 +185,18 @@ export default {
     MDBModalBody,
     MDBModalFooter,
   },
-
   methods: {
     showNextRoundModal() {
       this.roundModal = true;
     },
+    showAddAdminModal() {
+      this.adminModal = true;
+    },
   },
-  setup() {
+  setup(props, {emit}) {
+    const route = useRoute()
     const isShowAdvanced = ref(false);
+    const adminToAdd = ref("");
     const countTopPlayers = ref([
       { text: "", value: null },
       { text: "2", value: 2 },
@@ -148,11 +210,25 @@ export default {
     ]);
     const nextRoundType = ref("swiss");
     const roundModal = ref(false);
+    const adminModal = ref(false);
+
+    function addAdmin() {
+      http.post("protected/admins/" + route.params.tournamentId + "?username=" + adminToAdd.value)
+      .then((json) => {
+        emit('addAdmin', json.data);
+      })
+      adminToAdd.value = ''
+    }
+
     return {
       isShowAdvanced,
       nextRoundType,
       countTopPlayers,
       roundModal,
+      adminToAdd,
+      adminModal,
+      addAdmin,
+      route,
     };
   },
 };

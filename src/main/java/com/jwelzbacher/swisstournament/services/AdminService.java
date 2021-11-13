@@ -3,6 +3,7 @@ package com.jwelzbacher.swisstournament.services;
 import com.jwelzbacher.swisstournament.DTOs.AdminWithUsername;
 import com.jwelzbacher.swisstournament.exceptions.BadRequestException;
 import com.jwelzbacher.swisstournament.models.Admin;
+import com.jwelzbacher.swisstournament.models.User;
 import com.jwelzbacher.swisstournament.repositories.AdminRepository;
 import com.jwelzbacher.swisstournament.repositories.AdminWithUsernameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,12 +43,14 @@ public class AdminService {
         adminRepository.deleteById(adminId);
     }
 
-    public AdminWithUsername addAdmin(Long tournamentId, Long userId) {
-        if (tournamentService.isOwner(tournamentId, userId)) throw new BadRequestException("Owner cannot be admin");
-        if (isAdmin(tournamentId, userId)) throw new BadRequestException("This user is already an admin");
-        if (! userService.isUser(userId)) throw new BadRequestException("This user does not exist");
+    public AdminWithUsername addAdmin(Long tournamentId, String username) {
+        if (! userService.isUserByUsername(username)) throw new BadRequestException("This user does not exist");
+        User user = userService.getUserByUsername(username);
+        if (tournamentService.isOwner(tournamentId, user.getId())) throw new BadRequestException("Owner cannot be admin");
+        if (isAdmin(tournamentId, user.getId())) throw new BadRequestException("This user is already an admin");
+
         Admin admin = new Admin();
-        admin.setUserId(userId);
+        admin.setUserId(user.getId());
         admin.setTournamentId(tournamentId);
         return adminWithUsernameRepository.findByAdminId(adminRepository.save(admin).getId());
     }

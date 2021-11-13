@@ -24,14 +24,14 @@ public class AdminController {
         return new ResponseEntity<>(adminService.getAdminsByTournamentId(tournamentId), HttpStatus.OK);
     }
 
-    @PostMapping("api/protected/admins/{tournamentId}/{userId}")
-    public ResponseEntity<?> add(@PathVariable Long tournamentId, @PathVariable Long userId, HttpServletRequest request) {
+    @PostMapping("api/protected/admins/{tournamentId}")
+    public ResponseEntity<?> add(@PathVariable Long tournamentId, @RequestParam(name = "username") String username, HttpServletRequest request) {
         //only admins or the owner can add admin
         if (
             adminService.isAdmin(tournamentId, Long.parseLong(request.getAttribute("id").toString()))
             || tournamentService.isOwner(tournamentId, Long.parseLong(request.getAttribute("id").toString()))
         ) {
-            return new ResponseEntity<>(adminService.addAdmin(tournamentId, userId), HttpStatus.OK);
+            return new ResponseEntity<>(adminService.addAdmin(tournamentId, username), HttpStatus.OK);
         } else {
             throw new ForbiddenException("Forbidden");
         }

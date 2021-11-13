@@ -1,5 +1,6 @@
 <template>
   <MDBTable>
+    {{data}}
     <thead>
       <tr>
         <th scope="col">Username</th>

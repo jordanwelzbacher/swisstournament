@@ -1,5 +1,7 @@
 <template>
   <MDBContainer class="mt-5">
+    {{ data }}
+    {{ newAdmin }}
     <MDBTabs v-if="data.tournament" @show="getTab" v-model="tournamentTab">
       <!-- Tabs navs -->
       <MDBTabNav>
@@ -22,7 +24,10 @@
           ><TournamentRounds
             :data="{ rounds: rounds, tournamentId: data.tournament.id }"
         /></MDBTabPane>
-        <MDBTabPane tabId="results">Content #3</MDBTabPane>
+        <MDBTabPane tabId="results"
+          ><TournamentResults 
+          :data="{ rounds: rounds, tournamentId:data.tournament.id }"
+          /></MDBTabPane>
         <MDBTabPane tabId="pending">Content #4</MDBTabPane>
         <MDBTabPane tabId="admins">
           <TournamentAdmins
@@ -52,16 +57,21 @@ import { ref } from "vue";
 import TournamentPlayers from "@/components/TournamentPlayers.vue";
 import TournamentAdmins from "@/components/TournamentAdmins.vue";
 import TournamentRounds from "@/components/TournamentRounds.vue";
+import TournamentResults from "@/components/TournamentResults.vue";
 import http from "../http-common";
 import _ from "lodash";
 
 export default {
   name: "TournamentTabs",
-  props: ["data"],
+  props: {
+    data: {},
+    newAdmin: {},
+  },
   components: {
     TournamentPlayers,
     TournamentAdmins,
     TournamentRounds,
+    TournamentResults,
     MDBContainer,
     MDBTabs,
     MDBTabNav,
@@ -91,17 +101,48 @@ export default {
         });
     },
     deleteAdmin(adminId) {
-      this.admins = _.reject(this.admins, {'id' : adminId});
+      this.admins = _.reject(this.admins, { id: adminId });
     },
   },
   setup() {
+    // const players = ref('');
+    // const admins = ref('');
+    // const rounds = ref('');
     const tournamentTab = ref("players");
+    // const newAd = ref(props.newAdmin);
+    // console.log(newAd.value)
+
+    // function getTab(e) {
+    //   if (e.target === e.relatedTarget) return; //if user click the tab they are already on, do nothing
+    //   let tab = e.target.id.substring(4); //target.id will return, as example, "tab-rounds", need to chop off the "tab-"
+    //   http
+    //     .get(tab + "/" + props.data.tournament.id, {})
+    //     .then((json) => {
+    //       eval(tab).value = json.data;
+    //     })
+    //     .then(() => {})
+    //     .catch((e) => {
+    //       console.log(e);
+    //     });
+    // }
+
+    // watch(newAd, (stuff) => {
+    //  // admins.value = _.concat(...admins.value, stuff.newAdmin)
+    //   console.log(stuff)
+    // }, { deep: true })
 
     return {
+      // players,
+      // admins,
+      // rounds,
       tournamentTab,
+      // getTab,
+      // newAd,
     };
   },
 };
 </script>
 
 <style scoped></style>
+
+

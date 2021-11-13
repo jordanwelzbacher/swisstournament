@@ -1,8 +1,8 @@
 <template>
   <MDBContainer>
     <TournamentHeading :data="tournamentHeadingData" />
-    <TournamentContextActions :data="tournamentContextActionsData" />
-    <TournamentTabs :data="tournamentTabsData" />
+    <TournamentContextActions :data="tournamentContextActionsData" @addAdmin="addAdmin" />
+    <TournamentTabs :data="tournamentTabsData" :newAdmin="newAdmin" />
   </MDBContainer>
 </template>
 
@@ -51,7 +51,13 @@ export default {
       tournamentTabsData: {
         tournament: null,
       },
+      newAdmin: null,
     };
+  },
+  methods: {
+    addAdmin(admin) {
+      this.newAdmin = admin
+    }
   },
   mounted() {
     http
