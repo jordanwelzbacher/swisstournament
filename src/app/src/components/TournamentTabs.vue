@@ -22,12 +22,9 @@
         </MDBTabPane>
         <MDBTabPane tabId="rounds"
           ><TournamentRounds
-            :data="{ rounds: rounds, tournamentId: data.tournament.id }"
+            :data="{ rounds: rounds, tournament: data.tournament, isOwner: data.isOwner, isAdmin: data.isAdmin}"
         /></MDBTabPane>
-        <MDBTabPane tabId="results"
-          ><TournamentResults 
-          :data="{ rounds: rounds, tournamentId:data.tournament.id }"
-          /></MDBTabPane>
+        <MDBTabPane tabId="results">dead</MDBTabPane>
         <MDBTabPane tabId="pending">Content #4</MDBTabPane>
         <MDBTabPane tabId="admins">
           <TournamentAdmins
@@ -57,7 +54,6 @@ import { ref } from "vue";
 import TournamentPlayers from "@/components/TournamentPlayers.vue";
 import TournamentAdmins from "@/components/TournamentAdmins.vue";
 import TournamentRounds from "@/components/TournamentRounds.vue";
-import TournamentResults from "@/components/TournamentResults.vue";
 import http from "../http-common";
 import _ from "lodash";
 
@@ -71,7 +67,6 @@ export default {
     TournamentPlayers,
     TournamentAdmins,
     TournamentRounds,
-    TournamentResults,
     MDBContainer,
     MDBTabs,
     MDBTabNav,

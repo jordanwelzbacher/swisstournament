@@ -50,6 +50,8 @@ export default {
       },
       tournamentTabsData: {
         tournament: null,
+        isOwner: null,
+        isAdmin: null,
       },
       newAdmin: null,
     };
@@ -93,6 +95,8 @@ export default {
         this.tournamentContextActionsData.isOwner = false;
         this.tournamentContextActionsData.isAdmin = false;
         this.tournamentContextActionsData.inTourney = false;
+        this.tournamentTabsData.isOwner = false;
+        this.tournamentTabsData.isAdmin = false;
         //Is user logged in?
         if (store.getters["auth/user"]) {
           //check isOwner
@@ -107,6 +111,7 @@ export default {
        //     console.log("this admin is " + admin)
             if (admin.userId == store.getters["auth/user"].id) {
               this.tournamentContextActionsData.isAdmin = true;
+              this.tournamentTabsData.isAdmin = true;
             }
           }
      //     console.log("is the user a tournament admin? " + this.tournamentContextActionsData.isAdmin);

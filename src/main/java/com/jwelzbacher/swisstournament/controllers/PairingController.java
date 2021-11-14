@@ -20,4 +20,9 @@ public class PairingController {
     public ResponseEntity<?> get(@PathVariable Long roundId) {
         return new ResponseEntity<>(pairingService.getPairingsByRoundId(roundId), HttpStatus.OK);
     }
+
+    @GetMapping("api/pairing/{pairingId}")
+    public ResponseEntity<?> getById(@PathVariable Long pairingId) {
+        return new ResponseEntity<>(pairingService.getById(pairingId), HttpStatus.OK);
+    }
 }

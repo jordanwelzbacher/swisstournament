@@ -38,6 +38,8 @@ public class TournamentAtAGlance {
     @Column
     private int countRounds;
     @Column
+    private int gamesPerMatch;
+    @Column
     private int firstTiebreaker;
     @Column
     private int secondTiebreaker;
@@ -57,7 +59,7 @@ public class TournamentAtAGlance {
     private Boolean lowerBetterForSecondCustom;
 
 
-    public TournamentAtAGlance(Long id, String ownerUsername, String tournamentName, String competitionType, Timestamp tournamentDate, String venue, boolean isPlayerRegistrationOn, double playerLimit, boolean isRegistrationOpen, boolean isCompleted, int countPlayers, int countRounds, int firstTiebreaker, int secondTiebreaker, int thirdTiebreaker, int fourthTiebreaker, int fifthTiebreaker, String firstCustomTiebreakerName, String secondCustomTiebreakerName, Boolean lowerBetterForFirstCustom, Boolean lowerBetterForSecondCustom) {
+    public TournamentAtAGlance(Long id, String ownerUsername, String tournamentName, String competitionType, Timestamp tournamentDate, String venue, boolean isPlayerRegistrationOn, double playerLimit, boolean isRegistrationOpen, boolean isCompleted, int countPlayers, int countRounds, int gamesPerMatch, int firstTiebreaker, int secondTiebreaker, int thirdTiebreaker, int fourthTiebreaker, int fifthTiebreaker, String firstCustomTiebreakerName, String secondCustomTiebreakerName, Boolean lowerBetterForFirstCustom, Boolean lowerBetterForSecondCustom) {
         this.id = id;
         this.ownerUsername = ownerUsername;
         this.tournamentName = tournamentName;
@@ -70,6 +72,7 @@ public class TournamentAtAGlance {
         this.isCompleted = isCompleted;
         this.countPlayers = countPlayers;
         this.countRounds = countRounds;
+        this.gamesPerMatch = gamesPerMatch;
         this.firstTiebreaker = firstTiebreaker;
         this.secondTiebreaker = secondTiebreaker;
         this.thirdTiebreaker = thirdTiebreaker;
@@ -82,6 +85,14 @@ public class TournamentAtAGlance {
     }
 
     public TournamentAtAGlance() {
+    }
+
+    public int getGamesPerMatch() {
+        return gamesPerMatch;
+    }
+
+    public void setGamesPerMatch(int gamesPerMatch) {
+        this.gamesPerMatch = gamesPerMatch;
     }
 
     public int getFirstTiebreaker() {

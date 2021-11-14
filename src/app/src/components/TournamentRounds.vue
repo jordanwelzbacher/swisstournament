@@ -1,6 +1,6 @@
 <template>
   <MDBContainer class="mt-4">
-    {{data}}
+    {{ data }}
     <MDBTabs v-if="data.rounds != null" @show="getTab" v-model="roundTab">
       <!-- Tabs navs -->
       <MDBTabNav>
@@ -25,7 +25,7 @@
       </MDBTabNav>
       <!-- Tabs content -->
       <MDBTabContent v-if="players">
-        <TournamentRound :data="table" />
+        <TournamentRound :data="{table: table, tournament: data.tournament}" />
       </MDBTabContent>
     </MDBTabs>
   </MDBContainer>
@@ -53,7 +53,7 @@ export default {
     MDBTabContent,
     MDBTabItem,
   },
-  props: ["data"],
+  props: ['data'],
   data() {
     return {
       players: null,
@@ -69,7 +69,7 @@ export default {
 
       if (this.players == null) {
         //If we have not grabbed the Players yet, grab those too
-        const requestPlayers = this.getPlayers(this.data.tournamentId);
+        const requestPlayers = this.getPlayers(this.data.tournament.id);
         const requestPairings = this.getPairings(tab);
 
         Promise.all([requestPlayers, requestPairings])
@@ -99,16 +99,27 @@ export default {
     getRows(data) {
       let rowData = [];
       data.forEach((pairing) => {
-        let firstPlayer = this.players.find((x) => x.id === pairing.firstPlayerId)
-        firstPlayer = firstPlayer.userId == null ? firstPlayer.displayName : firstPlayer.displayName + " (#" + firstPlayer.userId + ")"
-        let secondPlayer = this.players.find((x) => x.id === pairing.secondPlayerId)
-        secondPlayer = secondPlayer.userId == null ? secondPlayer.displayName : secondPlayer.displayName + " (#" + secondPlayer.userId + ")"
+        let firstPlayer = this.players.find(
+          (x) => x.id === pairing.firstPlayerId
+        );
+        firstPlayer =
+          firstPlayer.userId == null
+            ? firstPlayer.displayName
+            : firstPlayer.displayName + " (#" + firstPlayer.userId + ")";
+        let secondPlayer = this.players.find(
+          (x) => x.id === pairing.secondPlayerId
+        );
+        secondPlayer =
+          secondPlayer.userId == null
+            ? secondPlayer.displayName
+            : secondPlayer.displayName + " (#" + secondPlayer.userId + ")";
         rowData.push({
+          id: pairing.id,
           tableNumber: pairing.tableNumber,
           firstPlayer: firstPlayer,
           matchResultFirstPlayer: pairing.matchResultFirstPlayer,
           matchResultSecondPlayer: pairing.matchResultSecondPlayer,
-          secondPlayer: secondPlayer
+          secondPlayer: secondPlayer,
         });
       });
       return rowData;
@@ -122,7 +133,9 @@ export default {
         if (props.data.rounds.length > 0) {
           roundTab.value = props.data.rounds[0].id.toString();
         }
-      } catch {roundTab.value = "undefined"}
+      } catch {
+        roundTab.value = "undefined";
+      }
     });
 
     const table = ref({

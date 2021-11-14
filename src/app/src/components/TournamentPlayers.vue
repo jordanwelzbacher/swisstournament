@@ -1,5 +1,6 @@
 <template>
   <MDBContainer v-if="dataset" class="mt-4">
+    {{data}}
     <div class="mb-4" style="max-width: 400px">
       <MDBInput @input="search" label="Search Rank or Name" />
     </div>
