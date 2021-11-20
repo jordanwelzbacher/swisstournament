@@ -51,6 +51,8 @@ public class PlayerService {
             int losses = 0;
             int draws = 0;
 
+
+
             List<Pairing> pairings = pairingRepository.findByPlayerId(player.getId());
 
             for (Pairing pairing : pairings) {
@@ -59,11 +61,11 @@ public class PlayerService {
                         if (pairing.getMatchResultFirstPlayer().equals("WIN")) wins++;
                         else if (pairing.getMatchResultFirstPlayer().equals("DRAW")) draws++;
                         else losses++;
-                    } else if (! (pairing.getMatchResultSecondPlayer()==null)) {
-                        if (pairing.getMatchResultSecondPlayer().equals("WIN")) wins++;
-                        else if (pairing.getMatchResultSecondPlayer().equals("DRAW")) draws++;
-                        else losses++;
                     }
+                } else if (! (pairing.getMatchResultSecondPlayer()==null)) {
+                    if (pairing.getMatchResultSecondPlayer().equals("WIN")) wins++;
+                    else if (pairing.getMatchResultSecondPlayer().equals("DRAW")) draws++;
+                    else losses++;
                 }
             }
             playerScore.setWins(wins);
@@ -134,7 +136,9 @@ public class PlayerService {
             if (pairing.getFirstPlayerId().equals(player.getId())) {
                 sum += getMatchWinPercentage(playerRepository.getById(pairing.getSecondPlayerId()));
             }
-            else sum += getMatchWinPercentage(playerRepository.getById(pairing.getFirstPlayerId()));
+            else {
+                sum += getMatchWinPercentage(playerRepository.getById(pairing.getFirstPlayerId()));
+            }
         }
         return DoubleRounder.round(sum / pairings.size(), 6);
     }
@@ -146,7 +150,10 @@ public class PlayerService {
             if (pairing.getFirstPlayerId().equals(player.getId())) {
                 if (!(pairing.getMatchResultFirstPlayer() == null || pairing.getMatchResultSecondPlayer() == null)) {
                     if (pairing.getMatchResultFirstPlayer().equals("WIN")) sum += 1;
-                    else if (pairing.getMatchResultSecondPlayer().equals("WIN")) sum += 1;
+                }
+            } else {
+                if (!(pairing.getMatchResultFirstPlayer() == null || pairing.getMatchResultSecondPlayer() == null)) {
+                    if (pairing.getMatchResultSecondPlayer().equals("WIN")) sum += 1;
                 }
             }
         }

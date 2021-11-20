@@ -1,6 +1,5 @@
 <template>
   <MDBContainer class="mt-4">
-    {{ data }}
     <MDBTabs v-if="data.rounds != null" @show="getTab" v-model="roundTab">
       <!-- Tabs navs -->
       <MDBTabNav>
@@ -25,7 +24,9 @@
       </MDBTabNav>
       <!-- Tabs content -->
       <MDBTabContent v-if="players">
-        <TournamentRound :data="{table: table, tournament: data.tournament}" />
+        <TournamentRound
+          :data="{ table: table, tournament: data.tournament }"
+        />
       </MDBTabContent>
     </MDBTabs>
   </MDBContainer>
@@ -53,7 +54,7 @@ export default {
     MDBTabContent,
     MDBTabItem,
   },
-  props: ['data'],
+  props: ["data"],
   data() {
     return {
       players: null,
@@ -117,9 +118,15 @@ export default {
           id: pairing.id,
           tableNumber: pairing.tableNumber,
           firstPlayer: firstPlayer,
+          secondPlayer: secondPlayer,
           matchResultFirstPlayer: pairing.matchResultFirstPlayer,
           matchResultSecondPlayer: pairing.matchResultSecondPlayer,
-          secondPlayer: secondPlayer,
+          gameWinsFirstPlayer: pairing.gameWinsFirstPlayer,
+          gameWinsSecondPlayer: pairing.gameWinsSecondPlayer,
+          gameDrawsFirstPlayer: pairing.gameDrawsFirstPlayer,
+          gameDrawsSecondPlayer: pairing.gameDrawsSecondPlayer,
+          gameLossesFirstPlayer: pairing.gameLossesFirstPlayer,
+          gameLossesSecondPlayer: pairing.gameLossesSecondPlayer
         });
       });
       return rowData;

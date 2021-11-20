@@ -186,7 +186,54 @@ VALUES
 (21,22,7,3),
 (23,24,7,4);
 
+
+
+--100004: insert an in progress tournament, one user account as a player, MTG
+INSERT INTO tournament 
+(owner_user_id, tournament_name, competition_type, tournament_date, venue, 
+is_player_registration_on, is_player_results_on, player_limit, win_points, loss_points, draw_points, games_per_match,
+first_tiebreaker, second_tiebreaker, third_tiebreaker, fourth_tiebreaker, fifth_tiebreaker,
+first_custom_tiebreaker_name, second_custom_tiebreaker_name, lower_better_for_first_custom, lower_better_for_second_custom,
+is_use_first_last, created_date, is_registration_open, is_completed)
+VALUES 
+(1, 'BO3 In-Progress', 'MTG', '2021-10-23 03:00:00', 'ICC', 
+true, true, 64, 3, 0, 1, 3,
+1, 3, 4, 0, 0,
+'', '', false, false,
+false, '2021-09-23', false, false);
+
+INSERT INTO player
+(tournament_id, user_id, display_name, is_dropped, is_confirmed)
+VALUES
+(10004,2, 'Ron Do', false, true),
+(10004,null, 'Weston Serina', false, true),
+(10004,null, 'Lennox Trina', false, true),
+(10004,null, 'Dusty Alexia', false, true),
+(10004,null, 'Jocelyn Lucinda', false, true),
+(10004,null, 'Lexi Joseph', false, true),
+(10004,null, 'Polly Alex', false, true),
+(10004,null, 'Lorayne Sienna', false, true);
+
+INSERT INTO round
+(tournament_id, round_number)
+VALUES
+(10004, 1);
+
+INSERT INTO pairing
+(first_player_id, second_player_id, round_id, table_number, match_result_first_player, match_result_second_player, 
+game_wins_first_player, game_wins_second_player, game_draws_first_player, game_draws_second_player, game_losses_first_player, game_losses_second_player)
+VALUES
+(25,26,8,1,'LOSS','WIN',
+1,2,0,0,2,1),
+(27,28,8,2,'WIN','LOSS',
+2,0,1,1,0,2);
+
+INSERT INTO pairing
+(first_player_id, second_player_id, round_id, table_number)
+VALUES
+(29,30,8,3),
+(31,32,8,4);
+
+
 COMMIT;
 
-
-SELECT * FROM tournament_admin

@@ -1,7 +1,5 @@
 <template>
   <MDBContainer class="mt-5">
-    {{ data }}
-    {{ newAdmin }}
     <MDBTabs v-if="data.tournament" @show="getTab" v-model="tournamentTab">
       <!-- Tabs navs -->
       <MDBTabNav>

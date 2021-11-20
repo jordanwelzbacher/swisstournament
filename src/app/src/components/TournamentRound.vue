@@ -1,8 +1,6 @@
 <template>
   <MDBContainer>
-    {{ dataset }}
-    {{ usingFirstCustomTiebreaker }}
-    {{ usingSecondCustomTiebreaker }}
+    {{data}}
     <div class="my-4" style="max-width: 400px">
       <MDBInput :value="input" @input="search" label="Search Table or Player" />
     </div>
@@ -135,11 +133,20 @@ export default {
   methods: {
     toggleModal(e) {
       this.selectedPairing = this.dataset.rows[e];
+      console.log(this.selectedPairing)
       this.resultModal = true;
 
-      //    this.$refs.select1.setOption(this.selectedPairing.matchResultFirstPlayer);
-      this.secondPlayerResult = "LOSS";
-      //this.$refs.tiebreaker1.setOption("LOSS");
+      this.matchResultFirst.forEach((possibleResult) => {
+        possibleResult.selected = false;
+        if (possibleResult.value == this.selectedPairing.matchResultFirstPlayer)
+          possibleResult.selected = true;
+      });
+      
+      this.matchResultSecond.forEach((possibleResult) => {
+        possibleResult.selected = false;
+        if (possibleResult.value == this.selectedPairing.matchResultSecondPlayer)
+          possibleResult.selected = true;
+      });
     },
   },
   setup(props) {
@@ -155,14 +162,16 @@ export default {
     };
 
     const matchResultFirst = ref([
-      { text: "Win", value: "WIN" },
-      { text: "Loss", value: "LOSS" },
-      { text: "Draw", value: "DRAW" },
+      { text: "", value: "", selected: true },
+      { text: "Win", value: "WIN", selected: false },
+      { text: "Loss", value: "LOSS", selected: false },
+      { text: "Draw", value: "DRAW", selected: false },
     ]);
     const matchResultSecond = ref([
-      { text: "Win", value: "WIN" },
-      { text: "Loss", value: "LOSS" },
-      { text: "Draw", value: "DRAW" },
+      { text: "", value: "", selected: true },
+      { text: "Win", value: "WIN", selected: false },
+      { text: "Loss", value: "LOSS", selected: false },
+      { text: "Draw", value: "DRAW", selected: false },
     ]);
     const firstPlayerResult = ref("");
     const secondPlayerResult = ref("");
@@ -173,6 +182,7 @@ export default {
     const secondCustomTiebreakerSecondPlayer = ref("");
 
     const dataset = computed(() => {
+      console.log(props.data.table)
       return props.data.table;
     });
 

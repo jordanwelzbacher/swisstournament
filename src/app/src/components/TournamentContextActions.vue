@@ -1,6 +1,5 @@
 <template>
   <main class="mt-4">
-    {{ data }}
     <MDBContainer>
       <div class="text-center button-container">
         <MDBBtn
