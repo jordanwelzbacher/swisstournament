@@ -1,6 +1,5 @@
 <template>
   <MDBContainer>
-    {{data}}
     <div class="my-4" style="max-width: 400px">
       <MDBInput :value="input" @input="search" label="Search Table or Player" />
     </div>
@@ -32,8 +31,12 @@
         <MDBTable borderless>
           <thead>
             <tr>
-              <th scope="col">{{ selectedPairing.firstPlayer }}</th>
-              <th scope="col">{{ selectedPairing.secondPlayer }}</th>
+              <th scope="col">
+                <h5>{{ selectedPairing.firstPlayer }}</h5>
+              </th>
+              <th scope="col">
+                <h5>{{ selectedPairing.secondPlayer }}</h5>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -41,6 +44,7 @@
               <td>
                 Match Result:
                 <MDBSelect
+                  :disabled="!userCanEdit"
                   ref="select1"
                   v-model:options="matchResultFirst"
                   v-model:selected="firstPlayerResult"
@@ -49,6 +53,7 @@
               <td>
                 Match Result:
                 <MDBSelect
+                  :disabled="!userCanEdit"
                   ref="tiebreaker1"
                   v-model:options="matchResultSecond"
                   v-model:selected="secondPlayerResult"
@@ -58,31 +63,65 @@
             <tr v-if="data.tournament.gamesPerMatch > 1">
               <td>
                 Game Wins:
-                <MDBInput v-model="gamewinsFirstPlayer" />
+                <MDBInput
+                  :disabled="!userCanEdit"
+                  type="number"
+                  v-model="gameWinsFirstPlayer"
+                />
               </td>
               <td>
                 Game Wins:
-                <MDBInput v-model="gamewinsSecondPlayer" />
+                <MDBInput
+                  :disabled="!userCanEdit"
+                  type="number"
+                  v-model="gameWinsSecondPlayer"
+                />
+              </td>
+            </tr>
+            <tr v-if="data.tournament.gamesPerMatch > 1">
+              <td class="draws text-center" colspan="2">
+                Game Draws:
+                <MDBInput
+                  :disabled="!userCanEdit"
+                  type="number"
+                  v-model="gameDraws"
+                />
               </td>
             </tr>
             <tr v-if="usingFirstCustomTiebreaker">
               <td>
                 {{ data.tournament.firstCustomTiebreakerName }}:
-                <MDBInput v-model="firstCustomTiebreakerFirstPlayer" />
+                <MDBInput
+                  :disabled="!userCanEdit"
+                  type="number"
+                  v-model="firstCustomFirstPlayer"
+                />
               </td>
               <td>
                 {{ data.tournament.firstCustomTiebreakerName }}:
-                <MDBInput v-model="firstCustomTiebreakerSecondPlayer" />
+                <MDBInput
+                  :disabled="!userCanEdit"
+                  type="number"
+                  v-model="firstCustomSecondPlayer"
+                />
               </td>
             </tr>
             <tr v-if="usingSecondCustomTiebreaker">
               <td>
                 {{ data.tournament.secondCustomTiebreakerName }}:
-                <MDBInput v-model="secondCustomTiebreakerFirstPlayer" />
+                <MDBInput
+                  :disabled="!userCanEdit"
+                  type="number"
+                  v-model="secondCustomFirstPlayer"
+                />
               </td>
               <td>
                 {{ data.tournament.secondCustomTiebreakerName }}:
-                <MDBInput v-model="secondCustomTiebreakerSecondPlayer" />
+                <MDBInput
+                  :disabled="!userCanEdit"
+                  type="number"
+                  v-model="secondCustomSecondPlayer"
+                />
               </td>
             </tr>
           </tbody>
@@ -90,7 +129,7 @@
       </MDBModalBody>
       <MDBModalFooter>
         <MDBBtn color="secondary" @click="resultModal = false">Close</MDBBtn>
-        <MDBBtn color="primary">Save changes</MDBBtn>
+        <MDBBtn v-if="userCanEdit" @click="submitResult" color="primary">Save changes</MDBBtn>
       </MDBModalFooter>
     </MDBModal>
   </MDBContainer>
@@ -113,6 +152,8 @@ import {
 import { computed } from "vue";
 import { ref } from "vue";
 import Constants from "@/constants/constants.js";
+import { mapGetters } from "vuex";
+import store from "@/store";
 
 export default {
   name: "TournamentRound",
@@ -130,23 +171,53 @@ export default {
     MDBSelect,
     MDBTable,
   },
+  computed: {
+    ...mapGetters({
+      user: "auth/user",
+    }),
+  },
   methods: {
     toggleModal(e) {
       this.selectedPairing = this.dataset.rows[e];
-      console.log(this.selectedPairing)
+      console.log(this.selectedPairing);
       this.resultModal = true;
+
+      this.userCanEdit = this.canEdit(this.selectedPairing);
 
       this.matchResultFirst.forEach((possibleResult) => {
         possibleResult.selected = false;
         if (possibleResult.value == this.selectedPairing.matchResultFirstPlayer)
           possibleResult.selected = true;
       });
-      
+
       this.matchResultSecond.forEach((possibleResult) => {
         possibleResult.selected = false;
-        if (possibleResult.value == this.selectedPairing.matchResultSecondPlayer)
+        if (
+          possibleResult.value == this.selectedPairing.matchResultSecondPlayer
+        )
           possibleResult.selected = true;
       });
+
+      this.gameWinsFirstPlayer = this.selectedPairing.gameWinsFirstPlayer;
+      this.gameWinsSecondPlayer = this.selectedPairing.gameWinsSecondPlayer;
+      this.gameDraws = this.selectedPairing.gameDrawsFirstPlayer;
+
+      this.firstCustomFirstPlayer = this.selectedPairing.firstCustomFirstPlayer;
+      this.firstCustomSecondPlayer = this.selectedPairing.firstCustomSecondPlayer;
+
+      this.secondCustomFirstPlayer = this.selectedPairing.secondCustomFirstPlayer;
+      this.secondCustomSecondPlayer = this.selectedPairing.secondCustomSecondPlayer;
+    },
+    canEdit(pairing) {
+      //if not logged in, or tournament is completed, can't edit
+      if (!store.getters["auth/user"] || this.data.tournament.completed) return false;
+      //if admin or owner, can edit
+      if (this.data.isAdmin || this.data.isOwner) return true;
+      //if pairing already has results, can't edit
+      if (pairing.matchResultFirstPlayer) return false;
+      //if user is a player in the selected pairing, they can edit
+      let userId = store.getters["auth/user"].id
+      return pairing.firstPlayerId == userId || pairing.secondPlayerId == userId
     },
   },
   setup(props) {
@@ -156,6 +227,8 @@ export default {
     const selectedPairing = ref("");
 
     const resultModal = ref(false);
+
+    const userCanEdit = ref(false);
 
     const search = (event) => {
       searchPhrase.value = event.target.value;
@@ -176,13 +249,18 @@ export default {
     const firstPlayerResult = ref("");
     const secondPlayerResult = ref("");
 
-    const firstCustomTiebreakerFirstPlayer = ref("");
-    const firstCustomTiebreakerSecondPlayer = ref("");
-    const secondCustomTiebreakerFirstPlayer = ref("");
-    const secondCustomTiebreakerSecondPlayer = ref("");
+    const gameWinsFirstPlayer = ref("");
+    const gameWinsSecondPlayer = ref("");
+
+    const gameDraws = ref("");
+
+    const firstCustomFirstPlayer = ref("");
+    const firstCustomSecondPlayer = ref("");
+    const secondCustomFirstPlayer = ref("");
+    const secondCustomSecondPlayer = ref("");
 
     const dataset = computed(() => {
-      console.log(props.data.table)
+      console.log(props.data.table);
       return props.data.table;
     });
 
@@ -218,6 +296,7 @@ export default {
       dataset,
       search,
       input,
+      userCanEdit,
       searchPhrase,
       searchColumns,
       resultModal,
@@ -226,12 +305,15 @@ export default {
       secondPlayerResult,
       matchResultFirst,
       matchResultSecond,
+      gameWinsFirstPlayer,
+      gameWinsSecondPlayer,
+      gameDraws,
       usingFirstCustomTiebreaker,
       usingSecondCustomTiebreaker,
-      firstCustomTiebreakerFirstPlayer,
-      firstCustomTiebreakerSecondPlayer,
-      secondCustomTiebreakerFirstPlayer,
-      secondCustomTiebreakerSecondPlayer,
+      firstCustomFirstPlayer,
+      firstCustomSecondPlayer,
+      secondCustomFirstPlayer,
+      secondCustomSecondPlayer,
     };
   },
 };
@@ -248,5 +330,10 @@ td:nth-child(2) {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+}
+
+.draws {
+  padding-left: 30%;
+  padding-right: 30%;
 }
 </style>

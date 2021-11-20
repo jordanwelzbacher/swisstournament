@@ -33,7 +33,6 @@ public interface TournamentAtAGlanceRepository extends JpaRepository<TournamentA
             "venue, is_player_registration_on, player_limit, is_registration_open, is_completed, games_per_match, " +
             "first_tiebreaker, second_tiebreaker, third_tiebreaker, fourth_tiebreaker, fifth_tiebreaker, " +
             "first_custom_tiebreaker_name, second_custom_tiebreaker_name, lower_better_for_first_custom, lower_better_for_second_custom, " +
-            "false as in_tourney, " +
             "COUNT(DISTINCT player) as count_players, " +
             "COUNT(DISTINCT round) as count_rounds FROM tournament " +
             "LEFT JOIN player ON tournament.id = player.tournament_id " +

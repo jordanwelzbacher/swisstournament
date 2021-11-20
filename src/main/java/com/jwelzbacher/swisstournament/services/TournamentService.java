@@ -28,9 +28,14 @@ public class TournamentService {
     }
 
     public ResponseEntity<?> getTournaments (Long userId) {
-        if (userId == null || userId == 0)
-            return new ResponseEntity<Object>(tournamentAtAGlanceRepository.getTournamentsAtAGlance(), HttpStatus.OK);
-        else return new ResponseEntity<Object>(tournamentAtAGlanceRepository.getTournamentsAtAGlance(userId), HttpStatus.OK);
+        return new ResponseEntity<Object>(tournamentAtAGlanceRepository.getTournamentsAtAGlance(), HttpStatus.OK);
+//        if (userId == null || userId == 0)
+//            return new ResponseEntity<Object>(tournamentAtAGlanceRepository.getTournamentsAtAGlance(), HttpStatus.OK);
+//        else {
+//            ResponseEntity<Object> o = new ResponseEntity<Object>(tournamentAtAGlanceRepository.getTournamentsAtAGlance(userId), HttpStatus.OK);
+//            System.out.println(o.getBody());
+//            return o;
+//        }
     }
 
     public ResponseEntity<?> getTournamentById (Long id) {
@@ -43,5 +48,9 @@ public class TournamentService {
 
     public boolean isOwner (Long tournamentId, Long ownerId) {
         return tournamentRepository.getById(tournamentId).getOwnerUserId().equals(ownerId);
+    }
+
+    public boolean isOwnerByPairingId(Long pairingId, Long ownerId) {
+        return isOwner(tournamentRepository.getIdByPairingId(pairingId), ownerId);
     }
 }

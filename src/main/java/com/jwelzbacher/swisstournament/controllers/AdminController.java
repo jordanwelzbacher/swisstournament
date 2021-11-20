@@ -28,7 +28,7 @@ public class AdminController {
     public ResponseEntity<?> add(@PathVariable Long tournamentId, @RequestParam(name = "username") String username, HttpServletRequest request) {
         //only admins or the owner can add admin
         if (
-            adminService.isAdmin(tournamentId, Long.parseLong(request.getAttribute("id").toString()))
+            adminService.isAdminByTournamentId(tournamentId, Long.parseLong(request.getAttribute("id").toString()))
             || tournamentService.isOwner(tournamentId, Long.parseLong(request.getAttribute("id").toString()))
         ) {
             return new ResponseEntity<>(adminService.addAdmin(tournamentId, username), HttpStatus.OK);
@@ -42,7 +42,7 @@ public class AdminController {
         //only admins or the owner can delete admin
         Long tournamentId = adminService.getByAdminId(adminId).getTournamentId();
         if (
-            adminService.isAdmin(tournamentId, Long.parseLong(request.getAttribute("id").toString()))
+            adminService.isAdminByTournamentId(tournamentId, Long.parseLong(request.getAttribute("id").toString()))
             || tournamentService.isOwner(tournamentId, Long.parseLong(request.getAttribute("id").toString()))
         ) {
             adminService.deleteByAdminId(adminId);

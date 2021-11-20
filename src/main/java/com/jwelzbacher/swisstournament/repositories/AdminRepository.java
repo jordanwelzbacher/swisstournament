@@ -13,6 +13,14 @@ public interface AdminRepository extends JpaRepository<Admin, Long> {
 
     List<Admin> findByTournamentId(Long tournamentId);
 
+    @Query(value = "SELECT ta.id, ta.tournament_id, ta.user_id FROM pairing p " +
+            "JOIN round r ON p.round_id = r.id " +
+            "JOIN tournament t ON r.tournament_id = t.id " +
+            "JOIN tournament_admin ta ON t.id = ta.tournament_id " +
+            "WHERE p.id = :pairingId " +
+            "ORDER BY ta.id;", nativeQuery = true)
+    List<Admin> findByPairingId(Long pairingId);
+
 //    @Query(value = "SELECT tournament_admin.id as id, tournament_id, user_id, username FROM tournament_admin " +
 //            "JOIN st_user ON tournament_admin.user_id = st_user.id " +
 //            "WHERE tournament_id = :tournamentId " +

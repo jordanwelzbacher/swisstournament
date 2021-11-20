@@ -25,7 +25,7 @@
       <!-- Tabs content -->
       <MDBTabContent v-if="players">
         <TournamentRound
-          :data="{ table: table, tournament: data.tournament }"
+          :data="{ table: table, tournament: data.tournament, isOwner: data.isOwner, isAdmin: data.isAdmin }"
         />
       </MDBTabContent>
     </MDBTabs>
@@ -103,22 +103,24 @@ export default {
         let firstPlayer = this.players.find(
           (x) => x.id === pairing.firstPlayerId
         );
-        firstPlayer =
+        let firstPlayerDisplay =
           firstPlayer.userId == null
             ? firstPlayer.displayName
             : firstPlayer.displayName + " (#" + firstPlayer.userId + ")";
         let secondPlayer = this.players.find(
           (x) => x.id === pairing.secondPlayerId
         );
-        secondPlayer =
+        let secondPlayerDisplay =
           secondPlayer.userId == null
             ? secondPlayer.displayName
             : secondPlayer.displayName + " (#" + secondPlayer.userId + ")";
         rowData.push({
           id: pairing.id,
           tableNumber: pairing.tableNumber,
-          firstPlayer: firstPlayer,
-          secondPlayer: secondPlayer,
+          firstPlayer: firstPlayerDisplay,
+          secondPlayer: secondPlayerDisplay,
+          firstPlayerId: firstPlayer.userId,
+          secondPlayerId: secondPlayer.userId,
           matchResultFirstPlayer: pairing.matchResultFirstPlayer,
           matchResultSecondPlayer: pairing.matchResultSecondPlayer,
           gameWinsFirstPlayer: pairing.gameWinsFirstPlayer,
@@ -126,7 +128,11 @@ export default {
           gameDrawsFirstPlayer: pairing.gameDrawsFirstPlayer,
           gameDrawsSecondPlayer: pairing.gameDrawsSecondPlayer,
           gameLossesFirstPlayer: pairing.gameLossesFirstPlayer,
-          gameLossesSecondPlayer: pairing.gameLossesSecondPlayer
+          gameLossesSecondPlayer: pairing.gameLossesSecondPlayer,
+          firstCustomFirstPlayer: pairing.firstCustomFirstPlayer,
+          secondCustomFirstPlayer: pairing.secondCustomFirstPlayer,
+          firstCustomSecondPlayer: pairing.firstCustomSecondPlayer,
+          secondCustomSecondPlayer: pairing.secondCustomSecondPlayer
         });
       });
       return rowData;

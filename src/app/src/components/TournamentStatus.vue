@@ -13,6 +13,9 @@ import { computed } from "vue";
 //  playerRegistrationOn
 //  registrationOpen
 //  countRounds
+
+
+//TODO currently inTourney is NOT AVAILABLE
 export default {
   name: "TournamentStatus",
   props: ["data"],

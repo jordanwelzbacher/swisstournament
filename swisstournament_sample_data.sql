@@ -223,7 +223,7 @@ INSERT INTO pairing
 (first_player_id, second_player_id, round_id, table_number, match_result_first_player, match_result_second_player, 
 game_wins_first_player, game_wins_second_player, game_draws_first_player, game_draws_second_player, game_losses_first_player, game_losses_second_player)
 VALUES
-(25,26,8,1,'LOSS','WIN',
+(31,32,8,1,'LOSS','WIN',
 1,2,0,0,2,1),
 (27,28,8,2,'WIN','LOSS',
 2,0,1,1,0,2);
@@ -232,7 +232,7 @@ INSERT INTO pairing
 (first_player_id, second_player_id, round_id, table_number)
 VALUES
 (29,30,8,3),
-(31,32,8,4);
+(25,26,8,4);
 
 
 COMMIT;

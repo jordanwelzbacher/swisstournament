@@ -33,8 +33,15 @@ public class AdminService {
         return adminRepository.getById(adminId);
     }
 
-    public boolean isAdmin(Long tournamentId, Long adminId) {
+    public boolean isAdminByTournamentId(Long tournamentId, Long adminId) {
         List<Admin> admins = adminRepository.findByTournamentId(tournamentId);
+        for (Admin admin : admins) if (admin.getUserId().equals(adminId)) return true;
+        return false;
+    }
+
+    public boolean isAdminByPairingId(Long pairingId, Long adminId){
+        List<Admin> admins = adminRepository.findByPairingId(pairingId);
+        System.out.println(admins.size());
         for (Admin admin : admins) if (admin.getUserId().equals(adminId)) return true;
         return false;
     }
@@ -47,7 +54,7 @@ public class AdminService {
         if (! userService.isUserByUsername(username)) throw new BadRequestException("This user does not exist");
         User user = userService.getUserByUsername(username);
         if (tournamentService.isOwner(tournamentId, user.getId())) throw new BadRequestException("Owner cannot be admin");
-        if (isAdmin(tournamentId, user.getId())) throw new BadRequestException("This user is already an admin");
+        if (isAdminByTournamentId(tournamentId, user.getId())) throw new BadRequestException("This user is already an admin");
 
         Admin admin = new Admin();
         admin.setUserId(user.getId());
