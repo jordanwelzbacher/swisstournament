@@ -138,7 +138,13 @@
         <MDBModalTitle id="adminModalLabel"> Add Admin </MDBModalTitle>
       </MDBModalHeader>
       <MDBModalBody>
-        <MDBInput class="my-4" label="Username" type="text" v-model="adminToAdd" />
+        <MDBInput
+          class="my-4"
+          label="Username"
+          type="text"
+          v-model="adminToAdd"
+        />
+        <WarningMessage :data="errorMessage" />
       </MDBModalBody>
       <MDBModalFooter>
         <MDBBtn color="primary" @click="addAdmin()" class="me-2">Add</MDBBtn>
@@ -164,8 +170,9 @@ import {
   MDBModalFooter,
 } from "mdb-vue-ui-kit";
 import { ref } from "vue";
-import { useRoute } from 'vue-router'
+import { useRoute } from "vue-router";
 import http from "../http-common";
+import WarningMessage from "@/components/WarningMessage.vue";
 
 export default {
   name: "TournamentContextActions",
@@ -183,6 +190,7 @@ export default {
     MDBModalTitle,
     MDBModalBody,
     MDBModalFooter,
+    WarningMessage,
   },
   methods: {
     showNextRoundModal() {
@@ -192,8 +200,8 @@ export default {
       this.adminModal = true;
     },
   },
-  setup(props, {emit}) {
-    const route = useRoute()
+  setup(props, { emit }) {
+    const route = useRoute();
     const isShowAdvanced = ref(false);
     const adminToAdd = ref("");
     const countTopPlayers = ref([
@@ -210,13 +218,23 @@ export default {
     const nextRoundType = ref("swiss");
     const roundModal = ref(false);
     const adminModal = ref(false);
+    const errorMessage = ref("");
 
     function addAdmin() {
-      http.post("protected/admins/" + route.params.tournamentId + "?username=" + adminToAdd.value)
-      .then((json) => {
-        emit('addAdmin', json.data);
-      })
-      adminToAdd.value = ''
+      errorMessage.value = ""
+      http
+        .post(
+          "protected/admins/" +
+            route.params.tournamentId +
+            "?username=" +
+            adminToAdd.value
+        )
+        .then((json) => {
+          emit("addAdmin", json.data);
+        })
+        .catch((e) => {
+          errorMessage.value = e.response.data.message;
+        });
     }
 
     return {
@@ -228,6 +246,7 @@ export default {
       adminModal,
       addAdmin,
       route,
+      errorMessage,
     };
   },
 };

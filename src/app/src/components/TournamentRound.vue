@@ -21,6 +21,7 @@
       tabindex="-1"
       labelledby="resultModalLabel"
       v-model="resultModal"
+      @hidden="errorMessage=''"
     >
       <MDBModalHeader>
         <MDBModalTitle id="resultModalLabel"
@@ -126,10 +127,13 @@
             </tr>
           </tbody>
         </MDBTable>
+        <WarningMessage :data="errorMessage" />
       </MDBModalBody>
       <MDBModalFooter>
         <MDBBtn color="secondary" @click="resultModal = false">Close</MDBBtn>
-        <MDBBtn v-if="userCanEdit" @click="submitResult" color="primary">Save changes</MDBBtn>
+        <MDBBtn v-if="userCanEdit" @click="submitResult" color="primary"
+          >Save changes</MDBBtn
+        >
       </MDBModalFooter>
     </MDBModal>
   </MDBContainer>
@@ -152,8 +156,10 @@ import {
 import { computed } from "vue";
 import { ref } from "vue";
 import Constants from "@/constants/constants.js";
+import WarningMessage from "@/components/WarningMessage.vue";
 import { mapGetters } from "vuex";
 import store from "@/store";
+import http from "../http-common";
 
 export default {
   name: "TournamentRound",
@@ -170,6 +176,7 @@ export default {
     MDBBtn,
     MDBSelect,
     MDBTable,
+    WarningMessage,
   },
   computed: {
     ...mapGetters({
@@ -208,19 +215,76 @@ export default {
       this.secondCustomFirstPlayer = this.selectedPairing.secondCustomFirstPlayer;
       this.secondCustomSecondPlayer = this.selectedPairing.secondCustomSecondPlayer;
     },
-    canEdit(pairing) {
+    canEdit(pairing) { //make a computed prop
       //if not logged in, or tournament is completed, can't edit
-      if (!store.getters["auth/user"] || this.data.tournament.completed) return false;
+      if (!store.getters["auth/user"] || this.data.tournament.completed)
+        return false;
       //if admin or owner, can edit
       if (this.data.isAdmin || this.data.isOwner) return true;
       //if pairing already has results, can't edit
       if (pairing.matchResultFirstPlayer) return false;
       //if user is a player in the selected pairing, they can edit
-      let userId = store.getters["auth/user"].id
-      return pairing.firstPlayerId == userId || pairing.secondPlayerId == userId
+      let userId = store.getters["auth/user"].id;
+      return (
+        pairing.firstPlayerId == userId || pairing.secondPlayerId == userId
+      );
+    },
+    submitResult() {
+      this.errorMessage = "";
+      if (
+        (this.firstPlayerResult != "WIN" &&
+          this.firstPlayerResult != "LOSS" &&
+          this.firstPlayerResult != "DRAW") ||
+        (this.secondPlayerResult != "WIN" &&
+          this.secondPlayerResult != "LOSS" &&
+          this.secondPlayerResult != "DRAW")
+      ) {
+        this.errorMessage = "each player must have a Match Result selected";
+        return;
+      }
+      if (this.data.tournament.gamesPerMatch > 1 && (this.gameWinsFirstPlayer < 1 && this.gameWinsSecondPlayer < 1 && this.gameDraws < 1)) {
+        this.errorMessage = "there must be at least one game recorded (as a win for either player, or a draw)";
+        return;
+      }
+      console.log("hitting protected/pairing/" + this.data.tournament.id)
+      http
+        .put("protected/pairing/" + this.data.tournament.id, {
+          matchResultFirstPlayer: this.matchResultFirstPlayer,
+          matchResultSecondPlayer: this.matchResultSecondPlayer,
+          gameWinsFirstPlayer: this.gameWinsFirstPlayer ? this.gameWinsFirstPlayer : 0,
+          gameWinsSecondPlayer: this.gameWinsSecondPlayer ? this.gameWinsSecondPlayer : 0,
+          gameDrawsFirstPlayer: this.gameDraws ? this.gameDraws : 0,
+          gameDrawsSecondPlayer: this.gameDraws ? this.gameDraws : 0,
+          gameLossesFirstPlayer: this.gameWinsSecondPlayer ? this.gameWinsSecondPlayer : 0,
+          gameLossesSecondPlayer: this.gameWinsFirstPlayer? this.gameWinsFirstPlayer : 0,
+          firstCustomFirstPlayer: this.usingFirstCustomTiebreaker ? this.firstCustomFirstPlayer : 0,
+          firstCustomSecondPlayer: this.usingFirstCustomTiebreaker ? this.firstCustomSecondPlayer : 0,
+          secondCustomFirstPlayer: this.usingSecondCustomTiebreaker ? this.secondCustomFirstPlayer : 0,
+          secondCustomSecondPlayer: this.usingSecondCustomTiebreaker ? this.secondCustomSecondPlayer : 0
+        })
+        .then(() => {
+          console.log("put successful")
+        })
     },
   },
   setup(props) {
+    //***********RESULT************ */
+    const firstPlayerResult = ref("");
+    const secondPlayerResult = ref("");
+
+    const gameWinsFirstPlayer = ref("");
+    const gameWinsSecondPlayer = ref("");
+
+    const gameDraws = ref("");
+
+    const firstCustomFirstPlayer = ref("");
+    const firstCustomSecondPlayer = ref("");
+    const secondCustomFirstPlayer = ref("");
+    const secondCustomSecondPlayer = ref("");
+    //************END RESULT********** */
+
+    const errorMessage = ref("");
+
     const input = ref("");
     const searchPhrase = ref("");
     const searchColumns = ref(["tableNumber", "firstPlayer", "secondPlayer"]);
@@ -246,18 +310,6 @@ export default {
       { text: "Loss", value: "LOSS", selected: false },
       { text: "Draw", value: "DRAW", selected: false },
     ]);
-    const firstPlayerResult = ref("");
-    const secondPlayerResult = ref("");
-
-    const gameWinsFirstPlayer = ref("");
-    const gameWinsSecondPlayer = ref("");
-
-    const gameDraws = ref("");
-
-    const firstCustomFirstPlayer = ref("");
-    const firstCustomSecondPlayer = ref("");
-    const secondCustomFirstPlayer = ref("");
-    const secondCustomSecondPlayer = ref("");
 
     const dataset = computed(() => {
       console.log(props.data.table);
@@ -314,6 +366,7 @@ export default {
       firstCustomSecondPlayer,
       secondCustomFirstPlayer,
       secondCustomSecondPlayer,
+      errorMessage,
     };
   },
 };

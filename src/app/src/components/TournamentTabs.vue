@@ -97,6 +97,11 @@ export default {
       this.admins = _.reject(this.admins, { id: adminId });
     },
   },
+  watch: {
+    newAdmin: function () {
+      this.admins.unshift(this.newAdmin)
+    }
+  },
   setup() {
     // const players = ref('');
     // const admins = ref('');

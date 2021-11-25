@@ -35,6 +35,7 @@ public class PairingService {
     }
 
     public void updateById(Long pairingId, Pairing results, Long userId) {
+        System.out.println(pairingId +" "+ userId);
         if (adminService.isAdminByPairingId(pairingId, userId)
                 || tournamentService.isOwnerByPairingId(pairingId, userId)) {
             updateResults(pairingId, results);

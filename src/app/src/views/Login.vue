@@ -101,21 +101,7 @@
             <div class="text-center mt-4" v-show="processingRequest">
               <MDBSpinner />
             </div>
-            <div class="mt-4 fw-bold" v-show="errorMessage">
-              <p class="note note-danger">
-                <MDBRow>
-                  <MDBCol md="1" class="d-flex align-items-center">
-                    <span style="color: #f93154">
-                      <MDBIcon
-                        icon="exclamation-circle"
-                        iconStyle="fas"
-                        size="lg"
-                    /></span>
-                  </MDBCol>
-                  <MDBCol>Error: {{ errorMessage }} </MDBCol>
-                </MDBRow>
-              </p>
-            </div>
+            <WarningMessage :data="errorMessage" />
             <div class="mt-4" v-show="success">
               <div class="note note-success">
                 <span style="color: #00b74a">
@@ -155,6 +141,7 @@ import {
   MDBIcon,
 } from "mdb-vue-ui-kit";
 import { ref, watch } from "vue";
+import WarningMessage from "@/components/WarningMessage.vue";
 
 export default {
   name: "Login",
@@ -171,6 +158,7 @@ export default {
     MDBRow,
     MDBCol,
     MDBIcon,
+    WarningMessage,
   },
 
   data() {
