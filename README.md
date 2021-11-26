@@ -9,6 +9,8 @@ Tournament management platform. Similar examples include challonge.com, smash.gg
 Other platforms cater to specific games or platforms, or are very broad and are lacking in advanced features and configurations.
 SwissTournament's niche will be a specific tournament format: Swiss! It will contain all of the necessary features and configurations for enabling any competition type to use the Swiss format: from Bocce Ball in your backyard, to large Chess, Esports, or Trading Card Game tournaments!
 
+### Resources
+
 This project was my first using both Vue and Spring. I found the following resources to be very helpful:
 
 [Full Stack Java Development With Spring Boot and VueJS](https://www.danvega.dev/blog/2021/01/22/full-stack-java-vue/)\
@@ -23,8 +25,17 @@ by [Brad Traversy](https://github.com/bradtraversy) / [Traversy Media](https://w
 [Spring Boot - REST API using PostgreSQL and JWT](https://www.youtube.com/watch?v=fVq9aPNGLAg&list=PLWieu6NbbqTwwYwylgXmmKVX1ZWsUVx8m)\
 by [Pair Learning](https://www.youtube.com/channel/UCLCn3zEnB0h0Y2GVhTLtHkg/featured)
 
+### Lessons Learned
+- The Vuex store can be used for more than just data needed _everywhere_, I was emitting an event and passing props down two levels for some data that could have just been put in the store
+- The Composition API vs Options API (Vue 2 vs Vue 3), I have "frankenstein" components using both
 
-## Tech Used
+### Lessons Yet to Learn
+- How to handle derived properties in models such that I do not need to create extra Data Transfer Objects
+- More about JPA/Hibernate and how they interact directly with table relations (I do not use @OneToMany or any such similar annotation in the project, instead leaning heavier into native queries)
+- More about JPA/Hibernate/Spring in general
+- How I go from protecting a route to having access to a HttpServeltRequest (that contains the JWT claims) is the last piece of outstanding "magic"
+
+### Tech Used
 
 Vue 3\
 Java | Spring Boot\
